@@ -59,6 +59,15 @@ class _MyHomePageState extends State<MyHomePage> {
     "Paris",
   ];
 
+  final List<CityWeather> _citiesWeatherData = List();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _loadWeatherData();
+  }
+
   void _addCity() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -88,13 +97,14 @@ class _MyHomePageState extends State<MyHomePage> {
           // Center is a layout widget. It takes a single child and positions it
           // in the middle of the parent.
           child: ListView.builder(
-        itemCount: _cities.length,
+        itemCount: _citiesWeatherData.length,
         itemBuilder: (context, index) {
-          final city = _cities[index];
+          final cityName = _citiesWeatherData[index].name;
+          final cityTemperature = _citiesWeatherData[index].temperature;
           return Card(
             child: ListTile(
-              title: Text(city),
-              trailing: Text("10 ℃"),
+              title: Text(cityName),
+              trailing: Text("$cityTemperature ℃"),
             ),
             elevation: 10,
           );
@@ -108,4 +118,23 @@ class _MyHomePageState extends State<MyHomePage> {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+
+  void _loadWeatherData() {
+    for (String city in _cities) {
+      var _temperature = 115.0;
+
+      Future.delayed(const Duration(seconds: 1), () {
+        setState(() {
+          _citiesWeatherData.add(CityWeather(city, _temperature));
+        });
+      });
+    }
+  }
+}
+
+class CityWeather {
+  String name;
+  double temperature;
+
+  CityWeather(this.name, this.temperature);
 }
