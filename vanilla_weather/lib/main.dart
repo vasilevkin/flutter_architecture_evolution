@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+const host = 'https://www.metaweather.com/';
+const api = '$host/api/location/';
 
 void main() {
   runApp(VanillaWeatherApp());
@@ -119,14 +124,22 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _loadWeatherData() {
-    for (String city in _cities) {
+  void _loadWeatherData() async {
+    for (String cityName in _cities) {
       var _temperature = 115.0;
 
-      Future.delayed(const Duration(seconds: 1), () {
-        setState(() {
-          _citiesWeatherData.add(CityWeather(city, _temperature));
-        });
+      City city = await MetaWeatherApi.getCity(cityName);
+
+      print(city);
+      // Future.delayed(const Duration(seconds: 1), () {
+
+      setState(() {
+        _citiesWeatherData.add(CityWeather(city.name, _temperature));
+      });
+      // });
+    }
+  }
+}
 
 class City {
   final String name;
@@ -185,6 +198,15 @@ class Weather {
       };
 }
 
+class MetaWeatherApi {
+  static Future<City> getCity(String text) async {
+    final url = '${api}search/?query=$text';
+    final response = await http.get(url);
+    final body = Utf8Decoder().convert(response.bodyBytes);
+    final data = jsonDecode(body) as List;
+    final cities = data.map((e) => City.fromJson(e)).toList();
+    return cities.first;
+  }
 
   CityWeather(this.name, this.temperature);
 }
