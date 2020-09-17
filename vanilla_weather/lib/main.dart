@@ -127,14 +127,64 @@ class _MyHomePageState extends State<MyHomePage> {
         setState(() {
           _citiesWeatherData.add(CityWeather(city, _temperature));
         });
-      });
-    }
+
+class City {
+  final String name;
+  final int woeId;
+
+  City({
+    this.name,
+    this.woeId,
+  });
+
+  factory City.fromJson(Map<String, dynamic> map) {
+    return City(
+      name: map['title'],
+      woeId: map['woeid'],
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        "title": name,
+        "woeid": woeId,
+      };
+
+  @override
+  String toString() {
+    return 'City{name: $name, woeId: $woeId}';
   }
 }
 
 class CityWeather {
-  String name;
-  double temperature;
+  final String name;
+  final double temperature;
+
+  CityWeather(
+    this.name,
+    this.temperature,
+  );
+}
+
+class Weather {
+  int id;
+  double theTemp;
+
+  Weather({
+    this.id,
+    this.theTemp,
+  });
+
+  factory Weather.fromJson(Map<String, dynamic> json) => Weather(
+        id: json["id"],
+        theTemp: json["the_temp"].toDouble(),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "the_temp": theTemp,
+      };
+}
+
 
   CityWeather(this.name, this.temperature);
 }
