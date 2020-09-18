@@ -19,6 +19,14 @@ class VanillaWeatherApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(title: 'Vanilla Weather'),
+      routes: {
+        // VanillaWeatherAppRoutes.home: (context) {
+        //   return MyHomePage();
+        // },
+        VanillaWeatherAppRoutes.addCity: (context) {
+          return AddCityScreen();
+        },
+      },
     );
   }
 }
@@ -51,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _addCity() {
-    setState(() {
+    Navigator.pushNamed(context, VanillaWeatherAppRoutes.addCity);
   }
 
   @override
@@ -96,6 +104,36 @@ class _MyHomePageState extends State<MyHomePage> {
         _citiesWeatherData.add(CityWeather(city.name, weather.theTemp));
       });
     }
+  }
+}
+
+class AddCityScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Add a new City"),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Form(
+            child: ListView(
+          children: [
+            TextFormField(),
+          ],
+        )),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+          print("Add city and save list");
+
+          // widget.addCityName(cityName);
+
+          Navigator.pop(context);
+        },
+      ),
+    );
   }
 }
 
@@ -161,6 +199,7 @@ class Weather {
   }
 }
 
+//region API methods
 class MetaWeatherApi {
   static Future<City> getCity(String text) async {
     final url = '${api}search/?query=$text';
@@ -183,3 +222,11 @@ class MetaWeatherApi {
     return weatherList.first;
   }
 }
+//endregion
+
+//region AppRoutes
+class VanillaWeatherAppRoutes {
+  static final home = '/';
+  static final addCity = '/addCity';
+}
+//endregion
