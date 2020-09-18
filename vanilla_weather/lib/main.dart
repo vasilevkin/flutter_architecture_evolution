@@ -142,9 +142,6 @@ class _MyHomePageState extends State<MyHomePage> {
       City city = await MetaWeatherApi.getCity(cityName);
       Weather weather = await MetaWeatherApi.getWeather(city);
 
-      print(city);
-      print(weather);
-
       setState(() {
         _citiesWeatherData.add(CityWeather(city.name, weather.theTemp));
       });
@@ -196,15 +193,10 @@ class _AddCityScreenState extends State<AddCityScreen> {
 
               final cityName = _cityName;
 
-              print("Add city and save list");
-
               widget.addCityName(cityName);
-
               Navigator.pop(context);
-        },
             }
-          }
-          ),
+          }),
     );
   }
 }
@@ -282,8 +274,6 @@ class MetaWeatherApi {
     return cities.first;
   }
 
-  // Future<List<City>> getCities(String text) async {
-  // @override
   static Future<Weather> getWeather(City city) async {
     final url = '$api${city.woeId}';
     final response = await http.get(url);
