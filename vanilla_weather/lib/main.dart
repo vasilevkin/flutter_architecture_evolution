@@ -126,17 +126,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _loadWeatherData() async {
     for (String cityName in _cities) {
-      var _temperature = 115.0;
-
       City city = await MetaWeatherApi.getCity(cityName);
+      Weather weather = await MetaWeatherApi.getWeather(city);
 
       print(city);
-      // Future.delayed(const Duration(seconds: 1), () {
+      print(weather);
 
       setState(() {
-        _citiesWeatherData.add(CityWeather(city.name, _temperature));
+        _citiesWeatherData.add(CityWeather(city.name, weather.theTemp));
       });
-      // });
     }
   }
 }
@@ -196,6 +194,11 @@ class Weather {
         "id": id,
         "the_temp": theTemp,
       };
+
+  @override
+  String toString() {
+    return 'Weather{id: $id, theTemp: $theTemp}';
+  }
 }
 
 class MetaWeatherApi {
@@ -208,5 +211,15 @@ class MetaWeatherApi {
     return cities.first;
   }
 
-  CityWeather(this.name, this.temperature);
+  // Future<List<City>> getCities(String text) async {
+  // @override
+  static Future<Weather> getWeather(City city) async {
+    final url = '$api${city.woeId}';
+    final response = await http.get(url);
+    final body = Utf8Decoder().convert(response.bodyBytes);
+    final data = jsonDecode(body);
+    final weatherData = data['consolidated_weather'] as List;
+    final weatherList = weatherData.map((e) => Weather.fromJson(e)).toList();
+    return weatherList.first;
+  }
 }
