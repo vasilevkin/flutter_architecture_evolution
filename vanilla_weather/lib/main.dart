@@ -9,38 +9,16 @@ void main() {
   runApp(VanillaWeatherApp());
 }
 
-class VanillaWeatherApp extends StatelessWidget {
+class VanillaWeatherApp extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Vanilla',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(title: 'Vanilla Weather'),
-      routes: {
-        // VanillaWeatherAppRoutes.home: (context) {
-        //   return MyHomePage();
-        // },
-        VanillaWeatherAppRoutes.addCity: (context) {
-          return AddCityScreen();
-        },
-      },
-    );
+  State createState() {
+    return VanillaWeatherAppState();
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class VanillaWeatherAppState extends State<VanillaWeatherApp> {
+  AppState appState = AppState.loading();
 
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
   final _cities = [
     "Moscow",
     "New York",
@@ -49,6 +27,72 @@ class _MyHomePageState extends State<MyHomePage> {
     "Paris",
   ];
 
+  @override
+  void initState() {
+    super.initState();
+
+    setState(() {
+      appState = AppState(
+        cityNames: _cities,
+      );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Vanilla',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: MyHomePage(
+        title: 'Vanilla Weather',
+        appState: appState,
+      ),
+      routes: {
+        // VanillaWeatherAppRoutes.home: (context) {
+        //   return MyHomePage();
+        // },
+        VanillaWeatherAppRoutes.addCity: (context) {
+          return AddCityScreen(
+            addCityName: addCityName,
+          );
+        },
+      },
+    );
+  }
+
+  void addCityName(String cityName) {
+    setState(() {
+      appState.cityNames.add(cityName);
+    });
+  }
+}
+
+class AppState {
+  bool isLoading;
+  List<String> cityNames;
+
+  AppState({
+    this.isLoading = false,
+    this.cityNames = const [],
+  });
+
+  factory AppState.loading() => AppState(isLoading: true);
+}
+
+class MyHomePage extends StatefulWidget {
+  final String title;
+  final AppState appState;
+
+  MyHomePage({Key key, this.title, @required this.appState}) : super(key: key);
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
   final List<CityWeather> _citiesWeatherData = List();
 
   @override
@@ -59,7 +103,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _addCity() {
-    Navigator.pushNamed(context, VanillaWeatherAppRoutes.addCity);
+    Navigator.pushNamed(context, VanillaWeatherAppRoutes.addCity)
+        .then((value) => _loadWeatherData());
   }
 
   @override
@@ -93,7 +138,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _loadWeatherData() async {
-    for (String cityName in _cities) {
+    for (String cityName in widget.appState.cityNames) {
       City city = await MetaWeatherApi.getCity(cityName);
       Weather weather = await MetaWeatherApi.getWeather(city);
 
@@ -107,7 +152,22 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class AddCityScreen extends StatelessWidget {
+class AddCityScreen extends StatefulWidget {
+  final Function(String name) addCityName;
+
+  AddCityScreen({
+    @required this.addCityName,
+  });
+
+  @override
+  _AddCityScreenState createState() => _AddCityScreenState();
+}
+
+class _AddCityScreenState extends State<AddCityScreen> {
+  static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  String _cityName;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,22 +177,34 @@ class AddCityScreen extends StatelessWidget {
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Form(
+            key: formKey,
+            autovalidate: false,
             child: ListView(
-          children: [
-            TextFormField(),
-          ],
-        )),
+              children: [
+                TextFormField(
+                  onSaved: (value) => _cityName = value,
+                ),
+              ],
+            )),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          print("Add city and save list");
+          child: Icon(Icons.add),
+          onPressed: () {
+            final form = formKey.currentState;
+            if (form.validate()) {
+              form.save();
 
-          // widget.addCityName(cityName);
+              final cityName = _cityName;
 
-          Navigator.pop(context);
+              print("Add city and save list");
+
+              widget.addCityName(cityName);
+
+              Navigator.pop(context);
         },
-      ),
+            }
+          }
+          ),
     );
   }
 }
