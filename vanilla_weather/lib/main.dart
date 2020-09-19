@@ -218,54 +218,39 @@ class _AddCityScreenState extends State<AddCityScreen> {
   }
 }
 
-class CityDetailScreen extends StatefulWidget {
+class CityDetailScreen extends StatelessWidget {
   final CityWeather cityWeather;
 
   const CityDetailScreen({Key key, @required this.cityWeather})
       : super(key: key);
 
   @override
-  _CityDetailScreenState createState() => _CityDetailScreenState();
-}
-
-class _CityDetailScreenState extends State<CityDetailScreen> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.cityWeather.city.name),
+        title: Text(cityWeather.city.name),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: ListView(
           children: [
-            Center(child: Text(widget.cityWeather.city.name)),
-            Center(child: Text(widget.cityWeather.weather.weatherStateName)),
-            Center(child: Text(widget.cityWeather.weather.weatherStateAbbr)),
-            Center(
-                child: Text(widget.cityWeather.weather.windDirectionCompass)),
-            Center(
-                child:
-                    Text(widget.cityWeather.weather.created.toIso8601String())),
-            Center(
-                child: Text(widget.cityWeather.weather.applicableDate
-                    .toIso8601String())),
-            Center(child: Text(widget.cityWeather.weather.minTemp.toString())),
-            Center(child: Text(widget.cityWeather.weather.maxTemp.toString())),
-            Center(child: Text(widget.cityWeather.weather.theTemp.toString())),
-            Center(
-                child: Text(widget.cityWeather.weather.windSpeed.toString())),
+            Center(child: Text(cityWeather.city.name)),
+            Center(child: Text(cityWeather.weather.weatherStateName)),
+            Center(child: Text(cityWeather.weather.weatherStateAbbr)),
+            Center(child: Text(cityWeather.weather.windDirectionCompass)),
+            Center(child: Text(cityWeather.weather.created.toIso8601String())),
             Center(
                 child:
-                    Text(widget.cityWeather.weather.windDirection.toString())),
-            Center(
-                child: Text(widget.cityWeather.weather.airPressure.toString())),
-            Center(child: Text(widget.cityWeather.weather.humidity.toString())),
-            Center(
-                child: Text(widget.cityWeather.weather.visibility.toString())),
-            Center(
-                child:
-                    Text(widget.cityWeather.weather.predictability.toString())),
+                    Text(cityWeather.weather.applicableDate.toIso8601String())),
+            Center(child: Text(cityWeather.weather.minTemp.toString())),
+            Center(child: Text(cityWeather.weather.maxTemp.toString())),
+            Center(child: Text(cityWeather.weather.theTemp.toString())),
+            Center(child: Text(cityWeather.weather.windSpeed.toString())),
+            Center(child: Text(cityWeather.weather.windDirection.toString())),
+            Center(child: Text(cityWeather.weather.airPressure.toString())),
+            Center(child: Text(cityWeather.weather.humidity.toString())),
+            Center(child: Text(cityWeather.weather.visibility.toString())),
+            Center(child: Text(cityWeather.weather.predictability.toString())),
           ],
         ),
       ),
