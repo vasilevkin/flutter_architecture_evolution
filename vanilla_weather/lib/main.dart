@@ -46,7 +46,7 @@ class VanillaWeatherAppState extends State<VanillaWeatherApp> {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(
+      home: HomePage(
         title: 'Vanilla Weather',
         appState: appState,
       ),
@@ -81,17 +81,17 @@ class AppState {
   factory AppState.loading() => AppState(isLoading: true);
 }
 
-class MyHomePage extends StatefulWidget {
+class HomePage extends StatefulWidget {
   final String title;
   final AppState appState;
 
-  MyHomePage({Key key, this.title, @required this.appState}) : super(key: key);
+  HomePage({Key key, this.title, @required this.appState}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomePageState extends State<HomePage> {
   final List<CityWeather> _citiesWeatherData = List();
 
   @override
