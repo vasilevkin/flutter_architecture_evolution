@@ -230,28 +230,38 @@ class CityDetailScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(cityWeather.city.name),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: ListView(
-          children: [
-            Center(child: Text(cityWeather.city.name)),
-            Center(child: Text(cityWeather.weather.weatherStateName)),
-            Center(child: Text(cityWeather.weather.weatherStateAbbr)),
-            Center(child: Text(cityWeather.weather.windDirectionCompass)),
-            Center(child: Text(cityWeather.weather.created.toIso8601String())),
-            Center(
-                child:
-                    Text(cityWeather.weather.applicableDate.toIso8601String())),
-            Center(child: Text(cityWeather.weather.minTemp.toString())),
-            Center(child: Text(cityWeather.weather.maxTemp.toString())),
-            Center(child: Text(cityWeather.weather.theTemp.toString())),
-            Center(child: Text(cityWeather.weather.windSpeed.toString())),
-            Center(child: Text(cityWeather.weather.windDirection.toString())),
-            Center(child: Text(cityWeather.weather.airPressure.toString())),
-            Center(child: Text(cityWeather.weather.humidity.toString())),
-            Center(child: Text(cityWeather.weather.visibility.toString())),
-            Center(child: Text(cityWeather.weather.predictability.toString())),
-          ],
+      body: SizedBox(
+        height: MediaQuery.of(context).size.height * 0.7,
+        child: Align(
+          alignment: Alignment.bottomCenter,
+          child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 30,
+                ),
+                Text(cityWeather.city.name),
+                Text(cityWeather.weather.weatherStateName),
+                Text(cityWeather.weather.weatherStateAbbr),
+                Text(cityWeather.weather.windDirectionCompass),
+                Text(cityWeather.weather.created.toIso8601String()),
+                Text(cityWeather.weather.applicableDate.toIso8601String()),
+                Text(cityWeather.weather.minTemp.toString()),
+                Text(cityWeather.weather.maxTemp.toString()),
+                Text(
+                  "${cityWeather.weather.theTemp.toString()}°C",
+                  style: TextStyle(fontWeight: FontWeight.w800, fontSize: 70),
+                ),
+                Text(cityWeather.weather.windSpeed.toString()),
+                Text(cityWeather.weather.windDirection.toString()),
+                Text(cityWeather.weather.airPressure.toString()),
+                Text(cityWeather.weather.humidity.toString()),
+                Text(cityWeather.weather.visibility.toString()),
+                Text(cityWeather.weather.predictability.toString()),
+              ],
+            ),
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
