@@ -124,8 +124,8 @@ class _HomePageState extends State<HomePage> {
           child: ListView.builder(
         itemCount: _citiesWeatherData.length,
         itemBuilder: (context, index) {
-          final cityName = _citiesWeatherData[index].name;
-          final cityTemperature = _citiesWeatherData[index].temperature;
+          final cityName = _citiesWeatherData[index].city.name;
+          final cityTemperature = _citiesWeatherData[index].weather.theTemp;
           return Card(
             child: ListTile(
               title: Text(cityName),
@@ -151,7 +151,7 @@ class _HomePageState extends State<HomePage> {
       Weather weather = await MetaWeatherApi.getWeather(city);
 
       setState(() {
-        _citiesWeatherData.add(CityWeather(city.name, weather.theTemp));
+        _citiesWeatherData.add(CityWeather(city, weather));
       });
     }
   }
@@ -161,7 +161,7 @@ class _HomePageState extends State<HomePage> {
     Weather weather = await MetaWeatherApi.getWeather(city);
 
     setState(() {
-      _citiesWeatherData.add(CityWeather(city.name, weather.theTemp));
+      _citiesWeatherData.add(CityWeather(city, weather));
     });
   }
 }
@@ -233,13 +233,39 @@ class _CityDetailScreenState extends State<CityDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.cityWeather.name),
+        title: Text(widget.cityWeather.city.name),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: ListView(
           children: [
-            Center(child: Text(widget.cityWeather.temperature.toString())),
+            Center(child: Text(widget.cityWeather.city.name)),
+            Center(child: Text(widget.cityWeather.weather.weatherStateName)),
+            Center(child: Text(widget.cityWeather.weather.weatherStateAbbr)),
+            Center(
+                child: Text(widget.cityWeather.weather.windDirectionCompass)),
+            Center(
+                child:
+                    Text(widget.cityWeather.weather.created.toIso8601String())),
+            Center(
+                child: Text(widget.cityWeather.weather.applicableDate
+                    .toIso8601String())),
+            Center(child: Text(widget.cityWeather.weather.minTemp.toString())),
+            Center(child: Text(widget.cityWeather.weather.maxTemp.toString())),
+            Center(child: Text(widget.cityWeather.weather.theTemp.toString())),
+            Center(
+                child: Text(widget.cityWeather.weather.windSpeed.toString())),
+            Center(
+                child:
+                    Text(widget.cityWeather.weather.windDirection.toString())),
+            Center(
+                child: Text(widget.cityWeather.weather.airPressure.toString())),
+            Center(child: Text(widget.cityWeather.weather.humidity.toString())),
+            Center(
+                child: Text(widget.cityWeather.weather.visibility.toString())),
+            Center(
+                child:
+                    Text(widget.cityWeather.weather.predictability.toString())),
           ],
         ),
       ),
@@ -278,12 +304,12 @@ class City {
 }
 
 class CityWeather {
-  final String name;
-  final double temperature;
+  final City city;
+  final Weather weather;
 
   CityWeather(
-    this.name,
-    this.temperature,
+    this.city,
+    this.weather,
   );
 }
 
