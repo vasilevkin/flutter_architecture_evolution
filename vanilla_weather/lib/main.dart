@@ -57,7 +57,9 @@ class VanillaWeatherAppState extends State<VanillaWeatherApp> {
         VanillaWeatherAppRoutes.addCity: (context) => AddCityScreen(
               addCityName: addCityName,
             ),
-        VanillaWeatherAppRoutes.cityDetail: (context) => CityDetailScreen(),
+        VanillaWeatherAppRoutes.cityDetail: (context) => CityDetailScreen(
+              cityWeather: appState.selectedCityWeather,
+            ),
       },
     );
   }
@@ -72,6 +74,7 @@ class VanillaWeatherAppState extends State<VanillaWeatherApp> {
 class AppState {
   bool isLoading;
   List<String> cityNames;
+  CityWeather selectedCityWeather;
 
   AppState({
     this.isLoading = false,
@@ -106,7 +109,8 @@ class _HomePageState extends State<HomePage> {
         (value) => _loadWeatherDataForCityName(widget.appState.cityNames.last));
   }
 
-  void _showCityDetailScreen() {
+  void _showCityDetailScreen(CityWeather cityWeatherData) {
+    widget.appState.selectedCityWeather = cityWeatherData;
     Navigator.pushNamed(context, VanillaWeatherAppRoutes.cityDetail);
   }
 
@@ -126,7 +130,7 @@ class _HomePageState extends State<HomePage> {
             child: ListTile(
               title: Text(cityName),
               trailing: Text("$cityTemperature ℃"),
-              onTap: _showCityDetailScreen,
+              onTap: () => _showCityDetailScreen(_citiesWeatherData[index]),
             ),
             elevation: 10,
           );
@@ -215,6 +219,11 @@ class _AddCityScreenState extends State<AddCityScreen> {
 }
 
 class CityDetailScreen extends StatefulWidget {
+  final CityWeather cityWeather;
+
+  const CityDetailScreen({Key key, @required this.cityWeather})
+      : super(key: key);
+
   @override
   _CityDetailScreenState createState() => _CityDetailScreenState();
 }
@@ -224,17 +233,15 @@ class _CityDetailScreenState extends State<CityDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("City"),
+        title: Text(widget.cityWeather.name),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
-        child: Form(
-            autovalidate: false,
-            child: ListView(
-              children: [
-                TextFormField(),
-              ],
-            )),
+        child: ListView(
+          children: [
+            Center(child: Text(widget.cityWeather.temperature.toString())),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.arrow_back),
