@@ -103,8 +103,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _addCity() {
-    Navigator.pushNamed(context, VanillaWeatherAppRoutes.addCity)
-        .then((value) => _loadWeatherData());
+    Navigator.pushNamed(context, VanillaWeatherAppRoutes.addCity).then(
+        (value) => _loadWeatherDataForCityName(widget.appState.cityNames.last));
   }
 
   @override
@@ -146,6 +146,15 @@ class _MyHomePageState extends State<MyHomePage> {
         _citiesWeatherData.add(CityWeather(city.name, weather.theTemp));
       });
     }
+  }
+
+  void _loadWeatherDataForCityName(String cityName) async {
+    City city = await MetaWeatherApi.getCity(cityName);
+    Weather weather = await MetaWeatherApi.getWeather(city);
+
+    setState(() {
+      _citiesWeatherData.add(CityWeather(city.name, weather.theTemp));
+    });
   }
 }
 
