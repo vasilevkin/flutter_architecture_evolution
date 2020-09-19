@@ -54,11 +54,10 @@ class VanillaWeatherAppState extends State<VanillaWeatherApp> {
         // VanillaWeatherAppRoutes.home: (context) {
         //   return MyHomePage();
         // },
-        VanillaWeatherAppRoutes.addCity: (context) {
-          return AddCityScreen(
-            addCityName: addCityName,
-          );
-        },
+        VanillaWeatherAppRoutes.addCity: (context) => AddCityScreen(
+              addCityName: addCityName,
+            ),
+        VanillaWeatherAppRoutes.cityDetail: (context) => CityDetailScreen(),
       },
     );
   }
@@ -107,6 +106,10 @@ class _MyHomePageState extends State<MyHomePage> {
         (value) => _loadWeatherDataForCityName(widget.appState.cityNames.last));
   }
 
+  void _showCityDetailScreen() {
+    Navigator.pushNamed(context, VanillaWeatherAppRoutes.cityDetail);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -123,6 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: ListTile(
               title: Text(cityName),
               trailing: Text("$cityTemperature ℃"),
+              onTap: _showCityDetailScreen,
             ),
             elevation: 10,
           );
@@ -206,6 +210,35 @@ class _AddCityScreenState extends State<AddCityScreen> {
               Navigator.pop(context);
             }
           }),
+    );
+  }
+}
+
+class CityDetailScreen extends StatefulWidget {
+  @override
+  _CityDetailScreenState createState() => _CityDetailScreenState();
+}
+
+class _CityDetailScreenState extends State<CityDetailScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("City"),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Form(
+            autovalidate: false,
+            child: ListView(
+              children: [
+                TextFormField(),
+              ],
+            )),
+      ),
+      floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context)),
     );
   }
 }
@@ -299,5 +332,6 @@ class MetaWeatherApi {
 class VanillaWeatherAppRoutes {
   static final home = '/';
   static final addCity = '/addCity';
+  static final cityDetail = '/cityDetail';
 }
 //endregion
