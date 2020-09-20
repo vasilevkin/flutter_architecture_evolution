@@ -136,12 +136,19 @@ class _HomePageState extends State<HomePage> {
         itemBuilder: (context, index) {
           final cityName = _citiesWeatherData[index].city.name;
           final cityTemperature = _citiesWeatherData[index].weather.theTemp;
+          final cityWeatherStateAbbr =
+              _citiesWeatherData[index].weather.weatherStateAbbr;
+
           return Card(
             child: ListTile(
               title: Text(cityName),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  Image.network(
+                    '${host}static/img/weather/png/64/$cityWeatherStateAbbr.png',
+                    height: 25,
+                  ),
                   Text("${cityTemperature.toInt()} ℃"),
                   IconButton(
                     icon: Icon(Icons.edit),
