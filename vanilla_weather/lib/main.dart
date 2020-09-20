@@ -139,7 +139,20 @@ class _HomePageState extends State<HomePage> {
           return Card(
             child: ListTile(
               title: Text(cityName),
-              trailing: Text("$cityTemperature ℃"),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text("$cityTemperature ℃"),
+                  IconButton(
+                    icon: Icon(Icons.edit),
+                    onPressed: _editCityItem(index),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: _deleteCityItem(index),
+                  ),
+                ],
+              ),
               onTap: () => _showCityDetailScreen(_citiesWeatherData[index]),
             ),
             elevation: 10,
@@ -174,6 +187,10 @@ class _HomePageState extends State<HomePage> {
       _citiesWeatherData.add(CityWeather(city, weather));
     });
   }
+
+  _editCityItem(int index) {}
+
+  _deleteCityItem(int index) {}
 }
 
 class AddCityScreen extends StatefulWidget {
