@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 const host = 'https://www.metaweather.com/';
 const api = '$host/api/location/';
+
+const textShadows = [
+  BoxShadow(
+    color: Colors.black38,
+    offset: Offset(3.0, 4.0),
+    blurRadius: 5.0,
+    spreadRadius: 15.0,
+  ),
+];
 
 void main() {
   runApp(VanillaWeatherApp());
@@ -239,39 +249,159 @@ class CityDetailScreen extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: SizedBox(
-          // height: MediaQuery.of(context).size.height * 0.7,
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: EdgeInsets.all(16.0),
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            SafeArea(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const SizedBox(
-                    height: 30,
+                    height: 50,
                   ),
-                  Text(cityWeather.city.name),
-                  Text(cityWeather.weather.weatherStateName),
-                  Text(cityWeather.weather.weatherStateAbbr),
-                  Text(cityWeather.weather.windDirectionCompass),
-                  Text(cityWeather.weather.created.toIso8601String()),
-                  Text(cityWeather.weather.applicableDate.toIso8601String()),
-                  Text(cityWeather.weather.minTemp.toString()),
-                  Text(cityWeather.weather.maxTemp.toString()),
                   Text(
-                    "${cityWeather.weather.theTemp.toString()}°C",
-                    style: TextStyle(fontWeight: FontWeight.w800, fontSize: 70),
+                    cityWeather.city.name,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.white54,
+                        shadows: textShadows),
                   ),
-                  Text(cityWeather.weather.windSpeed.toString()),
-                  Text(cityWeather.weather.windDirection.toString()),
-                  Text(cityWeather.weather.airPressure.toString()),
-                  Text(cityWeather.weather.humidity.toString()),
-                  Text(cityWeather.weather.visibility.toString()),
-                  Text(cityWeather.weather.predictability.toString()),
+                  Text(
+                    cityWeather.weather.applicableDate.toIso8601String(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white54,
+                      shadows: textShadows,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  Align(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        MinorWeatherDetail(
+                          name: "minTemp",
+                          value: cityWeather.weather.minTemp.toString(),
+                        ),
+                        TweenAnimationBuilder<int>(
+                          tween: IntTween(
+                            begin: 0,
+                            end: cityWeather.weather.theTemp.toInt(),
+                          ),
+                          duration: const Duration(milliseconds: 1500),
+                          builder: (context, value, child) {
+                            return Text(
+                              value.toString(),
+                              textAlign: TextAlign.center,
+                              // "${}°C",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 70,
+                                  shadows: textShadows),
+                            );
+                          },
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 15),
+                          child: Align(
+                            alignment: Alignment.topRight,
+                            child: Text(
+                              "°C",
+                              style: TextStyle(
+                                color: Colors.white70,
+                                fontWeight: FontWeight.w800,
+                                shadows: textShadows,
+                              ),
+                            ),
+                          ),
+                        ),
+                        MinorWeatherDetail(
+                          name: "maxTemp",
+                          value: cityWeather.weather.maxTemp.toString(),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Text(
+                    cityWeather.weather.weatherStateName,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 23,
+                      shadows: textShadows,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 60,
+                  ),
                 ],
               ),
             ),
-          ),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Image.network(
+                  '${host}static/img/weather/png/64/${cityWeather.weather.weatherStateAbbr}.png',
+                  height: 40,
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Wrap(
+                      children: [
+                        MinorWeatherDetail(
+                          name: "Wind Speed",
+                          value: cityWeather.weather.windSpeed.toString(),
+                        ),
+                        MinorWeatherDetail(
+                          name: "Wind Compass",
+                          value: cityWeather.weather.windDirectionCompass
+                              .toString(),
+                        ),
+                        MinorWeatherDetail(
+                          name: "Wind Direction",
+                          value: cityWeather.weather.windDirection.toString(),
+                        ),
+                        MinorWeatherDetail(
+                          name: "Air Pressure",
+                          value: cityWeather.weather.airPressure.toString(),
+                        ),
+                        MinorWeatherDetail(
+                          name: "Humidity",
+                          value: cityWeather.weather.humidity.toString(),
+                        ),
+                        MinorWeatherDetail(
+                          name: "Visibility",
+                          value: cityWeather.weather.visibility.toString(),
+                        ),
+                        MinorWeatherDetail(
+                          name: "predictability",
+                          value: cityWeather.weather.predictability.toString(),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
