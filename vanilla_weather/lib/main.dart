@@ -142,7 +142,7 @@ class _HomePageState extends State<HomePage> {
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text("$cityTemperature ℃"),
+                  Text("${cityTemperature.toInt()} ℃"),
                   IconButton(
                     icon: Icon(Icons.edit),
                     onPressed: _editCityItem(index),
