@@ -142,14 +142,22 @@ class _HomePageState extends State<HomePage> {
           return Card(
             child: ListTile(
               title: Text(cityName),
+              leading: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text("${cityTemperature.toInt()} ℃"),
+                  Padding(
+                    padding: EdgeInsets.only(left: 8),
+                    child: Image.network(
+                      '${host}static/img/weather/png/64/$cityWeatherStateAbbr.png',
+                      height: 25,
+                    ),
+                  ),
+                ],
+              ),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Image.network(
-                    '${host}static/img/weather/png/64/$cityWeatherStateAbbr.png',
-                    height: 25,
-                  ),
-                  Text("${cityTemperature.toInt()} ℃"),
                   IconButton(
                     icon: Icon(Icons.edit),
                     onPressed: _editCityItem(index),
