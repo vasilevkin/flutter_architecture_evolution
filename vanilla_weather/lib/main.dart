@@ -160,11 +160,11 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   IconButton(
                     icon: Icon(Icons.edit),
-                    onPressed: _editCityItem(index),
+                    onPressed: () => _editCityItem(index),
                   ),
                   IconButton(
                     icon: Icon(Icons.delete),
-                    onPressed: _deleteCityItem(index),
+                    onPressed: () => _deleteCityItem(index),
                   ),
                 ],
               ),
@@ -205,7 +205,13 @@ class _HomePageState extends State<HomePage> {
 
   _editCityItem(int index) {}
 
-  _deleteCityItem(int index) {}
+  void _deleteCityItem(int index) {
+    print("_citiesWeatherData.removeAt(index), index= $index");
+
+    setState(() {
+      _citiesWeatherData.removeAt(index);
+    });
+  }
 }
 
 class AddCityScreen extends StatefulWidget {
