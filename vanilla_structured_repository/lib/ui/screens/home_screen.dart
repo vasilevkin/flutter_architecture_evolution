@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vanilla_structured_repository/app/app_routes.dart';
 import 'package:vanilla_structured_repository/app/constants.dart';
 import 'package:vanilla_structured_repository/data/app_state.dart';
-import 'package:vanilla_structured_repository/data/repository/api_impl.dart';
+import 'package:vanilla_structured_repository/data/service/api_impl.dart';
 import 'package:vanilla_structured_repository/model/city.dart';
 import 'package:vanilla_structured_repository/model/weather.dart';
 
@@ -18,6 +18,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final List<CityWeather> _citiesWeatherData = List();
+
+  final api = MetaWeatherApi();
 
   @override
   void initState() {
@@ -97,8 +99,8 @@ class _HomePageState extends State<HomePage> {
 
   void _loadWeatherData() async {
     for (String cityName in widget.appState.cityNames) {
-      City city = await MetaWeatherApi.getCity(cityName);
-      Weather weather = await MetaWeatherApi.getWeather(city);
+      City city = await api.getCity(cityName);
+      Weather weather = await api.getWeather(city);
 
       setState(() {
         _citiesWeatherData.add(CityWeather(city, weather));
@@ -107,8 +109,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _loadWeatherDataForCityName(String cityName) async {
-    City city = await MetaWeatherApi.getCity(cityName);
-    Weather weather = await MetaWeatherApi.getWeather(city);
+    City city = await api.getCity(cityName);
+    Weather weather = await api.getWeather(city);
 
     setState(() {
       _citiesWeatherData.add(CityWeather(city, weather));
