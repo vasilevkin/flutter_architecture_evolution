@@ -5,6 +5,7 @@ import 'package:vanilla_structured_repository/data/app_state.dart';
 import 'package:vanilla_structured_repository/data/service/api_impl.dart';
 import 'package:vanilla_structured_repository/model/city.dart';
 import 'package:vanilla_structured_repository/model/weather.dart';
+import 'package:vanilla_structured_repository/ui/widgets/home_list_item.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
@@ -51,38 +52,18 @@ class _HomePageState extends State<HomePage> {
           final cityWeatherStateAbbr =
               _citiesWeatherData[index].weather.weatherStateAbbr;
 
-          return Card(
-            child: ListTile(
-              title: Text(cityName),
-              leading: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text("${cityTemperature.toInt()} ℃"),
-                  Padding(
-                    padding: EdgeInsets.only(left: 8),
-                    child: Image.network(
-                      '${host}static/img/weather/png/64/$cityWeatherStateAbbr.png',
-                      height: 25,
-                    ),
-                  ),
-                ],
-              ),
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.edit),
-                    onPressed: () => _editCityItem(index),
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.delete),
-                    onPressed: () => _deleteCityItem(index),
-                  ),
-                ],
-              ),
-              onTap: () => _showCityDetailScreen(_citiesWeatherData[index]),
-            ),
-            elevation: 10,
+          final weatherImage = Image.network(
+            '${host}static/img/weather/png/64/$cityWeatherStateAbbr.png',
+            height: 25,
+          );
+
+          return HomeListItem(
+            cityName: cityName,
+            temperature: cityTemperature,
+            weatherStateImage: weatherImage,
+            onTap: () => _showCityDetailScreen(_citiesWeatherData[index]),
+            onEditTap: () => _editCityItem(index),
+            onDeleteTap: () => _deleteCityItem(index),
           );
         },
       )),
