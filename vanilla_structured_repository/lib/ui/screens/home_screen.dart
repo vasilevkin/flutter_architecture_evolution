@@ -19,8 +19,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final List<CityWeather> _citiesWeatherData = List();
 
-  final api = MetaWeatherApi();
-
   @override
   void initState() {
     super.initState();
@@ -99,8 +97,8 @@ class _HomePageState extends State<HomePage> {
 
   void _loadWeatherData() async {
     for (String cityName in widget.appState.cityNames) {
-      City city = await api.getCity(cityName);
-      Weather weather = await api.getWeather(city);
+      City city = await widget.appState.api.getCity(cityName);
+      Weather weather = await widget.appState.api.getWeather(city);
 
       setState(() {
         _citiesWeatherData.add(CityWeather(city, weather));
@@ -109,8 +107,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _loadWeatherDataForCityName(String cityName) async {
-    City city = await api.getCity(cityName);
-    Weather weather = await api.getWeather(city);
+    City city = await widget.appState.api.getCity(cityName);
+    Weather weather = await widget.appState.api.getWeather(city);
 
     setState(() {
       _citiesWeatherData.add(CityWeather(city, weather));
