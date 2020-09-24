@@ -9,23 +9,28 @@ class MinorWeatherDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Text(
-          name,
-          style: TextStyle(color: Colors.white54, shadows: textShadows),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Text(
-          value,
-          style: TextStyle(
-            color: Colors.white54,
-            shadows: textShadows,
+    return Card(
+      elevation: 10,
+      color: Colors.transparent,
+      margin: EdgeInsets.all(10),
+      child: Column(
+        children: <Widget>[
+          Text(
+            name,
+            style: TextStyle(color: Colors.white, shadows: textShadows),
           ),
-        ),
-      ],
+          const SizedBox(
+            height: 10,
+          ),
+          Text(
+            value,
+            style: TextStyle(
+              color: Colors.white,
+              shadows: textShadows,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

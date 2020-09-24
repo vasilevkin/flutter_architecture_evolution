@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:vanilla_structured_repository/app/constants.dart';
 import 'package:vanilla_structured_repository/model/weather.dart';
@@ -61,10 +60,6 @@ class CityDetailScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        MinorWeatherDetail(
-                          name: "minTemp",
-                          value: cityWeather.weather.minTemp.toString(),
-                        ),
                         TweenAnimationBuilder<int>(
                           tween: IntTween(
                             begin: 0,
@@ -98,10 +93,6 @@ class CityDetailScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        MinorWeatherDetail(
-                          name: "maxTemp",
-                          value: cityWeather.weather.maxTemp.toString(),
-                        ),
                       ],
                     ),
                   ),
@@ -113,6 +104,22 @@ class CityDetailScreen extends StatelessWidget {
                       fontSize: 23,
                       shadows: textShadows,
                     ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      MinorWeatherDetail(
+                        name: "minTemp",
+                        value: cityWeather.weather.minTemp.toString(),
+                      ),
+                      MinorWeatherDetail(
+                        name: "maxTemp",
+                        value: cityWeather.weather.maxTemp.toString(),
+                      ),
+                    ],
                   ),
                   SizedBox(
                     height: 60,
@@ -141,7 +148,8 @@ class CityDetailScreen extends StatelessWidget {
                       children: [
                         MinorWeatherDetail(
                           name: "Wind Speed",
-                          value: cityWeather.weather.windSpeed.toString(),
+                          value:
+                              cityWeather.weather.windSpeed.toStringAsFixed(2),
                         ),
                         MinorWeatherDetail(
                           name: "Wind Compass",
@@ -162,7 +170,8 @@ class CityDetailScreen extends StatelessWidget {
                         ),
                         MinorWeatherDetail(
                           name: "Visibility",
-                          value: cityWeather.weather.visibility.toString(),
+                          value:
+                              cityWeather.weather.visibility.toStringAsFixed(1),
                         ),
                         MinorWeatherDetail(
                           name: "predictability",
@@ -171,7 +180,7 @@ class CityDetailScreen extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(
-                      height: 30,
+                      height: 70,
                     ),
                   ],
                 ),
