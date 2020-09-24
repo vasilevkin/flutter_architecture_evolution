@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vanilla_structured_repository/app/app_routes.dart';
 import 'package:vanilla_structured_repository/data/app_state.dart';
+import 'package:vanilla_structured_repository/data/service/api_impl.dart';
 import 'package:vanilla_structured_repository/ui/screens/add_city_screen.dart';
 import 'package:vanilla_structured_repository/ui/screens/city_detail_screen.dart';
 import 'package:vanilla_structured_repository/ui/screens/home_screen.dart';
@@ -32,6 +33,8 @@ class VanillaStructuredRepositoryWeatherAppState
       appState = AppState(
         cityNames: _cities,
       );
+
+      appState.api = MetaWeatherApi();
     });
   }
 
@@ -53,6 +56,7 @@ class VanillaStructuredRepositoryWeatherAppState
         // },
         VanillaWeatherAppRoutes.addCity: (context) => AddCityScreen(
               addCityName: addCityName,
+              appState: appState,
             ),
         VanillaWeatherAppRoutes.cityDetail: (context) => CityDetailScreen(
               cityWeather: appState.selectedCityWeather,

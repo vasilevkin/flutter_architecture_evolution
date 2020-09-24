@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:vanilla_structured_repository/data/app_state.dart';
+import 'package:vanilla_structured_repository/model/city.dart';
 
 class AddCityScreen extends StatefulWidget {
   final Function(String name) addCityName;
+  final AppState appState;
 
   AddCityScreen({
     @required this.addCityName,
+    this.appState,
   });
 
   @override
@@ -16,6 +20,8 @@ class _AddCityScreenState extends State<AddCityScreen> {
 
   String _cityName;
 
+  List<City> _cities = List();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,16 +30,28 @@ class _AddCityScreenState extends State<AddCityScreen> {
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
-        child: Form(
-            key: formKey,
-            autovalidate: false,
-            child: ListView(
-              children: [
-                TextFormField(
+        child: Column(
+          children: [
+            Form(
+                key: formKey,
+                autovalidate: false,
+                child: TextFormField(
+                  onChanged: (value) => onChangedText(value),
                   onSaved: (value) => _cityName = value,
-                ),
-              ],
-            )),
+                )),
+            Expanded(
+              child: ListView.builder(
+                itemCount: _cities.length,
+                itemBuilder: (context, index) {
+                  final city = _cities[index];
+                  return ListTile(
+                    title: Text(city.name),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
@@ -49,5 +67,13 @@ class _AddCityScreenState extends State<AddCityScreen> {
             }
           }),
     );
+  }
+
+  void onChangedText(String text) async {
+    await widget.appState.api.getCities(text).then((value) {
+      setState(() {
+        _cities = value;
+      });
+    });
   }
 }
