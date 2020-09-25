@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vanilla_structured_repository/data/app_state.dart';
 import 'package:vanilla_structured_repository/model/city.dart';
+import 'package:vanilla_structured_repository/ui/widgets/add_city_list_item.dart';
 
 class AddCityScreen extends StatefulWidget {
   final Function(String name) addCityName;
@@ -45,17 +46,9 @@ class _AddCityScreenState extends State<AddCityScreen> {
                 itemBuilder: (context, index) {
                   final city = _cities[index];
 
-                  return Card(
-                    child: ListTile(
-                      title: Text(city.name),
-                      leading: IconButton(
-                        icon: CircleAvatar(
-                          child: Icon(Icons.add),
-                        ),
-                      ),
-                      onTap: () => onTapItem(city.name),
-                    ),
-                    elevation: 10,
+                  return AddCityListItem(
+                    cityName: city.name,
+                    onTap: () => onTapItem(city.name),
                   );
                 },
               ),
