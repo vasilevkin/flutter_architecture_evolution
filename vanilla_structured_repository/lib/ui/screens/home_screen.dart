@@ -6,6 +6,7 @@ import 'package:vanilla_structured_repository/data/service/api_impl.dart';
 import 'package:vanilla_structured_repository/model/city.dart';
 import 'package:vanilla_structured_repository/model/weather.dart';
 import 'package:vanilla_structured_repository/ui/widgets/home_list_item.dart';
+import 'package:vanilla_structured_repository/ui/widgets/loader.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
@@ -43,31 +44,39 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-          child: ListView.builder(
-        itemCount: _citiesWeatherData.length,
-        itemBuilder: (context, index) {
-          final cityName = _citiesWeatherData[index].city.name;
-          final cityTemperature = _citiesWeatherData[index].weather.theTemp;
-          final cityWeatherStateAbbr =
-              _citiesWeatherData[index].weather.weatherStateAbbr;
+      body: Stack(
+        children: [
+          Center(
+            child: ListView.builder(
+              itemCount: _citiesWeatherData.length,
+              itemBuilder: (context, index) {
+                final cityName = _citiesWeatherData[index].city.name;
+                final cityTemperature =
+                    _citiesWeatherData[index].weather.theTemp;
+                final cityWeatherStateAbbr =
+                    _citiesWeatherData[index].weather.weatherStateAbbr;
 
-          final weatherImage = Image.network(
-            '${host}static/img/weather/png/64/$cityWeatherStateAbbr.png',
-            height: 25,
-          );
+                final weatherImage = Image.network(
+                  '${host}static/img/weather/png/64/$cityWeatherStateAbbr.png',
+                  height: 25,
+                );
 
-          return HomeListItem(
-            cityName: cityName,
-            temperature: cityTemperature,
-            weatherStateImage: weatherImage,
-            onTap: () => _showCityDetailScreen(_citiesWeatherData[index]),
-            onEditTap: () => _editCityItem(index),
-            onDeleteTap: () => _deleteCityItem(index),
-          );
-        },
-      )),
-      // ),
+                return HomeListItem(
+                  cityName: cityName,
+                  temperature: cityTemperature,
+                  weatherStateImage: weatherImage,
+                  onTap: () => _showCityDetailScreen(_citiesWeatherData[index]),
+                  onEditTap: () => _editCityItem(index),
+                  onDeleteTap: () => _deleteCityItem(index),
+                );
+              },
+            ),
+          ),
+          widget.appState.isLoading
+              ? Center(child: Loader())
+              : SizedBox.shrink(),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: _addCity,
         tooltip: 'Add a new city',
@@ -78,12 +87,15 @@ class _HomePageState extends State<HomePage> {
 
   void _loadWeatherData() async {
     for (String cityName in widget.appState.cityNames) {
+      widget.appState.isLoading = true;
+
       City city = await widget.appState.api.getCity(cityName);
       Weather weather = await widget.appState.api.getWeather(city);
 
       setState(() {
         _citiesWeatherData.add(CityWeather(city, weather));
       });
+      widget.appState.isLoading = false;
     }
   }
 
