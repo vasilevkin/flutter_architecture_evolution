@@ -44,8 +44,18 @@ class _AddCityScreenState extends State<AddCityScreen> {
                 itemCount: _cities.length,
                 itemBuilder: (context, index) {
                   final city = _cities[index];
-                  return ListTile(
-                    title: Text(city.name),
+
+                  return Card(
+                    child: ListTile(
+                      title: Text(city.name),
+                      leading: IconButton(
+                        icon: CircleAvatar(
+                          child: Icon(Icons.add),
+                        ),
+                      ),
+                      onTap: () => onTapItem(city.name),
+                    ),
+                    elevation: 10,
                   );
                 },
               ),
@@ -53,20 +63,12 @@ class _AddCityScreenState extends State<AddCityScreen> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () {
-            final form = formKey.currentState;
-            if (form.validate()) {
-              form.save();
-
-              final cityName = _cityName;
-
-              widget.addCityName(cityName);
-              Navigator.pop(context);
-            }
-          }),
     );
+  }
+
+  void onTapItem(String name) {
+    widget.addCityName(name);
+    Navigator.pop(context);
   }
 
   void onChangedText(String text) async {
