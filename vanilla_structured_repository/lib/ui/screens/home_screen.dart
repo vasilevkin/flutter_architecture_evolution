@@ -47,30 +47,35 @@ class _HomePageState extends State<HomePage> {
       body: Stack(
         children: [
           Center(
-            child: ListView.builder(
-              itemCount: _citiesWeatherData.length,
-              itemBuilder: (context, index) {
-                final cityName = _citiesWeatherData[index].city.name;
-                final cityTemperature =
-                    _citiesWeatherData[index].weather.theTemp;
-                final cityWeatherStateAbbr =
-                    _citiesWeatherData[index].weather.weatherStateAbbr;
+            child: _citiesWeatherData.length == 0
+                ? widget.appState.isLoading
+                    ? SizedBox.shrink()
+                    : Text("Tap + to add city...")
+                : ListView.builder(
+                    itemCount: _citiesWeatherData.length,
+                    itemBuilder: (context, index) {
+                      final cityName = _citiesWeatherData[index].city.name;
+                      final cityTemperature =
+                          _citiesWeatherData[index].weather.theTemp;
+                      final cityWeatherStateAbbr =
+                          _citiesWeatherData[index].weather.weatherStateAbbr;
 
-                final weatherImage = Image.network(
-                  '${host}static/img/weather/png/64/$cityWeatherStateAbbr.png',
-                  height: 25,
-                );
+                      final weatherImage = Image.network(
+                        '${host}static/img/weather/png/64/$cityWeatherStateAbbr.png',
+                        height: 25,
+                      );
 
-                return HomeListItem(
-                  cityName: cityName,
-                  temperature: cityTemperature,
-                  weatherStateImage: weatherImage,
-                  onTap: () => _showCityDetailScreen(_citiesWeatherData[index]),
-                  onEditTap: () => _editCityItem(index),
-                  onDeleteTap: () => _deleteCityItem(index),
-                );
-              },
-            ),
+                      return HomeListItem(
+                        cityName: cityName,
+                        temperature: cityTemperature,
+                        weatherStateImage: weatherImage,
+                        onTap: () =>
+                            _showCityDetailScreen(_citiesWeatherData[index]),
+                        onEditTap: () => _editCityItem(index),
+                        onDeleteTap: () => _deleteCityItem(index),
+                      );
+                    },
+                  ),
           ),
           widget.appState.isLoading
               ? Center(child: Loader())
