@@ -75,8 +75,6 @@ class _AddCityScreenState extends State<AddCityScreen> {
   }
 
   void onChangedText(String text) async {
-    print("form = $text");
-
     if (text == "" || text.length == 0) {
       setState(() {
         _cities.clear();

@@ -115,8 +115,6 @@ class _HomePageState extends State<HomePage> {
   _editCityItem(int index) {}
 
   void _deleteCityItem(int index) {
-    print("_citiesWeatherData.removeAt(index), index= $index");
-
     setState(() {
       _citiesWeatherData.removeAt(index);
     });
