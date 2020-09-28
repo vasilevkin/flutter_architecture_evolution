@@ -113,11 +113,11 @@ class CityDetailScreen extends StatelessWidget {
                     children: [
                       MinorWeatherDetail(
                         name: "minTemp",
-                        value: cityWeather.weather.minTemp.toString(),
+                        value: cityWeather.weather.minTemp.toStringAsFixed(1),
                       ),
                       MinorWeatherDetail(
                         name: "maxTemp",
-                        value: cityWeather.weather.maxTemp.toString(),
+                        value: cityWeather.weather.maxTemp.toStringAsFixed(1),
                       ),
                     ],
                   ),
@@ -158,7 +158,8 @@ class CityDetailScreen extends StatelessWidget {
                         ),
                         MinorWeatherDetail(
                           name: "Wind Direction",
-                          value: cityWeather.weather.windDirection.toString(),
+                          value: cityWeather.weather.windDirection
+                              .toStringAsFixed(0),
                         ),
                         MinorWeatherDetail(
                           name: "Air Pressure",
@@ -174,7 +175,7 @@ class CityDetailScreen extends StatelessWidget {
                               cityWeather.weather.visibility.toStringAsFixed(1),
                         ),
                         MinorWeatherDetail(
-                          name: "predictability",
+                          name: "Predictability",
                           value: cityWeather.weather.predictability.toString(),
                         ),
                       ],
