@@ -44,10 +44,12 @@ class _AddCityScreenState extends State<AddCityScreen> {
               child: _cities.length == 0
                   ? Padding(
                       padding: EdgeInsets.all(20),
-                      child: Text(
-                        "<< City not found >>",
-                        style: TextStyle(color: Colors.redAccent),
-                      ),
+                      child: _cityName == null
+                          ? Text("Enter city name...")
+                          : Text(
+                              "<< City not found >>",
+                              style: TextStyle(color: Colors.redAccent),
+                            ),
                     )
                   : ListView.builder(
                       itemCount: _cities.length,
@@ -73,10 +75,20 @@ class _AddCityScreenState extends State<AddCityScreen> {
   }
 
   void onChangedText(String text) async {
-    await widget.appState.api.getCities(text).then((value) {
+    print("form = $text");
+
+    if (text == "" || text.length == 0) {
       setState(() {
-        _cities = value;
+        _cities.clear();
+        _cityName = null;
       });
-    });
+    } else {
+      await widget.appState.api.getCities(text).then((value) {
+        setState(() {
+          _cities = value;
+          _cityName = value.isEmpty ? "" : value.first.name;
+        });
+      });
+    }
   }
 }
