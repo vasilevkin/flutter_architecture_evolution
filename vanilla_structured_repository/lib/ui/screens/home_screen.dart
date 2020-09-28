@@ -100,12 +100,16 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _loadWeatherDataForCityName(String cityName) async {
+    widget.appState.isLoading = true;
+
     City city = await widget.appState.api.getCity(cityName);
     Weather weather = await widget.appState.api.getWeather(city);
 
     setState(() {
       _citiesWeatherData.add(CityWeather(city, weather));
     });
+
+    widget.appState.isLoading = false;
   }
 
   _editCityItem(int index) {}
