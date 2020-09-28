@@ -41,17 +41,25 @@ class _AddCityScreenState extends State<AddCityScreen> {
                   onSaved: (value) => _cityName = value,
                 )),
             Expanded(
-              child: ListView.builder(
-                itemCount: _cities.length,
-                itemBuilder: (context, index) {
-                  final city = _cities[index];
+              child: _cities.length == 0
+                  ? Padding(
+                      padding: EdgeInsets.all(20),
+                      child: Text(
+                        "<< City not found >>",
+                        style: TextStyle(color: Colors.redAccent),
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: _cities.length,
+                      itemBuilder: (context, index) {
+                        final city = _cities[index];
 
-                  return AddCityListItem(
-                    cityName: city.name,
-                    onTap: () => onTapItem(city.name),
-                  );
-                },
-              ),
+                        return AddCityListItem(
+                          cityName: city.name,
+                          onTap: () => onTapItem(city.name),
+                        );
+                      },
+                    ),
             ),
           ],
         ),
