@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vanilla_structured_repository/app/app_routes.dart';
 import 'package:vanilla_structured_repository/app/constants.dart';
 import 'package:vanilla_structured_repository/data/app_state.dart';
-import 'package:vanilla_structured_repository/data/service/api_impl.dart';
 import 'package:vanilla_structured_repository/model/city.dart';
-import 'package:vanilla_structured_repository/model/weather.dart';
 import 'package:vanilla_structured_repository/ui/widgets/home_list_item.dart';
 import 'package:vanilla_structured_repository/ui/widgets/loader.dart';
 
@@ -19,24 +17,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-   List<City> _citiesData = List();
-  // final List<CityWeather> _citiesWeatherData = List();
+  List<City> _citiesData = List();
 
   @override
   void initState() {
     super.initState();
 
     _loadWeatherData();
-  }
-
-  void _addCity() {
-    Navigator.pushNamed(context, VanillaWeatherAppRoutes.addCity).then(
-        (value) => _loadWeatherDataForCityName(widget.appState.cityNames.last));
-  }
-
-  void _showCityDetailScreen(CityWeather cityWeatherData) {
-    widget.appState.selectedCityWeather = cityWeatherData;
-    Navigator.pushNamed(context, VanillaWeatherAppRoutes.cityDetail);
   }
 
   @override
@@ -70,8 +57,7 @@ class _HomePageState extends State<HomePage> {
                         cityName: cityName,
                         temperature: cityTemperature,
                         weatherStateImage: weatherImage,
-                        onTap: () =>
-                            _showCityDetailScreen(CityWeather(_citiesData[index], _citiesData[index].weather)),
+                        onTap: () => _showCityDetailScreen(_citiesData[index]),
                         onEditTap: () => _editCityItem(index),
                         onDeleteTap: () => _deleteCityItem(index),
                       );
@@ -91,37 +77,33 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _loadWeatherData() async {
-      final cities = await widget.appState.repo.getAllCities();
-      setState(() {
-        _citiesData = cities;
-      });
-
-/*
-      widget.appState.isLoading = true;
-
-      City city = await widget.appState.api.getCity(cityName);
-      Weather weather = await widget.appState.api.getWeather(city);
-
-      setState(() {
-        _citiesWeatherData.add(CityWeather(city, weather));
-      });
-      widget.appState.isLoading = false;
-*/
-    // }
-  }
-
-  void _loadWeatherDataForCityName(String cityName) async {
+  void _addCity() async {
     widget.appState.isLoading = true;
 
-    City city = await widget.appState.api.getCity(cityName);
-    Weather weather = await widget.appState.api.getWeather(city);
+    // Not a good way to update List of Cities.
+    // For educational purposes only.
+    // In production better use some kind of State management solution:
+    // Scoped Model, BLoC, Provider, etc.
+    await Navigator.pushNamed(context, VanillaWeatherAppRoutes.addCity);
 
     setState(() {
+      _loadWeatherData();
+    });
 
+    widget.appState.isLoading = false;
+  }
 
+  void _showCityDetailScreen(City city) {
+    widget.appState.selectedCity = city;
+    Navigator.pushNamed(context, VanillaWeatherAppRoutes.cityDetail);
+  }
 
-      // _citiesWeatherData.add(CityWeather(city, weather));
+  void _loadWeatherData() async {
+    widget.appState.isLoading = true;
+
+    final cities = await widget.appState.repo.getAllCities();
+    setState(() {
+      _citiesData = cities;
     });
 
     widget.appState.isLoading = false;
@@ -134,14 +116,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _deleteCityItem(int index) {
-
     widget.appState.repo.deleteCity(_citiesData[index]);
     setState(() {
-
       _loadWeatherData();
-
-      // _citiesWeatherData.removeAt(index);
     });
   }
 }
-/**/

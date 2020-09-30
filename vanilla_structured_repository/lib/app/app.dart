@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vanilla_structured_repository/app/app_routes.dart';
 import 'package:vanilla_structured_repository/data/app_state.dart';
+import 'package:vanilla_structured_repository/data/repository/storage_impl_in_memory.dart';
 import 'package:vanilla_structured_repository/data/service/api_impl.dart';
 import 'package:vanilla_structured_repository/ui/screens/add_city_screen.dart';
 import 'package:vanilla_structured_repository/ui/screens/city_detail_screen.dart';
@@ -35,6 +36,8 @@ class VanillaStructuredRepositoryWeatherAppState
       );
 
       appState.api = MetaWeatherApi();
+      appState.repo =
+          StorageInMemoryImpl(appState: appState, api: appState.api);
     });
   }
 
@@ -59,15 +62,15 @@ class VanillaStructuredRepositoryWeatherAppState
               appState: appState,
             ),
         VanillaWeatherAppRoutes.cityDetail: (context) => CityDetailScreen(
-              cityWeather: appState.selectedCityWeather,
+              city: appState.selectedCity,
             ),
       },
     );
   }
 
-  void addCityName(String cityName) {
-    setState(() {
-      appState.cityNames.add(cityName);
-    });
+  void addCityName(String cityName) async {
+    await appState.repo.addCity(cityName);
+
+    setState(() {});
   }
 }
