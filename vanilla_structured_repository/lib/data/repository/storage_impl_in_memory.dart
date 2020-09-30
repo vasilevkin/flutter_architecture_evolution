@@ -60,9 +60,13 @@ class StorageInMemoryImpl implements StorageRepository {
   Future<City> _fetchCityWeatherByName(String name) async {
     appState.isLoading = true;
 
-    City city = await api.getCity(name);
-    Weather weather = await api.getWeather(city);
-    city.weather = weather;
+    City cityWithoutWeather = await api.getCity(name);
+    Weather weather = await api.getWeather(cityWithoutWeather);
+    City city = City(
+      name: cityWithoutWeather.name,
+      woeId: cityWithoutWeather.woeId,
+      weather: weather,
+    );
 
     appState.isLoading = false;
 
