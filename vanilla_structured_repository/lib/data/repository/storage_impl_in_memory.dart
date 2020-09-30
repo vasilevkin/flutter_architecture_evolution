@@ -1,40 +1,71 @@
+import 'package:flutter/foundation.dart';
+import 'package:vanilla_structured_repository/data/app_state.dart';
 import 'package:vanilla_structured_repository/data/repository/storage_repo.dart';
+import 'package:vanilla_structured_repository/data/service/api_service.dart';
 import 'package:vanilla_structured_repository/model/city.dart';
+import 'package:vanilla_structured_repository/model/weather.dart';
 
 class StorageInMemoryImpl implements StorageRepository {
+  final AppState appState;
+  final ApiService api;
+
+  List<City> _citiesData;
+
+  StorageInMemoryImpl({
+    @required this.appState,
+    @required this.api,
+  })  : assert(appState != null),
+        assert(api != null);
+
+  // StorageRepository implementation
+
   @override
-  Future<void> addCity(City city) {
-    // TODO: implement addCity
-    throw UnimplementedError();
+  Future<List<City>> getAllCities() async {
+    appState.isLoading = true;
+
+    if (_citiesData == null) {
+      _citiesData = List();
+      for (String cityName in appState.cityNames) {
+        City city = await _fetchCityWeatherByName(cityName);
+
+        _citiesData.add(city);
+      }
+    }
+
+    appState.isLoading = false;
+
+    return _citiesData;
   }
 
   @override
-  Future<void> deleteCity(City city) {
-    // TODO: implement deleteCity
-    throw UnimplementedError();
-  }
+  Future<void> addCity(String cityName) async {
+    City city = await _fetchCityWeatherByName(cityName);
 
-  @override
-  Future<List<City>> getAllCities() {
-    // TODO: implement getAllCities
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> saveCities(List<City> cities) {
-    // TODO: implement saveCities
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> saveCity(City city) {
-    // TODO: implement saveCity
-    throw UnimplementedError();
+    _citiesData.add(city);
   }
 
   @override
   Future<void> updateCity(City city) {
     // TODO: implement updateCity
     throw UnimplementedError();
+  }
+
+  @override
+  Future<void> deleteCity(City city) async {
+    _citiesData.remove(city);
+  }
+
+  // _private methods
+
+  Future<City> _fetchCityWeatherByName(String name) async {
+    appState.isLoading = true;
+
+    City city = await api.getCity(name);
+    Weather weather = await api.getWeather(city);
+    city.weather = weather;
+
+    appState.isLoading = false;
+
+    return city;
   }
 }
