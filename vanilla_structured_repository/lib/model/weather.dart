@@ -1,15 +1,5 @@
 import 'package:vanilla_structured_repository/model/city.dart';
 
-class CityWeather {
-  final City city;
-  final Weather weather;
-
-  CityWeather(
-    this.city,
-    this.weather,
-  );
-}
-
 class Weather {
   int id;
   String weatherStateName;

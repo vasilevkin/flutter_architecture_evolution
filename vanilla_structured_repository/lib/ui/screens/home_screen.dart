@@ -19,7 +19,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<CityWeather> _citiesWeatherData = List();
+   List<City> _citiesData = List();
+  // final List<CityWeather> _citiesWeatherData = List();
 
   @override
   void initState() {
@@ -47,18 +48,18 @@ class _HomePageState extends State<HomePage> {
       body: Stack(
         children: [
           Center(
-            child: _citiesWeatherData.length == 0
+            child: _citiesData.length == 0
                 ? widget.appState.isLoading
                     ? SizedBox.shrink()
                     : Text("Tap + to add city...")
                 : ListView.builder(
-                    itemCount: _citiesWeatherData.length,
+                    itemCount: _citiesData.length,
                     itemBuilder: (context, index) {
-                      final cityName = _citiesWeatherData[index].city.name;
+                      final cityName = _citiesData[index].name;
                       final cityTemperature =
-                          _citiesWeatherData[index].weather.theTemp;
+                          _citiesData[index].weather.theTemp;
                       final cityWeatherStateAbbr =
-                          _citiesWeatherData[index].weather.weatherStateAbbr;
+                          _citiesData[index].weather.weatherStateAbbr;
 
                       final weatherImage = Image.network(
                         '${host}static/img/weather/png/64/$cityWeatherStateAbbr.png',
@@ -70,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                         temperature: cityTemperature,
                         weatherStateImage: weatherImage,
                         onTap: () =>
-                            _showCityDetailScreen(_citiesWeatherData[index]),
+                            _showCityDetailScreen(CityWeather(_citiesData[index], _citiesData[index].weather)),
                         onEditTap: () => _editCityItem(index),
                         onDeleteTap: () => _deleteCityItem(index),
                       );
@@ -91,7 +92,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _loadWeatherData() async {
-    for (String cityName in widget.appState.cityNames) {
+      final cities = await widget.appState.repo.getAllCities();
+      setState(() {
+        _citiesData = cities;
+      });
+
+/*
       widget.appState.isLoading = true;
 
       City city = await widget.appState.api.getCity(cityName);
@@ -101,7 +107,8 @@ class _HomePageState extends State<HomePage> {
         _citiesWeatherData.add(CityWeather(city, weather));
       });
       widget.appState.isLoading = false;
-    }
+*/
+    // }
   }
 
   void _loadWeatherDataForCityName(String cityName) async {
@@ -111,17 +118,30 @@ class _HomePageState extends State<HomePage> {
     Weather weather = await widget.appState.api.getWeather(city);
 
     setState(() {
-      _citiesWeatherData.add(CityWeather(city, weather));
+
+
+
+      // _citiesWeatherData.add(CityWeather(city, weather));
     });
 
     widget.appState.isLoading = false;
   }
 
-  _editCityItem(int index) {}
+  void _editCityItem(int index) {
+    print("index= $index");
+
+    widget.appState.repo.updateCity(_citiesData[index]);
+  }
 
   void _deleteCityItem(int index) {
+
+    widget.appState.repo.deleteCity(_citiesData[index]);
     setState(() {
-      _citiesWeatherData.removeAt(index);
+
+      _loadWeatherData();
+
+      // _citiesWeatherData.removeAt(index);
     });
   }
 }
+/**/

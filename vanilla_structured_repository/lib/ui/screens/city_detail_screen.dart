@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:vanilla_structured_repository/app/constants.dart';
-import 'package:vanilla_structured_repository/model/weather.dart';
+import 'package:vanilla_structured_repository/model/city.dart';
 import 'package:vanilla_structured_repository/ui/widgets/minor_weather_detail.dart';
 
 class CityDetailScreen extends StatelessWidget {
-  final CityWeather cityWeather;
+  final City city;
 
-  const CityDetailScreen({Key key, @required this.cityWeather})
-      : super(key: key);
+  const CityDetailScreen({Key key, @required this.city}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(cityWeather.city.name),
+        title: Text(city.name),
       ),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
-              'assets/background_images/${cityWeather.weather.weatherStateAbbr}.jpg',
+              'assets/background_images/${city.weather.weatherStateAbbr}.jpg',
             ),
             fit: BoxFit.cover,
           ),
@@ -35,7 +34,7 @@ class CityDetailScreen extends StatelessWidget {
                     height: 50,
                   ),
                   Text(
-                    cityWeather.city.name,
+                    city.name,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontSize: 40,
@@ -44,7 +43,7 @@ class CityDetailScreen extends StatelessWidget {
                         shadows: textShadows),
                   ),
                   Text(
-                    cityWeather.weather.applicableDate.toIso8601String(),
+                    city.weather.applicableDate.toIso8601String(),
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white54,
@@ -63,7 +62,7 @@ class CityDetailScreen extends StatelessWidget {
                         TweenAnimationBuilder<int>(
                           tween: IntTween(
                             begin: 0,
-                            end: cityWeather.weather.theTemp.toInt(),
+                            end: city.weather.theTemp.toInt(),
                           ),
                           duration: const Duration(milliseconds: 1500),
                           builder: (context, value, child) {
@@ -97,7 +96,7 @@ class CityDetailScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    cityWeather.weather.weatherStateName,
+                    city.weather.weatherStateName,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white,
@@ -113,11 +112,11 @@ class CityDetailScreen extends StatelessWidget {
                     children: [
                       MinorWeatherDetail(
                         name: "minTemp",
-                        value: cityWeather.weather.minTemp.toStringAsFixed(1),
+                        value: city.weather.minTemp.toStringAsFixed(1),
                       ),
                       MinorWeatherDetail(
                         name: "maxTemp",
-                        value: cityWeather.weather.maxTemp.toStringAsFixed(1),
+                        value: city.weather.maxTemp.toStringAsFixed(1),
                       ),
                     ],
                   ),
@@ -131,7 +130,7 @@ class CityDetailScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Image.network(
-                  '${host}static/img/weather/png/64/${cityWeather.weather.weatherStateAbbr}.png',
+                  '${host}static/img/weather/png/64/${city.weather.weatherStateAbbr}.png',
                   height: 40,
                 ),
               ),
@@ -148,35 +147,31 @@ class CityDetailScreen extends StatelessWidget {
                       children: [
                         MinorWeatherDetail(
                           name: "Wind Speed",
-                          value:
-                              cityWeather.weather.windSpeed.toStringAsFixed(2),
+                          value: city.weather.windSpeed.toStringAsFixed(2),
                         ),
                         MinorWeatherDetail(
                           name: "Wind Compass",
-                          value: cityWeather.weather.windDirectionCompass
-                              .toString(),
+                          value: city.weather.windDirectionCompass.toString(),
                         ),
                         MinorWeatherDetail(
                           name: "Wind Direction",
-                          value: cityWeather.weather.windDirection
-                              .toStringAsFixed(0),
+                          value: city.weather.windDirection.toStringAsFixed(0),
                         ),
                         MinorWeatherDetail(
                           name: "Air Pressure",
-                          value: cityWeather.weather.airPressure.toString(),
+                          value: city.weather.airPressure.toString(),
                         ),
                         MinorWeatherDetail(
                           name: "Humidity",
-                          value: cityWeather.weather.humidity.toString(),
+                          value: city.weather.humidity.toString(),
                         ),
                         MinorWeatherDetail(
                           name: "Visibility",
-                          value:
-                              cityWeather.weather.visibility.toStringAsFixed(1),
+                          value: city.weather.visibility.toStringAsFixed(1),
                         ),
                         MinorWeatherDetail(
                           name: "Predictability",
-                          value: cityWeather.weather.predictability.toString(),
+                          value: city.weather.predictability.toString(),
                         ),
                       ],
                     ),
