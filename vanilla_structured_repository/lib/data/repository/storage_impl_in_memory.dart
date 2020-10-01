@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:vanilla_structured_repository/data/app_state.dart';
 import 'package:vanilla_structured_repository/data/repository/storage_repo.dart';
 import 'package:vanilla_structured_repository/data/service/api_service.dart';
@@ -10,6 +11,7 @@ class StorageInMemoryImpl implements StorageRepository {
   final ApiService api;
 
   List<City> _citiesData;
+  Map<String, Image> _abbrImages = Map();
 
   StorageInMemoryImpl({
     @required this.appState,
@@ -53,6 +55,20 @@ class StorageInMemoryImpl implements StorageRepository {
   @override
   Future<void> deleteCity(City city) async {
     _citiesData.remove(city);
+  }
+
+  @override
+  Image getImageForStateAbbr(String abbr) {
+    Image image;
+    if (_abbrImages.containsKey(abbr)) {
+      image = _abbrImages[abbr];
+    } else {
+      api.getImage(abbr).then((value) {
+        image = value;
+        _abbrImages[abbr] = value;
+      });
+    }
+    return image;
   }
 
   // _private methods

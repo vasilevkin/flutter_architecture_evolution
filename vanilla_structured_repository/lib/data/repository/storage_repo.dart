@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:vanilla_structured_repository/model/city.dart';
 
 abstract class StorageRepository {
@@ -8,4 +9,6 @@ abstract class StorageRepository {
   Future<void> updateCity(City city);
 
   Future<void> deleteCity(City city);
+
+  Image getImageForStateAbbr(String abbr);
 }

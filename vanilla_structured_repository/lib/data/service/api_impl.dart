@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/src/widgets/image.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:vanilla_structured_repository/app/constants.dart';
@@ -32,5 +33,13 @@ class MetaWeatherApi implements ApiService {
     final weatherData = data['consolidated_weather'] as List;
     final weatherList = weatherData.map((e) => Weather.fromJson(e)).toList();
     return weatherList.first;
+  }
+
+  @override
+  Future<Image> getImage(String abbr) async {
+    var image = await Image.network(
+      '${host}static/img/weather/png/64/$abbr.png',
+    );
+    return image;
   }
 }
