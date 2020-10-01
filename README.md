@@ -22,5 +22,22 @@ End-points:
 /api/location/{woeId} , get weather for a location Id
 
 ## Architecture
-vanilla
-vanilla_structured_repository
+The same weather app, but implemented with different architecture approaches.
+
+#### vanilla
+Just make an app, don't think about architecture, readability, how to add new features or fix bugs. One file to rule it all.
+
+#### vanilla_structured_repository
+Separate simple vanilla to different files. 
+Add a repository pattern to get data.
+Move ui to screens and custom widgets.
+Use models.
+
+#### bloc
+BLoC pattern implementation. Sinks for Inputs and Streams for Outputs. Data driven UI. Without any packages.
+
+#### bloc_pub
+BLoC pattern with help of packages: bloc and flutter_bloc.
+
+#### provider
+Recommendation from Google.
