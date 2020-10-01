@@ -28,7 +28,10 @@ class HomeListItem extends StatelessWidget {
             Text("${temperature.toInt()} ℃"),
             Padding(
               padding: EdgeInsets.only(left: 8),
-              child: weatherStateImage,
+              child: Container(
+                height: 30,
+                child: weatherStateImage,
+              ),
             ),
           ],
         ),

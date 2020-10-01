@@ -63,6 +63,8 @@ class VanillaStructuredRepositoryWeatherAppState
             ),
         VanillaWeatherAppRoutes.cityDetail: (context) => CityDetailScreen(
               city: appState.selectedCity,
+              stateImage: appState.repo.getImageForStateAbbr(
+                  appState.selectedCity.weather.weatherStateAbbr),
             ),
       },
     );

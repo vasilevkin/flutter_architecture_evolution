@@ -5,8 +5,10 @@ import 'package:vanilla_structured_repository/ui/widgets/minor_weather_detail.da
 
 class CityDetailScreen extends StatelessWidget {
   final City city;
+  final Image stateImage;
 
-  const CityDetailScreen({Key key, @required this.city}) : super(key: key);
+  const CityDetailScreen({Key key, @required this.city, this.stateImage})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -129,9 +131,10 @@ class CityDetailScreen extends StatelessWidget {
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(5.0),
-                child: Image.network(
-                  '${host}static/img/weather/png/64/${city.weather.weatherStateAbbr}.png',
-                  height: 40,
+                child: Container(
+                  height: 70,
+                  padding: EdgeInsets.only(top: 8),
+                  child: stateImage,
                 ),
               ),
             ),

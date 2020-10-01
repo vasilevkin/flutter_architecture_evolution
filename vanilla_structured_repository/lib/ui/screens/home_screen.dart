@@ -47,11 +47,8 @@ class _HomePageState extends State<HomePage> {
                           _citiesData[index].weather.theTemp;
                       final cityWeatherStateAbbr =
                           _citiesData[index].weather.weatherStateAbbr;
-
-                      final weatherImage = Image.network(
-                        '${host}static/img/weather/png/64/$cityWeatherStateAbbr.png',
-                        height: 25,
-                      );
+                      final weatherImage = widget.appState.repo
+                          .getImageForStateAbbr(cityWeatherStateAbbr);
 
                       return HomeListItem(
                         cityName: cityName,
