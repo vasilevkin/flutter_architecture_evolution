@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:vanilla_structured_repository/app/app_routes.dart';
-import 'package:vanilla_structured_repository/app/constants.dart';
-import 'package:vanilla_structured_repository/data/app_state.dart';
-import 'package:vanilla_structured_repository/model/city.dart';
-import 'package:vanilla_structured_repository/ui/widgets/home_list_item.dart';
-import 'package:vanilla_structured_repository/ui/widgets/loader.dart';
+import 'package:bloc_weather/app/app_routes.dart';
+import 'package:bloc_weather/app/constants.dart';
+import 'package:bloc_weather/data/app_state.dart';
+import 'package:bloc_weather/model/city.dart';
+import 'package:bloc_weather/ui/widgets/home_list_item.dart';
+import 'package:bloc_weather/ui/widgets/loader.dart';
 
 class HomePage extends StatefulWidget {
   final String title;

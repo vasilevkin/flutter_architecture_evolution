@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vanilla_structured_repository/data/app_state.dart';
-import 'package:vanilla_structured_repository/model/city.dart';
-import 'package:vanilla_structured_repository/ui/widgets/add_city_list_item.dart';
+import 'package:bloc_weather/data/app_state.dart';
+import 'package:bloc_weather/model/city.dart';
+import 'package:bloc_weather/ui/widgets/add_city_list_item.dart';
 
 class AddCityScreen extends StatefulWidget {
   final Function(String name) addCityName;

@@ -1,4 +1,4 @@
-import 'package:vanilla_structured_repository/model/city.dart';
+import 'package:bloc_weather/model/city.dart';
 
 class Weather {
   int id;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vanilla_structured_repository/model/city.dart';
+import 'package:bloc_weather/model/city.dart';
 
 abstract class StorageRepository {
   Future<List<City>> getAllCities();

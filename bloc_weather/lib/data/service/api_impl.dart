@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'package:flutter/src/widgets/image.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:vanilla_structured_repository/app/constants.dart';
-import 'package:vanilla_structured_repository/data/service/api_service.dart';
-import 'package:vanilla_structured_repository/model/city.dart';
-import 'package:vanilla_structured_repository/model/weather.dart';
+import 'package:bloc_weather/app/constants.dart';
+import 'package:bloc_weather/data/service/api_service.dart';
+import 'package:bloc_weather/model/city.dart';
+import 'package:bloc_weather/model/weather.dart';
 
 class MetaWeatherApi implements ApiService {
   @override

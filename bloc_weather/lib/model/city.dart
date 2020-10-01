@@ -1,4 +1,4 @@
-import 'package:vanilla_structured_repository/model/weather.dart';
+import 'package:bloc_weather/model/weather.dart';
 
 class City {
   final String name;

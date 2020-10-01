@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vanilla_structured_repository/app/constants.dart';
-import 'package:vanilla_structured_repository/model/city.dart';
-import 'package:vanilla_structured_repository/ui/widgets/minor_weather_detail.dart';
+import 'package:bloc_weather/app/constants.dart';
+import 'package:bloc_weather/model/city.dart';
+import 'package:bloc_weather/ui/widgets/minor_weather_detail.dart';
 
 class CityDetailScreen extends StatelessWidget {
   final City city;
