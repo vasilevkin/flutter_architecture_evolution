@@ -66,8 +66,8 @@ class _HomePageState extends State<HomePage> {
           temperature: cities[index].weather.theTemp,
           weatherStateImage: weatherImage,
           onTap: () => _showCityDetailScreen(cities[index]),
-          onEditTap: () => _editCityItem(cities[index]),
-          onDeleteTap: () => _deleteCityItem(cities[index]),
+          onEditTap: () => homeBloc.editCity(cities[index]),
+          onDeleteTap: () => homeBloc.deleteCity(cities[index]),
         );
       },
     );

@@ -31,4 +31,26 @@ class HomeBloc implements Bloc {
 
     _citiesListStreamController.sink.add(_cities);
   }
+
+  void deleteCity(City city) async {
+    try {
+      await _repo.deleteCity(city);
+    } catch (error) {
+      _citiesListStreamController.sink.addError(error);
+      return;
+    }
+
+    loadCitiesData();
+  }
+
+  void editCity(City city) async {
+    try {
+      await _repo.updateCity(city);
+    } catch (error) {
+      _citiesListStreamController.sink.addError(error);
+      return;
+    }
+
+    loadCitiesData();
+  }
 }
