@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(title: Text(widget.title)),
       body: Center(
         child: StreamBuilder<List<City>>(
-          stream: homeBloc.citiesList(),
+          stream: homeBloc.citiesList,
           builder: (context, snapshot) {
             if (snapshot.hasData)
               return snapshot.data.length == 0
