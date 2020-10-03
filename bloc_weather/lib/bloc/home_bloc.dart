@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bloc_weather/bloc/Bloc.dart';
+import 'package:bloc_weather/bloc/bloc.dart';
 import 'package:bloc_weather/data/repository/storage_repo.dart';
 import 'package:bloc_weather/model/city.dart';
 
