@@ -1,6 +1,6 @@
+import 'package:bloc_weather/bloc/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc_weather/app/app_routes.dart';
-import 'package:bloc_weather/app/constants.dart';
 import 'package:bloc_weather/data/app_state.dart';
 import 'package:bloc_weather/model/city.dart';
 import 'package:bloc_weather/ui/widgets/home_list_item.dart';
@@ -17,60 +17,67 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<City> _citiesData = List();
+  HomeBloc homeBloc;
 
   @override
   void initState() {
     super.initState();
 
-    _loadWeatherData();
+    homeBloc = HomeBloc(widget.appState.repo);
+
+    // _loadWeatherData();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Stack(
-        children: [
-          Center(
-            child: _citiesData.length == 0
-                ? widget.appState.isLoading
-                    ? SizedBox.shrink()
-                    : Text("Tap + to add city...")
-                : ListView.builder(
-                    itemCount: _citiesData.length,
-                    itemBuilder: (context, index) {
-                      final cityName = _citiesData[index].name;
-                      final cityTemperature =
-                          _citiesData[index].weather.theTemp;
-                      final cityWeatherStateAbbr =
-                          _citiesData[index].weather.weatherStateAbbr;
-                      final weatherImage = widget.appState.repo
-                          .getImageForStateAbbr(cityWeatherStateAbbr);
+      appBar: AppBar(title: Text(widget.title)),
+      body: Center(
+        child: StreamBuilder<List<City>>(
+          stream: homeBloc.citiesList(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData)
+              return snapshot.data.length == 0
+                  ? widget.appState.isLoading
+                      ? SizedBox.shrink()
+                      : Text("Tap + to add city...")
+                  : _buildCitiesList(cities: snapshot.data);
 
-                      return HomeListItem(
-                        cityName: cityName,
-                        temperature: cityTemperature,
-                        weatherStateImage: weatherImage,
-                        onTap: () => _showCityDetailScreen(_citiesData[index]),
-                        onEditTap: () => _editCityItem(index),
-                        onDeleteTap: () => _deleteCityItem(index),
-                      );
-                    },
-                  ),
-          ),
-          widget.appState.isLoading
-              ? Center(child: Loader())
-              : SizedBox.shrink(),
-        ],
+            if (snapshot.hasError) return Text('${snapshot.error}');
+
+            return Loader();
+          },
+        ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _addCity,
-        tooltip: 'Add a new city',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      floatingActionButton: _buildFAB(),
+    );
+  }
+
+  Widget _buildCitiesList({List<City> cities}) {
+    return ListView.builder(
+      itemCount: cities.length,
+      itemBuilder: (context, index) {
+        final cityWeatherStateAbbr = cities[index].weather.weatherStateAbbr;
+        final weatherImage =
+            widget.appState.repo.getImageForStateAbbr(cityWeatherStateAbbr);
+
+        return HomeListItem(
+          cityName: cities[index].name,
+          temperature: cities[index].weather.theTemp,
+          weatherStateImage: weatherImage,
+          onTap: () => _showCityDetailScreen(cities[index]),
+          onEditTap: () => _editCityItem(cities[index]),
+          onDeleteTap: () => _deleteCityItem(cities[index]),
+        );
+      },
+    );
+  }
+
+  Widget _buildFAB() {
+    return FloatingActionButton(
+      onPressed: _addCity,
+      tooltip: 'Add a new city',
+      child: Icon(Icons.add),
     );
   }
 
@@ -100,22 +107,26 @@ class _HomePageState extends State<HomePage> {
 
     final cities = await widget.appState.repo.getAllCities();
     setState(() {
-      _citiesData = cities;
+      // _citiesData = cities;
     });
 
     widget.appState.isLoading = false;
   }
 
-  void _editCityItem(int index) {
-    print("index= $index");
+  void _editCityItem(City city) {
+    // void _editCityItem(int index) {
+    //   print("index= $index");
 
-    widget.appState.repo.updateCity(_citiesData[index]);
+    widget.appState.repo.updateCity(city);
+    // widget.appState.repo.updateCity(_citiesData[index]);
   }
 
-  void _deleteCityItem(int index) {
-    widget.appState.repo.deleteCity(_citiesData[index]);
-    setState(() {
-      _loadWeatherData();
-    });
+  void _deleteCityItem(City city) {
+    // void _deleteCityItem(int index) {
+    widget.appState.repo.deleteCity(city);
+    // widget.appState.repo.deleteCity(_citiesData[index]);
+    // setState(() {
+    //   _loadWeatherData();
+    // });
   }
 }
