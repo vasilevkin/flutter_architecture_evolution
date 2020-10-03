@@ -24,8 +24,6 @@ class _HomePageState extends State<HomePage> {
     super.initState();
 
     homeBloc = HomeBloc(widget.appState.repo);
-
-    // _loadWeatherData();
   }
 
   @override
@@ -91,7 +89,7 @@ class _HomePageState extends State<HomePage> {
     await Navigator.pushNamed(context, VanillaWeatherAppRoutes.addCity);
 
     setState(() {
-      _loadWeatherData();
+      // _loadWeatherData();
     });
 
     widget.appState.isLoading = false;
@@ -100,33 +98,5 @@ class _HomePageState extends State<HomePage> {
   void _showCityDetailScreen(City city) {
     widget.appState.selectedCity = city;
     Navigator.pushNamed(context, VanillaWeatherAppRoutes.cityDetail);
-  }
-
-  void _loadWeatherData() async {
-    widget.appState.isLoading = true;
-
-    final cities = await widget.appState.repo.getAllCities();
-    setState(() {
-      // _citiesData = cities;
-    });
-
-    widget.appState.isLoading = false;
-  }
-
-  void _editCityItem(City city) {
-    // void _editCityItem(int index) {
-    //   print("index= $index");
-
-    widget.appState.repo.updateCity(city);
-    // widget.appState.repo.updateCity(_citiesData[index]);
-  }
-
-  void _deleteCityItem(City city) {
-    // void _deleteCityItem(int index) {
-    widget.appState.repo.deleteCity(city);
-    // widget.appState.repo.deleteCity(_citiesData[index]);
-    // setState(() {
-    //   _loadWeatherData();
-    // });
   }
 }
