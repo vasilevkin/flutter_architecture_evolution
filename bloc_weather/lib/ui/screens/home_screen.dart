@@ -35,11 +35,7 @@ class _HomePageState extends State<HomePage> {
           stream: homeBloc.citiesList,
           builder: (context, snapshot) {
             if (snapshot.hasData)
-              return snapshot.data.length == 0
-                  ? widget.appState.isLoading
-                      ? SizedBox.shrink()
-                      : Text("Tap + to add city...")
-                  : _buildCitiesList(cities: snapshot.data);
+              return _buildCitiesList(cities: snapshot.data);
 
             if (snapshot.hasError) return Text('${snapshot.error}');
 
@@ -52,6 +48,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildCitiesList({List<City> cities}) {
+    if (cities.length == 0) return Text('Tap + to add a new city...');
+
     return ListView.builder(
       itemCount: cities.length,
       itemBuilder: (context, index) {
