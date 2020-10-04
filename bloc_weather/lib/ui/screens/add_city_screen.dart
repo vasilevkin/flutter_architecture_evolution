@@ -47,7 +47,7 @@ class _AddCityScreenState extends State<AddCityScreen> {
               key: formKey,
               autovalidate: false,
               child: TextFormField(
-                onChanged: (value) => addCityBloc.onChangedText(value),
+                onChanged: (value) => addCityBloc.queryString.add(value),
                 onSaved: (value) => _cityName = value,
               ),
             ),
