@@ -71,6 +71,11 @@ class StorageInMemoryImpl implements StorageRepository {
     return image;
   }
 
+  @override
+  Future<List<City>> searchCitiesByQuery(String text) {
+    return api.getCities(text);
+  }
+
   // _private methods
 
   Future<City> _fetchCityWeatherByName(String name) async {

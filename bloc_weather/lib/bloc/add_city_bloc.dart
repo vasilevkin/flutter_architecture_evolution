@@ -1,14 +1,11 @@
 import 'dart:async';
 
 import 'package:bloc_weather/bloc/bloc.dart';
-import 'package:bloc_weather/data/app_state.dart';
 import 'package:bloc_weather/data/repository/storage_repo.dart';
 import 'package:bloc_weather/model/city.dart';
 
 class AddCityBloc implements Bloc {
   final StorageRepository _repo;
-
-  final AppState appState;
 
   StreamController<List<City>> _suggestionsListStreamController =
       StreamController();
@@ -21,10 +18,7 @@ class AddCityBloc implements Bloc {
   Stream<List<City>> get suggestionsList =>
       _suggestionsListStreamController.stream;
 
-  AddCityBloc(
-    this._repo,
-    this.appState,
-  ) {
+  AddCityBloc(this._repo) {
     _processQuery();
   }
 
@@ -47,7 +41,7 @@ class AddCityBloc implements Bloc {
       _suggestionsListStreamController.sink.addError('Enter city name...');
     } else {
       try {
-        final _cities = await appState.api.getCities(text);
+        final _cities = await _repo.searchCitiesByQuery(text);
 
         if (_cities.isEmpty) {
           _suggestionsListStreamController.sink

@@ -11,4 +11,6 @@ abstract class StorageRepository {
   Future<void> deleteCity(City city);
 
   Image getImageForStateAbbr(String abbr);
+
+  Future<List<City>> searchCitiesByQuery(String text);
 }

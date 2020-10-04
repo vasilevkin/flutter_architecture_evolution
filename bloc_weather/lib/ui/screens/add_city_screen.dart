@@ -30,7 +30,7 @@ class _AddCityScreenState extends State<AddCityScreen> {
   void initState() {
     super.initState();
 
-    addCityBloc = AddCityBloc(widget.appState.repo, widget.appState);
+    addCityBloc = AddCityBloc(widget.appState.repo);
   }
 
   @override
