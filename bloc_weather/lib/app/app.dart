@@ -58,7 +58,6 @@ class VanillaStructuredRepositoryWeatherAppState
         //   return MyHomePage();
         // },
         VanillaWeatherAppRoutes.addCity: (context) => AddCityScreen(
-              addCityName: addCityName,
               appState: appState,
             ),
         VanillaWeatherAppRoutes.cityDetail: (context) => CityDetailScreen(
@@ -68,11 +67,5 @@ class VanillaStructuredRepositoryWeatherAppState
             ),
       },
     );
-  }
-
-  void addCityName(String cityName) async {
-    await appState.repo.addCity(cityName);
-
-    setState(() {});
   }
 }
