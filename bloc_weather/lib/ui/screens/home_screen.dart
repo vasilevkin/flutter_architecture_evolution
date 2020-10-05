@@ -83,11 +83,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _tapAddCity() async {
-    Navigator.pushNamed(context, VanillaWeatherAppRoutes.addCity);
+    Navigator.pushNamed(context, BlocWeatherAppRoutes.addCity);
   }
 
   void _showCityDetailScreen(City city) {
     widget.appState.selectedCity = city;
-    Navigator.pushNamed(context, VanillaWeatherAppRoutes.cityDetail);
+    Navigator.pushNamed(context, BlocWeatherAppRoutes.cityDetail);
   }
 }

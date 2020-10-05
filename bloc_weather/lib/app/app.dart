@@ -7,15 +7,15 @@ import 'package:bloc_weather/ui/screens/city_detail_screen.dart';
 import 'package:bloc_weather/ui/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
-class VanillaStructuredRepositoryWeatherApp extends StatefulWidget {
+class BlocWeatherApp extends StatefulWidget {
   @override
   State createState() {
-    return VanillaStructuredRepositoryWeatherAppState();
+    return BlocWeatherAppState();
   }
 }
 
-class VanillaStructuredRepositoryWeatherAppState
-    extends State<VanillaStructuredRepositoryWeatherApp> {
+class BlocWeatherAppState
+    extends State<BlocWeatherApp> {
   AppState appState;
 
   @override
@@ -44,10 +44,10 @@ class VanillaStructuredRepositoryWeatherAppState
         // VanillaWeatherAppRoutes.home: (context) {
         //   return MyHomePage();
         // },
-        VanillaWeatherAppRoutes.addCity: (context) => AddCityScreen(
+        BlocWeatherAppRoutes.addCity: (context) => AddCityScreen(
               appState: appState,
             ),
-        VanillaWeatherAppRoutes.cityDetail: (context) => CityDetailScreen(
+        BlocWeatherAppRoutes.cityDetail: (context) => CityDetailScreen(
               city: appState.selectedCity,
               stateImage: appState.repo.getImageForStateAbbr(
                   appState.selectedCity.weather.weatherStateAbbr),
