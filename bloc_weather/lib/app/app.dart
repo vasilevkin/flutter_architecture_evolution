@@ -37,11 +37,8 @@ class BlocWeatherAppState extends State<BlocWeatherApp> {
         //   return MyHomePage();
         // },
         BlocWeatherAppRoutes.addCity: (context) => AddCityScreen(repo: repo),
-        BlocWeatherAppRoutes.cityDetail: (context) => CityDetailScreen(
-              city: repo.getSelectedCity(),
-              stateImage: repo.getImageForStateAbbr(
-                  repo.getSelectedCity().weather.weatherStateAbbr),
-            ),
+        BlocWeatherAppRoutes.cityDetail: (context) =>
+            CityDetailScreen(repo: repo),
       },
     );
   }
