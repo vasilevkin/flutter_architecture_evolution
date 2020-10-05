@@ -1,16 +1,17 @@
-import 'package:bloc_weather/bloc/home_bloc.dart';
-import 'package:flutter/material.dart';
 import 'package:bloc_weather/app/app_routes.dart';
-import 'package:bloc_weather/data/app_state.dart';
+import 'package:bloc_weather/bloc/home_bloc.dart';
+import 'package:bloc_weather/data/repository/storage_repo.dart';
 import 'package:bloc_weather/model/city.dart';
 import 'package:bloc_weather/ui/widgets/home_list_item.dart';
 import 'package:bloc_weather/ui/widgets/loader.dart';
+import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  final String title;
-  final AppState appState;
+  final StorageRepository repo;
 
-  HomePage({Key key, this.title, @required this.appState}) : super(key: key);
+  HomePage({
+    @required this.repo,
+  }) : assert(repo != null);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -22,7 +23,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    homeBloc = HomeBloc(widget.appState.repo);
+    homeBloc = HomeBloc(widget.repo);
   }
 
   @override
@@ -34,7 +35,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
+      appBar: AppBar(title: Text('BLoC Weather')),
       body: Center(
         child: StreamBuilder<List<City>>(
           stream: homeBloc.citiesList,
@@ -60,7 +61,7 @@ class _HomePageState extends State<HomePage> {
       itemBuilder: (context, index) {
         final cityWeatherStateAbbr = cities[index].weather.weatherStateAbbr;
         final weatherImage =
-            widget.appState.repo.getImageForStateAbbr(cityWeatherStateAbbr);
+            widget.repo.getImageForStateAbbr(cityWeatherStateAbbr);
 
         return HomeListItem(
           cityName: cities[index].name,
@@ -87,7 +88,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _showCityDetailScreen(City city) {
-    widget.appState.repo.setSelectedCity(city);
+    widget.repo.setSelectedCity(city);
     Navigator.pushNamed(context, BlocWeatherAppRoutes.cityDetail);
   }
 }

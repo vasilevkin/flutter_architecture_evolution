@@ -1,15 +1,15 @@
 import 'package:bloc_weather/bloc/add_city_bloc.dart';
-import 'package:bloc_weather/data/app_state.dart';
+import 'package:bloc_weather/data/repository/storage_repo.dart';
 import 'package:bloc_weather/model/city.dart';
 import 'package:bloc_weather/ui/widgets/add_city_list_item.dart';
 import 'package:flutter/material.dart';
 
 class AddCityScreen extends StatefulWidget {
-  final AppState appState;
+  final StorageRepository repo;
 
   AddCityScreen({
-    @required this.appState,
-  });
+    @required this.repo,
+  }) : assert(repo != null);
 
   @override
   _AddCityScreenState createState() => _AddCityScreenState();
@@ -23,7 +23,7 @@ class _AddCityScreenState extends State<AddCityScreen> {
   @override
   void initState() {
     super.initState();
-    addCityBloc = AddCityBloc(widget.appState.repo);
+    addCityBloc = AddCityBloc(widget.repo);
   }
 
   @override
