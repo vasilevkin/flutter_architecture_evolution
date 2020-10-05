@@ -5,12 +5,10 @@ import 'package:bloc_weather/ui/widgets/add_city_list_item.dart';
 import 'package:flutter/material.dart';
 
 class AddCityScreen extends StatefulWidget {
-  final Function(String name) addCityName;
   final AppState appState;
 
   AddCityScreen({
-    @required this.addCityName,
-    this.appState,
+    @required this.appState,
   });
 
   @override
@@ -22,15 +20,16 @@ class _AddCityScreenState extends State<AddCityScreen> {
 
   AddCityBloc addCityBloc;
 
-  String _cityName;
-
-  List<City> _cities = List();
-
   @override
   void initState() {
     super.initState();
-
     addCityBloc = AddCityBloc(widget.appState.repo);
+  }
+
+  @override
+  void dispose() {
+    addCityBloc.dispose();
+    super.dispose();
   }
 
   @override
@@ -48,7 +47,6 @@ class _AddCityScreenState extends State<AddCityScreen> {
               autovalidate: false,
               child: TextFormField(
                 onChanged: (value) => addCityBloc.queryString.add(value),
-                onSaved: (value) => _cityName = value,
               ),
             ),
             Expanded(
@@ -89,16 +87,13 @@ class _AddCityScreenState extends State<AddCityScreen> {
     return Padding(
       padding: EdgeInsets.all(20),
       child: text == 'Enter city name...'
-          ? Text("Enter city name...")
-          : Text(
-              "<< City not found >>",
-              style: TextStyle(color: Colors.redAccent),
-            ),
+          ? Text(text)
+          : Text(text, style: TextStyle(color: Colors.redAccent)),
     );
   }
 
   void onTapItem(String name) {
-    widget.addCityName(name);
+    addCityBloc.selectedCityName.add(name);
     Navigator.pop(context);
   }
 }

@@ -10,9 +10,12 @@ class AddCityBloc implements Bloc {
   StreamController<List<City>> _suggestionsListStreamController =
       StreamController();
   StreamController<String> _queryStreamController = StreamController();
+  StreamController<String> _selectedCityNameStreamController = StreamController();
 
   // Input sinks
   Sink<String> get queryString => _queryStreamController.sink;
+
+  Sink<String> get selectedCityName => _selectedCityNameStreamController.sink;
 
   // Output streams
   Stream<List<City>> get suggestionsList =>
@@ -20,12 +23,20 @@ class AddCityBloc implements Bloc {
 
   AddCityBloc(this._repo) {
     _processQuery();
+    _addCityName();
   }
 
   @override
   void dispose() {
     _suggestionsListStreamController.close();
     _queryStreamController.close();
+    _selectedCityNameStreamController.close();
+  }
+
+  void _addCityName() {
+    _selectedCityNameStreamController.stream.listen((event) {
+      _repo.addCity(event);
+    });
   }
 
   void _processQuery() {
@@ -35,8 +46,6 @@ class AddCityBloc implements Bloc {
   }
 
   void _onChangedText(String text) async {
-    print('bloc.onChangedText= $text');
-
     if (text == "" || text.length == 0) {
       _suggestionsListStreamController.sink.addError('Enter city name...');
     } else {
