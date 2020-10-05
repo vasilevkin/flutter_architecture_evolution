@@ -6,51 +6,22 @@ import 'package:bloc_weather/model/city.dart';
 
 class HomeBloc implements Bloc {
   final StorageRepository _repo;
-  var _cities = List<City>();
-  StreamController<List<City>> _citiesListStreamController = StreamController();
 
   // Output streams
-  Stream<List<City>> get citiesList => _citiesListStreamController.stream;
+  Stream<List<City>> get citiesList => _repo.getCities;
 
-  HomeBloc(this._repo) {
-    loadCitiesData();
-  }
+  HomeBloc(this._repo);
 
   @override
   void dispose() {
-    _citiesListStreamController.close();
-  }
-
-  void loadCitiesData() async {
-    try {
-      _cities = await _repo.getAllCities();
-    } catch (error) {
-      _citiesListStreamController.sink.addError(error);
-      return;
-    }
-
-    _citiesListStreamController.sink.add(_cities);
+    _repo.dispose();
   }
 
   void deleteCity(City city) async {
-    try {
-      await _repo.deleteCity(city);
-    } catch (error) {
-      _citiesListStreamController.sink.addError(error);
-      return;
-    }
-
-    loadCitiesData();
+    await _repo.deleteCity(city);
   }
 
   void editCity(City city) async {
-    try {
-      await _repo.updateCity(city);
-    } catch (error) {
-      _citiesListStreamController.sink.addError(error);
-      return;
-    }
-
-    loadCitiesData();
+    await _repo.updateCity(city);
   }
 }

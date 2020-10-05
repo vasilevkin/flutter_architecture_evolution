@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc_weather/data/app_state.dart';
@@ -10,19 +12,31 @@ class StorageInMemoryImpl implements StorageRepository {
   final AppState appState;
   final ApiService api;
 
+  StreamController<List<City>> _citiesDataController = StreamController();
+
   List<City> _citiesData;
   Map<String, Image> _abbrImages = Map();
+
+  // Output streams
+  Stream<List<City>> get getCities => _citiesDataController.stream;
 
   StorageInMemoryImpl({
     @required this.appState,
     @required this.api,
   })  : assert(appState != null),
-        assert(api != null);
+        assert(api != null) {
+    _updateCities();
+  }
+
+  @override
+  void dispose() {
+    _citiesDataController.close();
+  }
 
   // StorageRepository implementation
 
   @override
-  Future<List<City>> getAllCities() async {
+  void _updateCities() async {
     appState.isLoading = true;
 
     if (_citiesData == null) {
@@ -34,9 +48,9 @@ class StorageInMemoryImpl implements StorageRepository {
       }
     }
 
-    appState.isLoading = false;
+    _citiesDataController.sink.add(_citiesData);
 
-    return _citiesData;
+    appState.isLoading = false;
   }
 
   @override
@@ -44,6 +58,8 @@ class StorageInMemoryImpl implements StorageRepository {
     City city = await _fetchCityWeatherByName(cityName);
 
     _citiesData.add(city);
+
+    _updateCities();
   }
 
   @override
@@ -55,6 +71,8 @@ class StorageInMemoryImpl implements StorageRepository {
   @override
   Future<void> deleteCity(City city) async {
     _citiesData.remove(city);
+
+    _updateCities();
   }
 
   @override

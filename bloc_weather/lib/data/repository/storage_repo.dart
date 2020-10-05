@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:bloc_weather/model/city.dart';
 
 abstract class StorageRepository {
-  Future<List<City>> getAllCities();
+  Stream<List<City>> get getCities;
+
+  void dispose();
 
   Future<void> addCity(String cityName);
 

@@ -22,8 +22,13 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-
     homeBloc = HomeBloc(widget.appState.repo);
+  }
+
+  @override
+  void dispose() {
+    homeBloc.dispose();
+    super.dispose();
   }
 
   @override
@@ -71,26 +76,14 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildFAB() {
     return FloatingActionButton(
-      onPressed: _addCity,
+      onPressed: _tapAddCity,
       tooltip: 'Add a new city',
       child: Icon(Icons.add),
     );
   }
 
-  void _addCity() async {
-    widget.appState.isLoading = true;
-
-    // Not a good way to update List of Cities.
-    // For educational purposes only.
-    // In production better use some kind of State management solution:
-    // Scoped Model, BLoC, Provider, etc.
-    await Navigator.pushNamed(context, VanillaWeatherAppRoutes.addCity);
-
-    setState(() {
-      // _loadWeatherData();
-    });
-
-    widget.appState.isLoading = false;
+  void _tapAddCity() async {
+    Navigator.pushNamed(context, VanillaWeatherAppRoutes.addCity);
   }
 
   void _showCityDetailScreen(City city) {
