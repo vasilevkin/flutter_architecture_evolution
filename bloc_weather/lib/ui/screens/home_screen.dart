@@ -6,18 +6,18 @@ import 'package:bloc_weather/ui/widgets/home_list_item.dart';
 import 'package:bloc_weather/ui/widgets/loader.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
   final StorageRepository repo;
 
-  HomePage({
+  HomeScreen({
     @required this.repo,
   }) : assert(repo != null);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeScreenState extends State<HomeScreen> {
   HomeBloc homeBloc;
 
   @override

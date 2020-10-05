@@ -31,14 +31,10 @@ class BlocWeatherAppState extends State<BlocWeatherApp> {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: HomePage(repo: repo),
       routes: {
-        // VanillaWeatherAppRoutes.home: (context) {
-        //   return MyHomePage();
-        // },
-        BlocWeatherAppRoutes.addCity: (context) => AddCityScreen(repo: repo),
-        BlocWeatherAppRoutes.cityDetail: (context) =>
-            CityDetailScreen(repo: repo),
+        BlocWeatherAppRoutes.home: (_) => HomeScreen(repo: repo),
+        BlocWeatherAppRoutes.addCity: (_) => AddCityScreen(repo: repo),
+        BlocWeatherAppRoutes.cityDetail: (_) => CityDetailScreen(repo: repo),
       },
     );
   }
