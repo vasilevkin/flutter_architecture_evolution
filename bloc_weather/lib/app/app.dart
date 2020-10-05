@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:bloc_weather/app/app_routes.dart';
 import 'package:bloc_weather/data/app_state.dart';
 import 'package:bloc_weather/data/repository/storage_impl_in_memory.dart';
@@ -6,6 +5,7 @@ import 'package:bloc_weather/data/service/api_impl.dart';
 import 'package:bloc_weather/ui/screens/add_city_screen.dart';
 import 'package:bloc_weather/ui/screens/city_detail_screen.dart';
 import 'package:bloc_weather/ui/screens/home_screen.dart';
+import 'package:flutter/material.dart';
 
 class VanillaStructuredRepositoryWeatherApp extends StatefulWidget {
   @override
@@ -16,28 +16,15 @@ class VanillaStructuredRepositoryWeatherApp extends StatefulWidget {
 
 class VanillaStructuredRepositoryWeatherAppState
     extends State<VanillaStructuredRepositoryWeatherApp> {
-  AppState appState = AppState.loading();
-
-  final _cities = [
-    "Moscow",
-    "New York",
-    "London",
-    "Sydney",
-    "Paris",
-  ];
+  AppState appState;
 
   @override
   void initState() {
     super.initState();
 
     setState(() {
-      appState = AppState(
-        cityNames: _cities,
-      );
-
-      appState.api = MetaWeatherApi();
-      appState.repo =
-          StorageInMemoryImpl(appState: appState, api: appState.api);
+      appState = AppState();
+      appState.repo = StorageInMemoryImpl(api: MetaWeatherApi());
     });
   }
 
