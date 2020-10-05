@@ -14,8 +14,7 @@ class BlocWeatherApp extends StatefulWidget {
   }
 }
 
-class BlocWeatherAppState
-    extends State<BlocWeatherApp> {
+class BlocWeatherAppState extends State<BlocWeatherApp> {
   AppState appState;
 
   @override
@@ -48,9 +47,9 @@ class BlocWeatherAppState
               appState: appState,
             ),
         BlocWeatherAppRoutes.cityDetail: (context) => CityDetailScreen(
-              city: appState.selectedCity,
+              city: appState.repo.getSelectedCity(),
               stateImage: appState.repo.getImageForStateAbbr(
-                  appState.selectedCity.weather.weatherStateAbbr),
+                  appState.repo.getSelectedCity().weather.weatherStateAbbr),
             ),
       },
     );

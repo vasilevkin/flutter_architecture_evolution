@@ -15,4 +15,8 @@ abstract class StorageRepository {
   Image getImageForStateAbbr(String abbr);
 
   Future<List<City>> searchCitiesByQuery(String text);
+
+  void setSelectedCity(City city);
+
+  City getSelectedCity();
 }

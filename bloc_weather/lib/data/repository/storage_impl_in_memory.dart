@@ -13,6 +13,7 @@ class StorageInMemoryImpl implements StorageRepository {
   StreamController<List<City>> _citiesDataController = StreamController();
   List<City> _citiesData;
   Map<String, Image> _abbrImages = Map();
+  City _selectedCity;
 
   // Output streams
   Stream<List<City>> get getCities => _citiesDataController.stream;
@@ -67,6 +68,16 @@ class StorageInMemoryImpl implements StorageRepository {
   @override
   Future<List<City>> searchCitiesByQuery(String text) {
     return api.getCities(text);
+  }
+
+  @override
+  City getSelectedCity() {
+    return _selectedCity ?? City();
+  }
+
+  @override
+  void setSelectedCity(City city) {
+    _selectedCity = city ?? City();
   }
 
   // _private methods

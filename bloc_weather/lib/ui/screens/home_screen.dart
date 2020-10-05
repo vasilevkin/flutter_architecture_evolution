@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _showCityDetailScreen(City city) {
-    widget.appState.selectedCity = city;
+    widget.appState.repo.setSelectedCity(city);
     Navigator.pushNamed(context, BlocWeatherAppRoutes.cityDetail);
   }
 }
