@@ -4,6 +4,7 @@ import 'package:bloc_weather/data/repository/storage_repo.dart';
 import 'package:bloc_weather/data/service/api_impl.dart';
 import 'package:bloc_weather/ui/screens/add_city_screen.dart';
 import 'package:bloc_weather/ui/screens/city_detail_screen.dart';
+import 'package:bloc_weather/ui/screens/edit_city_screen.dart';
 import 'package:bloc_weather/ui/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -35,6 +36,7 @@ class BlocWeatherAppState extends State<BlocWeatherApp> {
         BlocWeatherAppRoutes.home: (_) => HomeScreen(repo: repo),
         BlocWeatherAppRoutes.addCity: (_) => AddCityScreen(repo: repo),
         BlocWeatherAppRoutes.cityDetail: (_) => CityDetailScreen(repo: repo),
+        BlocWeatherAppRoutes.editCity: (_) => EditCityScreen(repo: repo),
       },
     );
   }

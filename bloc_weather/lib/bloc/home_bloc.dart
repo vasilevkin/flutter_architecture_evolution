@@ -20,8 +20,4 @@ class HomeBloc implements Bloc {
   void deleteCity(City city) async {
     await _repo.deleteCity(city);
   }
-
-  void editCity(City city) async {
-    await _repo.updateCity(city);
-  }
 }

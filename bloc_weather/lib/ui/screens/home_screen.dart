@@ -68,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
           temperature: cities[index].weather.theTemp,
           weatherStateImage: weatherImage,
           onTap: () => _showCityDetailScreen(cities[index]),
-          onEditTap: () => homeBloc.editCity(cities[index]),
+          onEditTap: () => _showEditCityScreen(cities[index]),
           onDeleteTap: () => homeBloc.deleteCity(cities[index]),
         );
       },
@@ -90,5 +90,10 @@ class _HomeScreenState extends State<HomeScreen> {
   void _showCityDetailScreen(City city) {
     widget.repo.setSelectedCity(city);
     Navigator.pushNamed(context, BlocWeatherAppRoutes.cityDetail);
+  }
+
+  void _showEditCityScreen(City city) {
+    widget.repo.setSelectedCity(city);
+    Navigator.pushNamed(context, BlocWeatherAppRoutes.editCity);
   }
 }

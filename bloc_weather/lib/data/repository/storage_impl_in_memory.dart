@@ -39,9 +39,12 @@ class StorageInMemoryImpl implements StorageRepository {
   }
 
   @override
-  Future<void> updateCity(City city) {
-    // TODO: implement updateCity
-    throw UnimplementedError();
+  Future<void> updateCity(City city) async {
+    City cityWithWeather = await _fetchCityWeatherByName(city.name);
+    var index = _citiesData.indexOf(_selectedCity);
+    _citiesData[index] = cityWithWeather;
+
+    _updateCities();
   }
 
   @override
