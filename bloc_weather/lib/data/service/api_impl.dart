@@ -36,10 +36,9 @@ class MetaWeatherApi implements ApiService {
   }
 
   @override
-  Future<Image> getImage(String abbr) async {
-    var image = await Image.network(
+  Image getImage(String abbr) {
+    return Image.network(
       '${host}static/img/weather/png/64/$abbr.png',
     );
-    return image;
   }
 }

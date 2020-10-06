@@ -9,5 +9,5 @@ abstract class ApiService {
 
   Future<Weather> getWeather(City city);
 
-  Future<Image> getImage(String abbr);
+  Image getImage(String abbr);
 }

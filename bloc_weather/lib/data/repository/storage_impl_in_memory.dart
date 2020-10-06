@@ -57,10 +57,8 @@ class StorageInMemoryImpl implements StorageRepository {
     if (_abbrImages.containsKey(abbr)) {
       image = _abbrImages[abbr];
     } else {
-      api.getImage(abbr).then((value) {
-        image = value;
-        _abbrImages[abbr] = value;
-      });
+      image = api.getImage(abbr);
+      _abbrImages[abbr] = image;
     }
     return image;
   }
