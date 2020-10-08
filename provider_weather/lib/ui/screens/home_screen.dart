@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('BLoC Weather')),
+      appBar: AppBar(title: Text('Provider Weather')),
       body: Center(
         child: StreamBuilder<List<City>>(
           stream: homeBloc.citiesList,

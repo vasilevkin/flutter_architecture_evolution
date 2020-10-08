@@ -8,14 +8,14 @@ import 'package:provider_weather/ui/screens/edit_city_screen.dart';
 import 'package:provider_weather/ui/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
-class BlocWeatherApp extends StatefulWidget {
+class ProviderWeatherApp extends StatefulWidget {
   @override
   State createState() {
-    return BlocWeatherAppState();
+    return ProviderWeatherAppState();
   }
 }
 
-class BlocWeatherAppState extends State<BlocWeatherApp> {
+class ProviderWeatherAppState extends State<ProviderWeatherApp> {
   StorageRepository repo;
 
   @override
