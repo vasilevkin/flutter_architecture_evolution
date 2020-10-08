@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bloc_weather/model/city.dart';
+import 'package:provider_weather/model/city.dart';
 
 abstract class StorageRepository {
   Stream<List<City>> get getCities;

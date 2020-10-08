@@ -1,8 +1,8 @@
-import 'package:bloc_weather/data/repository/storage_repo.dart';
+import 'package:provider_weather/data/repository/storage_repo.dart';
 import 'package:flutter/material.dart';
-import 'package:bloc_weather/app/constants.dart';
-import 'package:bloc_weather/model/city.dart';
-import 'package:bloc_weather/ui/widgets/minor_weather_detail.dart';
+import 'package:provider_weather/app/constants.dart';
+import 'package:provider_weather/model/city.dart';
+import 'package:provider_weather/ui/widgets/minor_weather_detail.dart';
 
 class CityDetailScreen extends StatelessWidget {
   final StorageRepository repo;

@@ -1,4 +1,4 @@
-import 'package:bloc_weather/model/city.dart';
+import 'package:provider_weather/model/city.dart';
 
 class Weather {
   int id;

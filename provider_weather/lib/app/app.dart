@@ -1,11 +1,11 @@
-import 'package:bloc_weather/app/app_routes.dart';
-import 'package:bloc_weather/data/repository/storage_impl_in_memory.dart';
-import 'package:bloc_weather/data/repository/storage_repo.dart';
-import 'package:bloc_weather/data/service/api_impl.dart';
-import 'package:bloc_weather/ui/screens/add_city_screen.dart';
-import 'package:bloc_weather/ui/screens/city_detail_screen.dart';
-import 'package:bloc_weather/ui/screens/edit_city_screen.dart';
-import 'package:bloc_weather/ui/screens/home_screen.dart';
+import 'package:provider_weather/app/app_routes.dart';
+import 'package:provider_weather/data/repository/storage_impl_in_memory.dart';
+import 'package:provider_weather/data/repository/storage_repo.dart';
+import 'package:provider_weather/data/service/api_impl.dart';
+import 'package:provider_weather/ui/screens/add_city_screen.dart';
+import 'package:provider_weather/ui/screens/city_detail_screen.dart';
+import 'package:provider_weather/ui/screens/edit_city_screen.dart';
+import 'package:provider_weather/ui/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class BlocWeatherApp extends StatefulWidget {
