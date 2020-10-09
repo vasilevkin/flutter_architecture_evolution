@@ -2,7 +2,21 @@ import 'dart:async';
 
 import 'package:provider_weather/bloc/bloc.dart';
 import 'package:provider_weather/data/repository/storage_repo.dart';
-import 'package:provider_weather/model/city.dart';
+import 'package:provider_weather/data_models/city.dart';
+
+
+/*
+
+implements
+all_city_model
+add_city_model
+
+
+move all logic from data/ packages to model/
+separate models
+
+ */
+
 
 class HomeBloc implements Bloc {
   final StorageRepository _repo;

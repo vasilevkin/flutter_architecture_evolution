@@ -1,7 +1,7 @@
 import 'package:provider_weather/app/app_routes.dart';
-import 'package:provider_weather/bloc/home_bloc.dart';
+import 'package:provider_weather/model/home_bloc.dart';
 import 'package:provider_weather/data/repository/storage_repo.dart';
-import 'package:provider_weather/model/city.dart';
+import 'package:provider_weather/data_models/city.dart';
 import 'package:provider_weather/ui/widgets/home_list_item.dart';
 import 'package:provider_weather/ui/widgets/loader.dart';
 import 'package:flutter/material.dart';

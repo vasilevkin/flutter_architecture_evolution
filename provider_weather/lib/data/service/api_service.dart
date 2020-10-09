@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider_weather/model/city.dart';
-import 'package:provider_weather/model/weather.dart';
+import 'package:provider_weather/data_models/city.dart';
+import 'package:provider_weather/data_models/weather.dart';
 
 abstract class ApiService {
   Future<City> getCity(String text);

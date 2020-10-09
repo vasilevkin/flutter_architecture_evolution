@@ -2,28 +2,29 @@ import 'dart:async';
 
 import 'package:provider_weather/bloc/bloc.dart';
 import 'package:provider_weather/data/repository/storage_repo.dart';
-import 'package:provider_weather/model/city.dart';
+import 'package:provider_weather/data_models/city.dart';
 
-class AddCityBloc implements Bloc {
+class EditCityBloc implements Bloc {
   final StorageRepository _repo;
 
   StreamController<List<City>> _suggestionsListStreamController =
       StreamController();
   StreamController<String> _queryStreamController = StreamController();
-  StreamController<String> _selectedCityNameStreamController = StreamController();
+
+  StreamController<City> _selectedCityNameStreamController = StreamController();
 
   // Input sinks
   Sink<String> get queryString => _queryStreamController.sink;
 
-  Sink<String> get selectedCityName => _selectedCityNameStreamController.sink;
+  Sink<City> get selectedCityName => _selectedCityNameStreamController.sink;
 
   // Output streams
   Stream<List<City>> get suggestionsList =>
       _suggestionsListStreamController.stream;
 
-  AddCityBloc(this._repo) {
+  EditCityBloc(this._repo) {
     _processQuery();
-    _addCityName();
+    _editCityName();
   }
 
   @override
@@ -33,9 +34,9 @@ class AddCityBloc implements Bloc {
     _selectedCityNameStreamController.close();
   }
 
-  void _addCityName() {
+  void _editCityName() {
     _selectedCityNameStreamController.stream.listen((event) {
-      _repo.addCity(event);
+      _repo.updateCity(event);
     });
   }
 

@@ -1,4 +1,4 @@
-import 'package:provider_weather/model/city.dart';
+import 'package:provider_weather/data_models/city.dart';
 
 class Weather {
   int id;

@@ -1,7 +1,7 @@
 import 'package:provider_weather/data/repository/storage_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:provider_weather/app/constants.dart';
-import 'package:provider_weather/model/city.dart';
+import 'package:provider_weather/data_models/city.dart';
 import 'package:provider_weather/ui/widgets/minor_weather_detail.dart';
 
 class CityDetailScreen extends StatelessWidget {

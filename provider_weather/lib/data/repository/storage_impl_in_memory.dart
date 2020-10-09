@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:provider_weather/data/repository/storage_repo.dart';
 import 'package:provider_weather/data/service/api_service.dart';
-import 'package:provider_weather/model/city.dart';
-import 'package:provider_weather/model/weather.dart';
+import 'package:provider_weather/data_models/city.dart';
+import 'package:provider_weather/data_models/weather.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 

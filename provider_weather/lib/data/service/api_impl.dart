@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:provider_weather/app/constants.dart';
 import 'package:provider_weather/data/service/api_service.dart';
-import 'package:provider_weather/model/city.dart';
-import 'package:provider_weather/model/weather.dart';
+import 'package:provider_weather/data_models/city.dart';
+import 'package:provider_weather/data_models/weather.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
