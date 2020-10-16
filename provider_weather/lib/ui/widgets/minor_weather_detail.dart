@@ -16,14 +16,14 @@ class MinorWeatherDetail extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Text(
-            name,
+            name ?? '',
             style: TextStyle(color: Colors.white, shadows: textShadows),
           ),
           const SizedBox(
             height: 10,
           ),
           Text(
-            value,
+            value ?? '',
             style: TextStyle(
               color: Colors.white,
               shadows: textShadows,

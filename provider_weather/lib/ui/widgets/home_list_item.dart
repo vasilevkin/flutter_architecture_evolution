@@ -25,7 +25,7 @@ class HomeListItem extends StatelessWidget {
         leading: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text("${temperature.toInt()} ℃"),
+            Text("${temperature?.toInt()} ℃"),
             Padding(
               padding: EdgeInsets.only(left: 8),
               child: Container(

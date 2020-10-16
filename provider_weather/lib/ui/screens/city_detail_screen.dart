@@ -15,7 +15,7 @@ class CityDetailScreen extends StatelessWidget {
   })  : assert(repo != null),
         _city = repo.getSelectedCity(),
         _stateImage = repo.getImageForStateAbbr(
-            repo.getSelectedCity().weather.weatherStateAbbr);
+            repo.getSelectedCity()?.weather?.weatherStateAbbr ?? 'hc');
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class CityDetailScreen extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
-              'assets/background_images/${_city.weather.weatherStateAbbr}.jpg',
+              'assets/background_images/${_city?.weather?.weatherStateAbbr}.jpg',
             ),
             fit: BoxFit.cover,
           ),
@@ -52,7 +52,7 @@ class CityDetailScreen extends StatelessWidget {
                         shadows: textShadows),
                   ),
                   Text(
-                    _city.weather.applicableDate.toIso8601String(),
+                    _city?.weather?.applicableDate?.toIso8601String() ?? '',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white54,
@@ -71,7 +71,7 @@ class CityDetailScreen extends StatelessWidget {
                         TweenAnimationBuilder<int>(
                           tween: IntTween(
                             begin: 0,
-                            end: _city.weather.theTemp.toInt(),
+                            end: _city.weather?.theTemp?.toInt() ?? 0,
                           ),
                           duration: const Duration(milliseconds: 1500),
                           builder: (context, value, child) {
@@ -105,7 +105,7 @@ class CityDetailScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    _city.weather.weatherStateName,
+                    _city.weather?.weatherStateName ?? '',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white,
@@ -121,11 +121,11 @@ class CityDetailScreen extends StatelessWidget {
                     children: [
                       MinorWeatherDetail(
                         name: "minTemp",
-                        value: _city.weather.minTemp.toStringAsFixed(1),
+                        value: _city.weather?.minTemp?.toStringAsFixed(1) ?? '',
                       ),
                       MinorWeatherDetail(
                         name: "maxTemp",
-                        value: _city.weather.maxTemp.toStringAsFixed(1),
+                        value: _city.weather?.maxTemp?.toStringAsFixed(1) ?? '',
                       ),
                     ],
                   ),
@@ -157,31 +157,31 @@ class CityDetailScreen extends StatelessWidget {
                       children: [
                         MinorWeatherDetail(
                           name: "Wind Speed",
-                          value: _city.weather.windSpeed.toStringAsFixed(2),
+                          value: _city.weather?.windSpeed?.toStringAsFixed(2),
                         ),
                         MinorWeatherDetail(
                           name: "Wind Compass",
-                          value: _city.weather.windDirectionCompass.toString(),
+                          value: _city.weather?.windDirectionCompass?.toString(),
                         ),
                         MinorWeatherDetail(
                           name: "Wind Direction",
-                          value: _city.weather.windDirection.toStringAsFixed(0),
+                          value: _city.weather?.windDirection?.toStringAsFixed(0),
                         ),
                         MinorWeatherDetail(
                           name: "Air Pressure",
-                          value: _city.weather.airPressure.toString(),
+                          value: _city.weather?.airPressure?.toString(),
                         ),
                         MinorWeatherDetail(
                           name: "Humidity",
-                          value: _city.weather.humidity.toString(),
+                          value: _city.weather?.humidity?.toString(),
                         ),
                         MinorWeatherDetail(
                           name: "Visibility",
-                          value: _city.weather.visibility.toStringAsFixed(1),
+                          value: _city.weather?.visibility?.toStringAsFixed(1),
                         ),
                         MinorWeatherDetail(
                           name: "Predictability",
-                          value: _city.weather.predictability.toString(),
+                          value: _city.weather?.predictability?.toString(),
                         ),
                       ],
                     ),

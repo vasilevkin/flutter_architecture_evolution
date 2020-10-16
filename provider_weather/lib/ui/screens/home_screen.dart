@@ -59,13 +59,13 @@ class _HomeScreenState extends State<HomeScreen> {
     return ListView.builder(
       itemCount: cities.length,
       itemBuilder: (context, index) {
-        final cityWeatherStateAbbr = cities[index].weather.weatherStateAbbr;
+        final cityWeatherStateAbbr = cities[index].weather?.weatherStateAbbr ?? 'hc';
         final weatherImage =
             widget.repo.getImageForStateAbbr(cityWeatherStateAbbr);
 
         return HomeListItem(
           cityName: cities[index].name,
-          temperature: cities[index].weather.theTemp,
+          temperature: cities[index].weather?.theTemp,
           weatherStateImage: weatherImage,
           onTap: () => _showCityDetailScreen(cities[index]),
           onEditTap: () => _showEditCityScreen(cities[index]),
