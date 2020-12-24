@@ -21,7 +21,7 @@ class ProviderWeatherApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<HomeViewModel>(
-      create: (_) => HomeViewModel(repo)..loadCitiesList(),
+      create: (_) => HomeViewModel(repo: repo)..loadCitiesList(),
       child: _makeApp(),
     );
   }

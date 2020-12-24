@@ -17,38 +17,39 @@ separate models
  */
 
 class HomeViewModel extends ChangeNotifier {
-  final StorageRepository _repo;
+  final StorageRepository repo;
   List<City> _citiesList;
   bool _isLoading = true;
+  Error _error;
 
   List<City> get citiesList => _citiesList;
 
   bool get isLoading => _isLoading;
 
-  var error;
+  Error get error => _error;
 
-  HomeViewModel(this._repo);
+  HomeViewModel({@required this.repo});
 
   @override
   void dispose() {
-    _repo.dispose();
+    repo.dispose();
     super.dispose();
   }
 
   Future loadCitiesList() {
     _isLoading = true;
 
-    _repo.getCities.listen(
+    repo.getCities.listen(
       (event) {
         _citiesList = event;
-        this.error = null;
+        _error = null;
         _isLoading = false;
         notifyListeners();
       },
     ).onError(
       (error) {
         _citiesList = null;
-        this.error = error;
+        _error = error;
         _isLoading = false;
         notifyListeners();
       },
@@ -56,7 +57,7 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   void deleteCity(City city) async {
-    await _repo.deleteCity(city);
+    await repo.deleteCity(city);
     notifyListeners();
   }
 }
