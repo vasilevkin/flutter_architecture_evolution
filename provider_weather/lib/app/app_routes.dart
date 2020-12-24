@@ -1,5 +1,5 @@
 //region AppRoutes
-class BlocWeatherAppRoutes {
+class ProviderWeatherAppRoutes {
   static final home = '/';
   static final addCity = '/addCity';
   static final cityDetail = '/cityDetail';

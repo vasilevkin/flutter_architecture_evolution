@@ -60,4 +60,11 @@ class HomeViewModel extends ChangeNotifier {
     await repo.deleteCity(city);
     notifyListeners();
   }
+
+  void setSelectedCity(City city) {
+    repo.setSelectedCity(city);
+    notifyListeners();
+  }
+
+  Image getImageForStateAbbr(String abbr) => repo.getImageForStateAbbr(abbr);
 }

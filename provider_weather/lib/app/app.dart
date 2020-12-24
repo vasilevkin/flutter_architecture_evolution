@@ -34,10 +34,10 @@ class ProviderWeatherApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       routes: {
-        BlocWeatherAppRoutes.home: (_) => HomeScreen(repo: repo),
-        BlocWeatherAppRoutes.addCity: (_) => AddCityScreen(repo: repo),
-        BlocWeatherAppRoutes.cityDetail: (_) => CityDetailScreen(repo: repo),
-        BlocWeatherAppRoutes.editCity: (_) => EditCityScreen(repo: repo),
+        ProviderWeatherAppRoutes.home: (_) => HomeScreen(),
+        ProviderWeatherAppRoutes.addCity: (_) => AddCityScreen(repo: repo),
+        ProviderWeatherAppRoutes.cityDetail: (_) => CityDetailScreen(repo: repo),
+        ProviderWeatherAppRoutes.editCity: (_) => EditCityScreen(repo: repo),
       },
     );
   }

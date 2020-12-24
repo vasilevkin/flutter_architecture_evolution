@@ -8,11 +8,7 @@ import 'package:provider_weather/ui/widgets/loader.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
-  final StorageRepository repo;
-
-  HomeScreen({
-    @required this.repo,
-  }) : assert(repo != null);
+  HomeScreen();
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -65,8 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
       itemBuilder: (context, index) {
         final cityWeatherStateAbbr =
             cities[index].weather?.weatherStateAbbr ?? 'hc';
-        final weatherImage =
-            widget.repo.getImageForStateAbbr(cityWeatherStateAbbr);
+        final weatherImage = model.getImageForStateAbbr(cityWeatherStateAbbr);
 
         return HomeListItem(
           cityName: cities[index].name,
@@ -89,16 +84,16 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _tapAddCity() async {
-    Navigator.pushNamed(context, BlocWeatherAppRoutes.addCity);
+    Navigator.pushNamed(context, ProviderWeatherAppRoutes.addCity);
   }
 
   void _showCityDetailScreen(City city) {
-    widget.repo.setSelectedCity(city);
-    Navigator.pushNamed(context, BlocWeatherAppRoutes.cityDetail);
+    model.setSelectedCity(city);
+    Navigator.pushNamed(context, ProviderWeatherAppRoutes.cityDetail);
   }
 
   void _showEditCityScreen(City city) {
-    widget.repo.setSelectedCity(city);
-    Navigator.pushNamed(context, BlocWeatherAppRoutes.editCity);
+    model.setSelectedCity(city);
+    Navigator.pushNamed(context, ProviderWeatherAppRoutes.editCity);
   }
 }
