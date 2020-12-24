@@ -1,4 +1,5 @@
-import 'package:provider_weather/model/add_city_bloc.dart';
+import 'package:provider/provider.dart';
+import 'package:provider_weather/model/add_city_viewmodel.dart';
 import 'package:provider_weather/data/repository/storage_repo.dart';
 import 'package:provider_weather/data_models/city.dart';
 import 'package:provider_weather/ui/widgets/add_city_list_item.dart';
@@ -18,22 +19,18 @@ class AddCityScreen extends StatefulWidget {
 class _AddCityScreenState extends State<AddCityScreen> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  AddCityBloc addCityBloc;
-
-  @override
-  void initState() {
-    super.initState();
-    addCityBloc = AddCityBloc(widget.repo);
-  }
+  AddCityViewModel model;
 
   @override
   void dispose() {
-    addCityBloc.dispose();
+    model.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    model = Provider.of<AddCityViewModel>(context, listen: true);
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Add a new City"),
@@ -46,12 +43,12 @@ class _AddCityScreenState extends State<AddCityScreen> {
               key: formKey,
               autovalidate: false,
               child: TextFormField(
-                onChanged: (value) => addCityBloc.queryString.add(value),
+                onChanged: (value) => model.queryString.add(value),
               ),
             ),
             Expanded(
               child: StreamBuilder<List<City>>(
-                stream: addCityBloc.suggestionsList,
+                stream: model.suggestionsList,
                 builder: (context, snapshot) {
                   if (snapshot.hasData)
                     return _buildSuggestionsList(cities: snapshot.data);
@@ -93,7 +90,7 @@ class _AddCityScreenState extends State<AddCityScreen> {
   }
 
   void onTapItem(String name) {
-    addCityBloc.selectedCityName.add(name);
+    model.selectedCityName.add(name);
     Navigator.pop(context);
   }
 }

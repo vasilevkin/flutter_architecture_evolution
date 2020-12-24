@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:provider_weather/data/repository/storage_repo.dart';
 import 'package:provider_weather/data_models/city.dart';
 
-class AddCityBloc  {
+class AddCityViewModel  {
   final StorageRepository _repo;
 
   StreamController<List<City>> _suggestionsListStreamController =
@@ -20,7 +20,7 @@ class AddCityBloc  {
   Stream<List<City>> get suggestionsList =>
       _suggestionsListStreamController.stream;
 
-  AddCityBloc(this._repo) {
+  AddCityViewModel(this._repo) {
     _processQuery();
     _addCityName();
   }

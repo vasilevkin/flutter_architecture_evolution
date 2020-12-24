@@ -4,6 +4,7 @@ import 'package:provider_weather/data/repository/storage_impl_in_memory.dart';
 import 'package:provider_weather/data/repository/storage_repo.dart';
 import 'package:provider_weather/data/service/api_impl.dart';
 import 'package:provider_weather/data_models/city.dart';
+import 'package:provider_weather/model/add_city_viewmodel.dart';
 import 'package:provider_weather/model/home_viewmodel.dart';
 import 'package:provider_weather/ui/screens/add_city_screen.dart';
 import 'package:provider_weather/ui/screens/city_detail_screen.dart';
@@ -20,8 +21,15 @@ class ProviderWeatherApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<HomeViewModel>(
-      create: (_) => HomeViewModel(repo: repo)..loadCitiesList(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<HomeViewModel>(
+          create: (_) => HomeViewModel(repo: repo)..loadCitiesList(),
+        ),
+        Provider(
+          create: (_) => AddCityViewModel(repo),
+        ),
+      ],
       child: _makeApp(),
     );
   }
@@ -36,7 +44,8 @@ class ProviderWeatherApp extends StatelessWidget {
       routes: {
         ProviderWeatherAppRoutes.home: (_) => HomeScreen(),
         ProviderWeatherAppRoutes.addCity: (_) => AddCityScreen(repo: repo),
-        ProviderWeatherAppRoutes.cityDetail: (_) => CityDetailScreen(repo: repo),
+        ProviderWeatherAppRoutes.cityDetail: (_) =>
+            CityDetailScreen(repo: repo),
         ProviderWeatherAppRoutes.editCity: (_) => EditCityScreen(repo: repo),
       },
     );
