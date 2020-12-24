@@ -1,10 +1,9 @@
 import 'dart:async';
 
-import 'package:provider_weather/bloc/bloc.dart';
 import 'package:provider_weather/data/repository/storage_repo.dart';
 import 'package:provider_weather/data_models/city.dart';
 
-class AddCityBloc implements DisposableViewModel {
+class AddCityBloc  {
   final StorageRepository _repo;
 
   StreamController<List<City>> _suggestionsListStreamController =
