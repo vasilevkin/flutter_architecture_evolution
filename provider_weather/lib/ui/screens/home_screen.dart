@@ -1,5 +1,6 @@
+import 'package:provider/provider.dart';
 import 'package:provider_weather/app/app_routes.dart';
-import 'package:provider_weather/model/home_bloc.dart';
+import 'package:provider_weather/model/home_viewmodel.dart';
 import 'package:provider_weather/data/repository/storage_repo.dart';
 import 'package:provider_weather/data_models/city.dart';
 import 'package:provider_weather/ui/widgets/home_list_item.dart';
@@ -18,17 +19,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  HomeBloc homeBloc;
+  // HomeBloc homeBloc;
 
   @override
   void initState() {
     super.initState();
-    homeBloc = HomeBloc(widget.repo);
+    // homeBloc = HomeBloc(widget.repo);
   }
 
   @override
   void dispose() {
-    homeBloc.dispose();
+    // homeBloc.dispose();
     super.dispose();
   }
 
@@ -37,16 +38,31 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(title: Text('Provider Weather')),
       body: Center(
-        child: StreamBuilder<List<City>>(
-          stream: homeBloc.citiesList,
-          builder: (context, snapshot) {
-            if (snapshot.hasData)
-              return _buildCitiesList(cities: snapshot.data);
+        child: Consumer<List<City>>(
+          builder: (context, snapshot, child) {
+            if (snapshot == null || snapshot.isEmpty) {
+              return Loader();
+            }
 
-            if (snapshot.hasError) return Text('${snapshot.error}');
+            // if (snapshot.isNotEmpty)
+            return _buildCitiesList(cities: snapshot);
 
-            return Loader();
+            // if (snapshot.hasError) return Text('${snapshot.error}');
+
+            // return Loader();
           },
+          // child: StreamBuilder<List<City>>(
+          //   stream: homeBloc.citiesList,
+          //   // stream: homeBloc.citiesList,
+          //   builder: (context, snapshot) {
+          //     if (snapshot.hasData)
+          //       return _buildCitiesList(cities: snapshot.data);
+          //
+          //     if (snapshot.hasError) return Text('${snapshot.error}');
+          //
+          //     return Loader();
+          //   },
+          // ),
         ),
       ),
       floatingActionButton: _buildFAB(),
@@ -69,7 +85,8 @@ class _HomeScreenState extends State<HomeScreen> {
           weatherStateImage: weatherImage,
           onTap: () => _showCityDetailScreen(cities[index]),
           onEditTap: () => _showEditCityScreen(cities[index]),
-          onDeleteTap: () => homeBloc.deleteCity(cities[index]),
+
+          // onDeleteTap: () => homeBloc.deleteCity(cities[index]),
         );
       },
     );

@@ -1,3 +1,3 @@
-abstract class Bloc {
+abstract class DisposableViewModel {
   void dispose();
 }

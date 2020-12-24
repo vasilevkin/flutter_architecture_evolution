@@ -4,7 +4,6 @@ import 'package:provider_weather/bloc/bloc.dart';
 import 'package:provider_weather/data/repository/storage_repo.dart';
 import 'package:provider_weather/data_models/city.dart';
 
-
 /*
 
 implements
@@ -17,14 +16,13 @@ separate models
 
  */
 
-
-class HomeBloc implements Bloc {
+class HomeViewModel implements DisposableViewModel {
   final StorageRepository _repo;
 
   // Output streams
   Stream<List<City>> get citiesList => _repo.getCities;
 
-  HomeBloc(this._repo);
+  HomeViewModel(this._repo);
 
   @override
   void dispose() {
