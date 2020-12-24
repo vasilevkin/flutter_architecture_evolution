@@ -8,26 +8,17 @@ import 'package:provider_weather/ui/screens/edit_city_screen.dart';
 import 'package:provider_weather/ui/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
-class ProviderWeatherApp extends StatefulWidget {
-  @override
-  State createState() {
-    return ProviderWeatherAppState();
-  }
-}
+class ProviderWeatherApp extends StatelessWidget {
+  final StorageRepository repo;
 
-class ProviderWeatherAppState extends State<ProviderWeatherApp> {
-  StorageRepository repo;
-
-  @override
-  void initState() {
-    super.initState();
-    repo = StorageInMemoryImpl(api: MetaWeatherApi());
-  }
+  ProviderWeatherApp({
+    @required this.repo,
+  });
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Vanilla',
+      title: 'Provider',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
