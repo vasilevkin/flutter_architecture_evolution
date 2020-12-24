@@ -19,17 +19,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // HomeBloc homeBloc;
+  HomeViewModel model;
 
   @override
-  void initState() {
-    super.initState();
-    // homeBloc = HomeBloc(widget.repo);
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    model = Provider.of<HomeViewModel>(context, listen: true);
   }
 
   @override
   void dispose() {
-    // homeBloc.dispose();
+    model.dispose();
     super.dispose();
   }
 
@@ -38,35 +38,23 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(title: Text('Provider Weather')),
       body: Center(
-        child: Consumer<List<City>>(
-          builder: (context, snapshot, child) {
-            if (snapshot == null || snapshot.isEmpty) {
-              return Loader();
-            }
-
-            // if (snapshot.isNotEmpty)
-            return _buildCitiesList(cities: snapshot);
-
-            // if (snapshot.hasError) return Text('${snapshot.error}');
-
-            // return Loader();
-          },
-          // child: StreamBuilder<List<City>>(
-          //   stream: homeBloc.citiesList,
-          //   // stream: homeBloc.citiesList,
-          //   builder: (context, snapshot) {
-          //     if (snapshot.hasData)
-          //       return _buildCitiesList(cities: snapshot.data);
-          //
-          //     if (snapshot.hasError) return Text('${snapshot.error}');
-          //
-          //     return Loader();
-          //   },
-          // ),
-        ),
+        child: _buildScreenBody(model),
       ),
       floatingActionButton: _buildFAB(),
     );
+  }
+
+  Widget _buildScreenBody(HomeViewModel model) {
+    if (model == null) {
+      return Loader();
+    }
+    if (model.error != null) {
+      return Text('${model.error}');
+    }
+    if (model.citiesList == null) {
+      return Loader();
+    }
+    return _buildCitiesList(cities: model.citiesList);
   }
 
   Widget _buildCitiesList({List<City> cities}) {
@@ -75,7 +63,8 @@ class _HomeScreenState extends State<HomeScreen> {
     return ListView.builder(
       itemCount: cities.length,
       itemBuilder: (context, index) {
-        final cityWeatherStateAbbr = cities[index].weather?.weatherStateAbbr ?? 'hc';
+        final cityWeatherStateAbbr =
+            cities[index].weather?.weatherStateAbbr ?? 'hc';
         final weatherImage =
             widget.repo.getImageForStateAbbr(cityWeatherStateAbbr);
 
@@ -85,8 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
           weatherStateImage: weatherImage,
           onTap: () => _showCityDetailScreen(cities[index]),
           onEditTap: () => _showEditCityScreen(cities[index]),
-
-          // onDeleteTap: () => homeBloc.deleteCity(cities[index]),
+          onDeleteTap: () => model.deleteCity(cities[index]),
         );
       },
     );
