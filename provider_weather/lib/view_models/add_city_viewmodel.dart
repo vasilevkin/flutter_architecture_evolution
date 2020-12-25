@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/widgets.dart';
 import 'package:provider_weather/data/repository/storage_repo.dart';
 import 'package:provider_weather/data_models/city.dart';
@@ -17,44 +15,26 @@ class AddCityViewModel extends ChangeNotifier {
 
   ArgumentError get error => _error;
 
-  StreamController<String> _queryStreamController = StreamController();
-  StreamController<String> _selectedCityNameStreamController =
-      StreamController();
-
-  // Input sinks
-  Sink<String> get queryString => _queryStreamController.sink;
-
-  Sink<String> get selectedCityName => _selectedCityNameStreamController.sink;
-
   AddCityViewModel({@required this.repo}) {
-    _processQuery();
-    _addCityName();
+    clearViewModel();
     notifyListeners();
   }
 
-  @override
-  void dispose() {
-    _queryStreamController.close();
-    _selectedCityNameStreamController.close();
-    super.dispose();
+  void setSelectedCityName(String name) {
+    repo.addCity(name);
+    clearViewModel();
+    notifyListeners();
   }
 
-  void _addCityName() {
-    _selectedCityNameStreamController.stream.listen((event) {
-      repo.addCity(event);
-      _error = null;
-      _suggestionsList = null;
-      notifyListeners();
-    });
+  void setQueryString(String text) {
+    _onChangedText(text);
+    clearViewModel();
   }
 
-  void _processQuery() {
+  void clearViewModel() {
     _suggestionsList = null;
     _error = null;
     _isLoading = false;
-    _queryStreamController.stream.listen((event) {
-      _onChangedText(event);
-    });
   }
 
   void _onChangedText(String text) async {

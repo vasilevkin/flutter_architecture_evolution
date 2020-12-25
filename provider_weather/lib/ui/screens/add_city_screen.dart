@@ -23,31 +23,38 @@ class _AddCityScreenState extends State<AddCityScreen> {
 
   @override
   void dispose() {
+    viewModel.clearViewModel();
     // viewModel.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Add a new City"),
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Form(
-              key: formKey,
-              autovalidate: false,
-              child: TextFormField(
-                onChanged: (value) => viewModel.queryString.add(value),
+    return WillPopScope(
+      onWillPop: () async {
+        viewModel.clearViewModel();
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Add a new City"),
+        ),
+        body: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Form(
+                key: formKey,
+                autovalidate: false,
+                child: TextFormField(
+                  onChanged: (value) => viewModel.setQueryString(value),
+                ),
               ),
-            ),
-            Expanded(
-              child: _buildScreenBody(viewModel),
-            ),
-          ],
+              Expanded(
+                child: _buildScreenBody(viewModel),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -90,7 +97,7 @@ class _AddCityScreenState extends State<AddCityScreen> {
   }
 
   void onTapItem(String name) {
-    viewModel.selectedCityName.add(name);
+    viewModel.setSelectedCityName(name);
     Navigator.pop(context);
   }
 }
