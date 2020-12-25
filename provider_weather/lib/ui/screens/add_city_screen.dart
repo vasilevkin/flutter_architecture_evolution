@@ -1,9 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:provider_weather/model/add_city_viewmodel.dart';
 import 'package:provider_weather/data/repository/storage_repo.dart';
 import 'package:provider_weather/data_models/city.dart';
 import 'package:provider_weather/ui/widgets/add_city_list_item.dart';
-import 'package:flutter/material.dart';
+import 'package:provider_weather/view_models/add_city_viewmodel.dart';
 
 class AddCityScreen extends StatefulWidget {
   final StorageRepository repo;
@@ -19,17 +19,17 @@ class AddCityScreen extends StatefulWidget {
 class _AddCityScreenState extends State<AddCityScreen> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  AddCityViewModel model;
+  AddCityViewModel viewModel;
 
   @override
   void dispose() {
-    model.dispose();
+    viewModel.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    model = Provider.of<AddCityViewModel>(context, listen: true);
+    viewModel = Provider.of<AddCityViewModel>(context, listen: true);
 
     return Scaffold(
       appBar: AppBar(
@@ -43,12 +43,12 @@ class _AddCityScreenState extends State<AddCityScreen> {
               key: formKey,
               autovalidate: false,
               child: TextFormField(
-                onChanged: (value) => model.queryString.add(value),
+                onChanged: (value) => viewModel.queryString.add(value),
               ),
             ),
             Expanded(
               child: StreamBuilder<List<City>>(
-                stream: model.suggestionsList,
+                stream: viewModel.suggestionsList,
                 builder: (context, snapshot) {
                   if (snapshot.hasData)
                     return _buildSuggestionsList(cities: snapshot.data);
@@ -90,7 +90,7 @@ class _AddCityScreenState extends State<AddCityScreen> {
   }
 
   void onTapItem(String name) {
-    model.selectedCityName.add(name);
+    viewModel.selectedCityName.add(name);
     Navigator.pop(context);
   }
 }

@@ -1,16 +1,13 @@
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_weather/app/app_routes.dart';
-import 'package:provider_weather/data/repository/storage_impl_in_memory.dart';
 import 'package:provider_weather/data/repository/storage_repo.dart';
-import 'package:provider_weather/data/service/api_impl.dart';
-import 'package:provider_weather/data_models/city.dart';
-import 'package:provider_weather/model/add_city_viewmodel.dart';
-import 'package:provider_weather/model/home_viewmodel.dart';
 import 'package:provider_weather/ui/screens/add_city_screen.dart';
 import 'package:provider_weather/ui/screens/city_detail_screen.dart';
 import 'package:provider_weather/ui/screens/edit_city_screen.dart';
 import 'package:provider_weather/ui/screens/home_screen.dart';
-import 'package:flutter/material.dart';
+import 'package:provider_weather/view_models/add_city_viewmodel.dart';
+import 'package:provider_weather/view_models/home_viewmodel.dart';
 
 class ProviderWeatherApp extends StatelessWidget {
   final StorageRepository repo;

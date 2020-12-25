@@ -1,9 +1,8 @@
-import 'package:provider_weather/model/edit_city_bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:provider_weather/data/repository/storage_repo.dart';
 import 'package:provider_weather/data_models/city.dart';
 import 'package:provider_weather/ui/widgets/add_city_list_item.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:provider_weather/view_models/edit_city_bloc.dart';
 
 class EditCityScreen extends StatelessWidget {
   final StorageRepository repo;

@@ -1,10 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_weather/app/app_routes.dart';
-import 'package:provider_weather/model/home_viewmodel.dart';
 import 'package:provider_weather/data_models/city.dart';
 import 'package:provider_weather/ui/widgets/home_list_item.dart';
 import 'package:provider_weather/ui/widgets/loader.dart';
-import 'package:flutter/material.dart';
+import 'package:provider_weather/view_models/home_viewmodel.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen();
@@ -14,17 +14,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  HomeViewModel model;
+  HomeViewModel viewModel;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    model = Provider.of<HomeViewModel>(context, listen: true);
+    viewModel = Provider.of<HomeViewModel>(context, listen: true);
   }
 
   @override
   void dispose() {
-    model.dispose();
+    viewModel.dispose();
     super.dispose();
   }
 
@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(title: Text('Provider Weather')),
       body: Center(
-        child: _buildScreenBody(model),
+        child: _buildScreenBody(viewModel),
       ),
       floatingActionButton: _buildFAB(),
     );
@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
       itemBuilder: (context, index) {
         final cityWeatherStateAbbr =
             cities[index].weather?.weatherStateAbbr ?? 'hc';
-        final weatherImage = model.getImageForStateAbbr(cityWeatherStateAbbr);
+        final weatherImage = viewModel.getImageForStateAbbr(cityWeatherStateAbbr);
 
         return HomeListItem(
           cityName: cities[index].name,
@@ -68,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
           weatherStateImage: weatherImage,
           onTap: () => _showCityDetailScreen(cities[index]),
           onEditTap: () => _showEditCityScreen(cities[index]),
-          onDeleteTap: () => model.deleteCity(cities[index]),
+          onDeleteTap: () => viewModel.deleteCity(cities[index]),
         );
       },
     );
@@ -87,12 +87,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _showCityDetailScreen(City city) {
-    model.setSelectedCity(city);
+    viewModel.setSelectedCity(city);
     Navigator.pushNamed(context, ProviderWeatherAppRoutes.cityDetail);
   }
 
   void _showEditCityScreen(City city) {
-    model.setSelectedCity(city);
+    viewModel.setSelectedCity(city);
     Navigator.pushNamed(context, ProviderWeatherAppRoutes.editCity);
   }
 }
