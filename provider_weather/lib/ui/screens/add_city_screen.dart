@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:provider_weather/data/repository/storage_repo.dart';
 import 'package:provider_weather/data_models/city.dart';
 import 'package:provider_weather/ui/widgets/add_city_list_item.dart';
 import 'package:provider_weather/view_models/add_city_viewmodel.dart';
 
 class AddCityScreen extends StatefulWidget {
-  final StorageRepository repo;
 
-  AddCityScreen({
-    @required this.repo,
-  }) : assert(repo != null);
 
   @override
   _AddCityScreenState createState() => _AddCityScreenState();
