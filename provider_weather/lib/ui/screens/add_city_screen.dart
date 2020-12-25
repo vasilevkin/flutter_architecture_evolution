@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_weather/data_models/city.dart';
 import 'package:provider_weather/ui/widgets/add_city_list_item.dart';
+import 'package:provider_weather/ui/widgets/loader.dart';
 import 'package:provider_weather/view_models/add_city_viewmodel.dart';
 
 class AddCityScreen extends StatefulWidget {
-
-
   @override
   _AddCityScreenState createState() => _AddCityScreenState();
 }
@@ -17,15 +16,19 @@ class _AddCityScreenState extends State<AddCityScreen> {
   AddCityViewModel viewModel;
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    viewModel = Provider.of<AddCityViewModel>(context, listen: true);
+  }
+
+  @override
   void dispose() {
-    viewModel.dispose();
+    // viewModel.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    viewModel = Provider.of<AddCityViewModel>(context, listen: true);
-
     return Scaffold(
       appBar: AppBar(
         title: Text("Add a new City"),
@@ -42,23 +45,25 @@ class _AddCityScreenState extends State<AddCityScreen> {
               ),
             ),
             Expanded(
-              child: StreamBuilder<List<City>>(
-                stream: viewModel.suggestionsList,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData)
-                    return _buildSuggestionsList(cities: snapshot.data);
-
-                  if (snapshot.hasError)
-                    return _buildErrorMessage(text: snapshot.error);
-
-                  return Text("Enter city name...");
-                },
-              ),
+              child: _buildScreenBody(viewModel),
             ),
           ],
         ),
       ),
     );
+  }
+
+  Widget _buildScreenBody(AddCityViewModel model) {
+    if (model == null || model.isLoading == true) {
+      return Center(child: Loader());
+    }
+    if (model.error != null) {
+      return _buildErrorMessage(text: model.error.message);
+    }
+    if (model.suggestionsList == null) {
+      return Text("Enter city name...");
+    }
+    return _buildSuggestionsList(cities: model.suggestionsList);
   }
 
   Widget _buildSuggestionsList({List<City> cities}) {

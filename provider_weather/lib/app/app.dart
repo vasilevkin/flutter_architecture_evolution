@@ -23,8 +23,8 @@ class ProviderWeatherApp extends StatelessWidget {
         ChangeNotifierProvider<HomeViewModel>(
           create: (_) => HomeViewModel(repo: repo)..loadCitiesList(),
         ),
-        Provider(
-          create: (_) => AddCityViewModel(repo),
+        ChangeNotifierProvider(
+          create: (_) => AddCityViewModel(repo: repo),
         ),
       ],
       child: _makeApp(),

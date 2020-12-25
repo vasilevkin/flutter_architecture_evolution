@@ -1,65 +1,86 @@
 import 'dart:async';
 
+import 'package:flutter/widgets.dart';
 import 'package:provider_weather/data/repository/storage_repo.dart';
 import 'package:provider_weather/data_models/city.dart';
 
-class AddCityViewModel  {
-  final StorageRepository _repo;
+class AddCityViewModel extends ChangeNotifier {
+  final StorageRepository repo;
 
-  StreamController<List<City>> _suggestionsListStreamController =
-      StreamController();
+  List<City> _suggestionsList;
+  bool _isLoading = true;
+  ArgumentError _error;
+
+  List<City> get suggestionsList => _suggestionsList;
+
+  bool get isLoading => _isLoading;
+
+  ArgumentError get error => _error;
+
   StreamController<String> _queryStreamController = StreamController();
-  StreamController<String> _selectedCityNameStreamController = StreamController();
+  StreamController<String> _selectedCityNameStreamController =
+      StreamController();
 
   // Input sinks
   Sink<String> get queryString => _queryStreamController.sink;
 
   Sink<String> get selectedCityName => _selectedCityNameStreamController.sink;
 
-  // Output streams
-  Stream<List<City>> get suggestionsList =>
-      _suggestionsListStreamController.stream;
-
-  AddCityViewModel(this._repo) {
+  AddCityViewModel({@required this.repo}) {
     _processQuery();
     _addCityName();
+    notifyListeners();
   }
 
   @override
   void dispose() {
-    _suggestionsListStreamController.close();
     _queryStreamController.close();
     _selectedCityNameStreamController.close();
+    super.dispose();
   }
 
   void _addCityName() {
     _selectedCityNameStreamController.stream.listen((event) {
-      _repo.addCity(event);
+      repo.addCity(event);
+      _error = null;
+      _suggestionsList = null;
+      notifyListeners();
     });
   }
 
   void _processQuery() {
+    _suggestionsList = null;
+    _error = null;
+    _isLoading = false;
     _queryStreamController.stream.listen((event) {
       _onChangedText(event);
     });
   }
 
   void _onChangedText(String text) async {
+    _isLoading = true;
+
     if (text == "" || text.length == 0) {
-      _suggestionsListStreamController.sink.addError('Enter city name...');
+      _error = ArgumentError('Enter some city name...');
+      _suggestionsList = null;
+      _isLoading = false;
     } else {
       try {
-        final _cities = await _repo.searchCitiesByQuery(text);
+        final _cities = await repo.searchCitiesByQuery(text);
 
         if (_cities.isEmpty) {
-          _suggestionsListStreamController.sink
-              .addError('<< City not found >>');
+          _error = ArgumentError('<< City not found >>');
+          _suggestionsList = null;
         } else {
-          _suggestionsListStreamController.sink.add(_cities);
+          _suggestionsList = _cities;
+          _error = null;
         }
       } catch (error) {
-        _suggestionsListStreamController.sink.addError(error);
+        _suggestionsList = null;
+        _error = ArgumentError(error.toString());
       }
     }
+    _isLoading = false;
+    notifyListeners();
   }
 }
