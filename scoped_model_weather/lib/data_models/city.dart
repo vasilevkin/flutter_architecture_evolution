@@ -1,4 +1,4 @@
-import 'package:provider_weather/data_models/weather.dart';
+import 'package:scoped_model_weather/data_models/weather.dart';
 
 class City {
   final String name;

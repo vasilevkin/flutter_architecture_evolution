@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:provider_weather/app/app_routes.dart';
-import 'package:provider_weather/data/repository/storage_repo.dart';
-import 'package:provider_weather/ui/screens/add_city_screen.dart';
-import 'package:provider_weather/ui/screens/city_detail_screen.dart';
-import 'package:provider_weather/ui/screens/edit_city_screen.dart';
-import 'package:provider_weather/ui/screens/home_screen.dart';
-import 'package:provider_weather/view_models/add_or_edit_city_viewmodel.dart';
-import 'package:provider_weather/view_models/home_viewmodel.dart';
+import 'package:scoped_model_weather/app/app_routes.dart';
+import 'package:scoped_model_weather/data/repository/storage_repo.dart';
+import 'package:scoped_model_weather/ui/screens/add_city_screen.dart';
+import 'package:scoped_model_weather/ui/screens/city_detail_screen.dart';
+import 'package:scoped_model_weather/ui/screens/edit_city_screen.dart';
+import 'package:scoped_model_weather/ui/screens/home_screen.dart';
+import 'package:scoped_model_weather/view_models/add_or_edit_city_viewmodel.dart';
+import 'package:scoped_model_weather/view_models/home_viewmodel.dart';
 
-class ProviderWeatherApp extends StatelessWidget {
+class ScopedModelWeatherApp extends StatelessWidget {
   final StorageRepository repo;
 
-  ProviderWeatherApp({
+  ScopedModelWeatherApp({
     @required this.repo,
   });
 
@@ -33,17 +33,17 @@ class ProviderWeatherApp extends StatelessWidget {
 
   Widget _makeApp() {
     return MaterialApp(
-      title: 'Provider',
+      title: 'Scoped Model',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       routes: {
-        ProviderWeatherAppRoutes.home: (_) => HomeScreen(),
-        ProviderWeatherAppRoutes.addCity: (_) => AddCityScreen(),
-        ProviderWeatherAppRoutes.cityDetail: (_) =>
+        ScopedModelWeatherAppRoutes.home: (_) => HomeScreen(),
+        ScopedModelWeatherAppRoutes.addCity: (_) => AddCityScreen(),
+        ScopedModelWeatherAppRoutes.cityDetail: (_) =>
             CityDetailScreen(repo: repo),
-        ProviderWeatherAppRoutes.editCity: (_) => EditCityScreen(),
+        ScopedModelWeatherAppRoutes.editCity: (_) => EditCityScreen(),
       },
     );
   }

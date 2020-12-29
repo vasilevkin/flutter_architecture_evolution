@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/widgets.dart';
-import 'package:provider_weather/data/repository/storage_repo.dart';
-import 'package:provider_weather/data_models/city.dart';
+import 'package:scoped_model_weather/data/repository/storage_repo.dart';
+import 'package:scoped_model_weather/data_models/city.dart';
 
 /*
 

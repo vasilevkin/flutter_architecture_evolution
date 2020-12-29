@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:provider_weather/data_models/city.dart';
-import 'package:provider_weather/ui/widgets/add_city_list_item.dart';
-import 'package:provider_weather/ui/widgets/loader.dart';
-import 'package:provider_weather/view_models/add_or_edit_city_viewmodel.dart';
+import 'package:scoped_model_weather/data_models/city.dart';
+import 'package:scoped_model_weather/ui/widgets/add_city_list_item.dart';
+import 'package:scoped_model_weather/ui/widgets/loader.dart';
+import 'package:scoped_model_weather/view_models/add_or_edit_city_viewmodel.dart';
 
 /*
 Both AddCityScreen and EditCityScreen are using the same viewModel AddOrEditCityViewModel.

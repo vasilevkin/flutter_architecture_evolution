@@ -1,6 +1,6 @@
-# provider_weather
+# scoped_model_weather
 
-Provider pattern implementation. Recommendation from Google.
+Scoped model pattern implementation. Scoped model library was originally extracted from the Fuchsia codebase.
 
 ## Getting Started
 

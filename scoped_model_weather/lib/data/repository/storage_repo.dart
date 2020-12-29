@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider_weather/data_models/city.dart';
+import 'package:scoped_model_weather/data_models/city.dart';
 
 abstract class StorageRepository {
   Stream<List<City>> get getCities;

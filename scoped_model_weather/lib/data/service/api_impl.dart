@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:provider_weather/app/constants.dart';
-import 'package:provider_weather/data/service/api_service.dart';
-import 'package:provider_weather/data_models/city.dart';
-import 'package:provider_weather/data_models/weather.dart';
+import 'package:scoped_model_weather/app/constants.dart';
+import 'package:scoped_model_weather/data/service/api_service.dart';
+import 'package:scoped_model_weather/data_models/city.dart';
+import 'package:scoped_model_weather/data_models/weather.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 

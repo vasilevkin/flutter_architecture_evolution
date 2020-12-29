@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:provider_weather/app/app_routes.dart';
-import 'package:provider_weather/data_models/city.dart';
-import 'package:provider_weather/ui/widgets/home_list_item.dart';
-import 'package:provider_weather/ui/widgets/loader.dart';
-import 'package:provider_weather/view_models/home_viewmodel.dart';
+import 'package:scoped_model_weather/app/app_routes.dart';
+import 'package:scoped_model_weather/data_models/city.dart';
+import 'package:scoped_model_weather/ui/widgets/home_list_item.dart';
+import 'package:scoped_model_weather/ui/widgets/loader.dart';
+import 'package:scoped_model_weather/view_models/home_viewmodel.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen();
@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Provider Weather')),
+      appBar: AppBar(title: Text('Scoped Model Weather')),
       body: Center(
         child: _buildScreenBody(viewModel),
       ),
@@ -83,16 +83,16 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _tapAddCity() async {
-    Navigator.pushNamed(context, ProviderWeatherAppRoutes.addCity);
+    Navigator.pushNamed(context, ScopedModelWeatherAppRoutes.addCity);
   }
 
   void _showCityDetailScreen(City city) {
     viewModel.setSelectedCity(city);
-    Navigator.pushNamed(context, ProviderWeatherAppRoutes.cityDetail);
+    Navigator.pushNamed(context, ScopedModelWeatherAppRoutes.cityDetail);
   }
 
   void _showEditCityScreen(City city) {
     viewModel.setSelectedCity(city);
-    Navigator.pushNamed(context, ProviderWeatherAppRoutes.editCity);
+    Navigator.pushNamed(context, ScopedModelWeatherAppRoutes.editCity);
   }
 }

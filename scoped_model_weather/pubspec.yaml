@@ -1,5 +1,5 @@
-name: provider_weather
-description: Provider pattern implementation. Recommendation from Google.
+name: scoped_model_weather
+description: Scoped model pattern implementation. Scoped model library was originally extracted from the Fuchsia codebase.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
