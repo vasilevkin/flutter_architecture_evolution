@@ -17,7 +17,7 @@ separate models
 
  */
 
-class HomeViewModel extends Model {
+class HomeScopedModel extends Model {
   final StorageRepository repo;
   List<City> _citiesList;
   bool _isLoading = true;
@@ -29,10 +29,10 @@ class HomeViewModel extends Model {
 
   Error get error => _error;
 
-  static HomeViewModel of(BuildContext context) =>
-      ScopedModel.of<HomeViewModel>(context);
+  static HomeScopedModel of(BuildContext context) =>
+      ScopedModel.of<HomeScopedModel>(context);
 
-  HomeViewModel({@required this.repo});
+  HomeScopedModel({@required this.repo});
 
   void loadCitiesList() {
     _isLoading = true;

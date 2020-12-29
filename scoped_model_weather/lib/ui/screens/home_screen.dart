@@ -15,12 +15,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  HomeViewModel viewModel;
+  HomeScopedModel viewModel;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    viewModel = ScopedModel.of<HomeViewModel>(context, rebuildOnChange: true);
+    viewModel = ScopedModel.of<HomeScopedModel>(context, rebuildOnChange: true);
   }
 
   @override
@@ -34,8 +34,8 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildScreenBody(HomeViewModel model) {
-    return ScopedModelDescendant<HomeViewModel>(
+  Widget _buildScreenBody(HomeScopedModel model) {
+    return ScopedModelDescendant<HomeScopedModel>(
         builder: (context, child, model) {
       if (model == null) {
         return Loader();
