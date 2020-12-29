@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/widgets.dart';
+import 'package:scoped_model/scoped_model.dart';
 import 'package:scoped_model_weather/data/repository/storage_repo.dart';
 import 'package:scoped_model_weather/data_models/city.dart';
 
@@ -16,7 +17,7 @@ separate models
 
  */
 
-class HomeViewModel extends ChangeNotifier {
+class HomeViewModel extends Model {
   final StorageRepository repo;
   List<City> _citiesList;
   bool _isLoading = true;
@@ -28,15 +29,12 @@ class HomeViewModel extends ChangeNotifier {
 
   Error get error => _error;
 
+  static HomeViewModel of(BuildContext context) =>
+      ScopedModel.of<HomeViewModel>(context);
+
   HomeViewModel({@required this.repo});
 
-  @override
-  void dispose() {
-    repo.dispose();
-    super.dispose();
-  }
-
-  Future loadCitiesList() {
+  void loadCitiesList() {
     _isLoading = true;
 
     repo.getCities.listen(

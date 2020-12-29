@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:scoped_model/scoped_model.dart';
 import 'package:scoped_model_weather/app/app_routes.dart';
 import 'package:scoped_model_weather/data/repository/storage_repo.dart';
 import 'package:scoped_model_weather/ui/screens/add_city_screen.dart';
@@ -20,14 +21,13 @@ class ScopedModelWeatherApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<HomeViewModel>(
-          create: (_) => HomeViewModel(repo: repo)..loadCitiesList(),
-        ),
         ChangeNotifierProvider(
           create: (_) => AddOrEditCityViewModel(repo: repo),
         ),
       ],
-      child: _makeApp(),
+      child: ScopedModel<HomeViewModel>(
+          model: HomeViewModel(repo: repo)..loadCitiesList(),
+          child: _makeApp()),
     );
   }
 

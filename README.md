@@ -28,7 +28,7 @@ The same weather app, but implemented with different architecture approaches.
 Just make an app, don't think about architecture, readability, how to add new features or fix bugs. One file to rule it all.
 
 #### vanilla_structured_repository
-Separate simple vanilla to different files. 
+Separate simple vanilla to different files.
 Add a repository pattern to get data.
 Move ui to screens and custom widgets.
 Use models.
@@ -41,6 +41,9 @@ BLoC pattern with help of packages: bloc and flutter_bloc.
 
 #### provider
 Recommendation from Google.
+Flexible and configurable for different use cases.
 
 #### scoped_model
 Scoped model pattern implementation. Scoped model library was originally extracted from the Fuchsia codebase.
+Scoped model is like a simplified version of Provider, or Provider for Dummies.
+Straightforward and easy to use.

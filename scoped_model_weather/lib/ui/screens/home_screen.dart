@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:scoped_model/scoped_model.dart';
 import 'package:scoped_model_weather/app/app_routes.dart';
 import 'package:scoped_model_weather/data_models/city.dart';
 import 'package:scoped_model_weather/ui/widgets/home_list_item.dart';
@@ -19,13 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    viewModel = Provider.of<HomeViewModel>(context, listen: true);
-  }
-
-  @override
-  void dispose() {
-    viewModel.dispose();
-    super.dispose();
+    viewModel = ScopedModel.of<HomeViewModel>(context, rebuildOnChange: true);
   }
 
   @override
@@ -40,16 +35,19 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildScreenBody(HomeViewModel model) {
-    if (model == null) {
-      return Loader();
-    }
-    if (model.error != null) {
-      return Text('${model.error}');
-    }
-    if (model.citiesList == null) {
-      return Loader();
-    }
-    return _buildCitiesList(cities: model.citiesList);
+    return ScopedModelDescendant<HomeViewModel>(
+        builder: (context, child, model) {
+      if (model == null) {
+        return Loader();
+      }
+      if (model.error != null) {
+        return Text('${model.error}');
+      }
+      if (model.citiesList == null) {
+        return Loader();
+      }
+      return _buildCitiesList(cities: model.citiesList);
+    });
   }
 
   Widget _buildCitiesList({List<City> cities}) {
@@ -60,7 +58,8 @@ class _HomeScreenState extends State<HomeScreen> {
       itemBuilder: (context, index) {
         final cityWeatherStateAbbr =
             cities[index].weather?.weatherStateAbbr ?? 'hc';
-        final weatherImage = viewModel.getImageForStateAbbr(cityWeatherStateAbbr);
+        final weatherImage =
+            viewModel.getImageForStateAbbr(cityWeatherStateAbbr);
 
         return HomeListItem(
           cityName: cities[index].name,
