@@ -3,7 +3,15 @@ import 'package:provider/provider.dart';
 import 'package:provider_weather/data_models/city.dart';
 import 'package:provider_weather/ui/widgets/add_city_list_item.dart';
 import 'package:provider_weather/ui/widgets/loader.dart';
-import 'package:provider_weather/view_models/add_city_viewmodel.dart';
+import 'package:provider_weather/view_models/add_or_edit_city_viewmodel.dart';
+
+/*
+Both AddCityScreen and EditCityScreen are using the same viewModel AddOrEditCityViewModel.
+The screens are really similar, and definitely could be implemented in class file in production.
+But for now, AddCityScreen is StatefulWidget,
+while EditCityScreen is StatelessWidget.
+For teaching purposes only.
+*/
 
 class AddCityScreen extends StatefulWidget {
   @override
@@ -12,13 +20,12 @@ class AddCityScreen extends StatefulWidget {
 
 class _AddCityScreenState extends State<AddCityScreen> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  AddCityViewModel viewModel;
+  AddOrEditCityViewModel viewModel;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    viewModel = Provider.of<AddCityViewModel>(context, listen: true);
+    viewModel = Provider.of<AddOrEditCityViewModel>(context, listen: true);
   }
 
   @override
@@ -60,7 +67,7 @@ class _AddCityScreenState extends State<AddCityScreen> {
     );
   }
 
-  Widget _buildScreenBody(AddCityViewModel model) {
+  Widget _buildScreenBody(AddOrEditCityViewModel model) {
     if (model == null || model.isLoading == true) {
       return Center(child: Loader());
     }

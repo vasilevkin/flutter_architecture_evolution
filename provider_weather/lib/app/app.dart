@@ -6,7 +6,7 @@ import 'package:provider_weather/ui/screens/add_city_screen.dart';
 import 'package:provider_weather/ui/screens/city_detail_screen.dart';
 import 'package:provider_weather/ui/screens/edit_city_screen.dart';
 import 'package:provider_weather/ui/screens/home_screen.dart';
-import 'package:provider_weather/view_models/add_city_viewmodel.dart';
+import 'package:provider_weather/view_models/add_or_edit_city_viewmodel.dart';
 import 'package:provider_weather/view_models/home_viewmodel.dart';
 
 class ProviderWeatherApp extends StatelessWidget {
@@ -24,7 +24,7 @@ class ProviderWeatherApp extends StatelessWidget {
           create: (_) => HomeViewModel(repo: repo)..loadCitiesList(),
         ),
         ChangeNotifierProvider(
-          create: (_) => AddCityViewModel(repo: repo),
+          create: (_) => AddOrEditCityViewModel(repo: repo),
         ),
       ],
       child: _makeApp(),

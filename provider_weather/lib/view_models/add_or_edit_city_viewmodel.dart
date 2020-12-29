@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider_weather/data/repository/storage_repo.dart';
 import 'package:provider_weather/data_models/city.dart';
 
-class AddCityViewModel extends ChangeNotifier {
+class AddOrEditCityViewModel extends ChangeNotifier {
   final StorageRepository repo;
 
   List<City> _suggestionsList;
@@ -25,7 +25,7 @@ class AddCityViewModel extends ChangeNotifier {
     return 'Name is not defined';
   }
 
-  AddCityViewModel({@required this.repo}) {
+  AddOrEditCityViewModel({@required this.repo}) {
     clearViewModel();
     _getSelectedCityFromRepo();
     notifyListeners();
