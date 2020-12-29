@@ -41,3 +41,6 @@ BLoC pattern with help of packages: bloc and flutter_bloc.
 
 #### provider
 Recommendation from Google.
+
+#### scoped_model
+Scoped model pattern implementation. Scoped model library was originally extracted from the Fuchsia codebase.
