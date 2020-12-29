@@ -8,6 +8,7 @@ class AddCityViewModel extends ChangeNotifier {
   List<City> _suggestionsList;
   bool _isLoading = true;
   ArgumentError _error;
+  City _selectedCity = City();
 
   List<City> get suggestionsList => _suggestionsList;
 
@@ -15,14 +16,18 @@ class AddCityViewModel extends ChangeNotifier {
 
   ArgumentError get error => _error;
 
-  AddCityViewModel({@required this.repo}) {
-    clearViewModel();
-    notifyListeners();
+  String get selectedCityName {
+    _getSelectedCityFromRepo();
+
+    if (_selectedCity != null) {
+      return _selectedCity.name ?? 'No name';
+    }
+    return 'Name is not defined';
   }
 
-  void setSelectedCityName(String name) {
-    repo.addCity(name);
+  AddCityViewModel({@required this.repo}) {
     clearViewModel();
+    _getSelectedCityFromRepo();
     notifyListeners();
   }
 
@@ -31,10 +36,26 @@ class AddCityViewModel extends ChangeNotifier {
     clearViewModel();
   }
 
+  void setSelectedCity(City city) {
+    repo.setSelectedCity(city);
+  }
+
+  void addSelectedCityName(String name) {
+    repo.addCity(name);
+  }
+
+  void updateCity(City city) {
+    repo.updateCity(city);
+    _getSelectedCityFromRepo();
+    clearViewModel();
+    notifyListeners();
+  }
+
   void clearViewModel() {
     _suggestionsList = null;
     _error = null;
     _isLoading = false;
+    _selectedCity = null;
   }
 
   void _onChangedText(String text) async {
@@ -62,5 +83,9 @@ class AddCityViewModel extends ChangeNotifier {
     }
     _isLoading = false;
     notifyListeners();
+  }
+
+  void _getSelectedCityFromRepo() {
+    _selectedCity = repo.getSelectedCity();
   }
 }

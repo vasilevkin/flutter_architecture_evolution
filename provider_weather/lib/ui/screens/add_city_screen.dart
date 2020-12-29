@@ -97,7 +97,7 @@ class _AddCityScreenState extends State<AddCityScreen> {
   }
 
   void onTapItem(String name) {
-    viewModel.setSelectedCityName(name);
+    viewModel.addSelectedCityName(name);
     Navigator.pop(context);
   }
 }

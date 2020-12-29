@@ -43,7 +43,7 @@ class ProviderWeatherApp extends StatelessWidget {
         ProviderWeatherAppRoutes.addCity: (_) => AddCityScreen(),
         ProviderWeatherAppRoutes.cityDetail: (_) =>
             CityDetailScreen(repo: repo),
-        ProviderWeatherAppRoutes.editCity: (_) => EditCityScreen(repo: repo),
+        ProviderWeatherAppRoutes.editCity: (_) => EditCityScreen(),
       },
     );
   }
