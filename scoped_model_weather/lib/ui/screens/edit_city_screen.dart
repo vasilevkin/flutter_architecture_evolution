@@ -18,11 +18,8 @@ class EditCityScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-  final viewModel = ScopedModel.of<AddOrEditCityViewModel>(context, rebuildOnChange: true);
-
-  // final viewModel = Provider.of<AddOrEditCityViewModel>(context, listen: true);
-    // final viewModel = Provider.of<AddOrEditCityViewModel>(context, listen: true);
+    final viewModel =
+        ScopedModel.of<AddOrEditCityViewModel>(context, rebuildOnChange: true);
 
     return WillPopScope(
       onWillPop: () async {

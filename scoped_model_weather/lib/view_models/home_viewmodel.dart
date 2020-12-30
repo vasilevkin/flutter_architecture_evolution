@@ -46,20 +46,15 @@ class HomeScopedModel extends Model {
 
     repo.getCities.listen(
       (event) {
-        // _citiesList = event;
         _error = null;
         _isLoading = false;
         _setCitiesList(event);
-        // notifyListeners();
       },
     ).onError(
       (error) {
-        // _citiesList = null;
         _error = error;
         _isLoading = false;
         _setCitiesList(null);
-
-        // notifyListeners();
       },
     );
   }

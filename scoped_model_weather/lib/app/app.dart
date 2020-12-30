@@ -7,7 +7,6 @@ import 'package:scoped_model_weather/ui/screens/city_detail_screen.dart';
 import 'package:scoped_model_weather/ui/screens/edit_city_screen.dart';
 import 'package:scoped_model_weather/ui/screens/home_screen.dart';
 import 'package:scoped_model_weather/view_models/add_or_edit_city_viewmodel.dart';
-import 'package:scoped_model_weather/view_models/app_scoped_model.dart';
 import 'package:scoped_model_weather/view_models/home_viewmodel.dart';
 
 class ScopedModelWeatherApp extends StatelessWidget {
@@ -19,26 +18,12 @@ class ScopedModelWeatherApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return
-      // MultiProvider(
-    //   providers: [
-        // ChangeNotifierProvider(
-        //   create: (_) => AddOrEditCityViewModel(repo: repo),
-        // ),
-      // ],
-      // child:
-    ScopedModel<HomeScopedModel>(
-    // ScopedModel<AppScopedModel>(
-    //       model: AppScopedModel(repo: repo),
-
-          // model: AppScopedModel(repo: repo).homeScopedModel..loadCitiesList(),
-          model: HomeScopedModel(repo: repo)
-            // ..loadCitiesList()
-        ,
-          // model: HomeViewModel(repo: repo)..loadCitiesList(),
-          child: ScopedModel(
-              model: AddOrEditCityViewModel(repo: repo),child: _makeApp())
-    // ),
+    return ScopedModel<HomeScopedModel>(
+      model: HomeScopedModel(repo: repo),
+      child: ScopedModel(
+        model: AddOrEditCityViewModel(repo: repo),
+        child: _makeApp(),
+      ),
     );
   }
 

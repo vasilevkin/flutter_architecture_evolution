@@ -26,9 +26,8 @@ class _AddCityScreenState extends State<AddCityScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    viewModel = ScopedModel.of<AddOrEditCityViewModel>(context, rebuildOnChange: true);
-
-    // viewModel = Provider.of<AddOrEditCityViewModel>(context, listen: true);
+    viewModel =
+        ScopedModel.of<AddOrEditCityViewModel>(context, rebuildOnChange: true);
   }
 
   @override

@@ -4,7 +4,6 @@ import 'package:scoped_model_weather/app/app_routes.dart';
 import 'package:scoped_model_weather/data_models/city.dart';
 import 'package:scoped_model_weather/ui/widgets/home_list_item.dart';
 import 'package:scoped_model_weather/ui/widgets/loader.dart';
-import 'package:scoped_model_weather/view_models/app_scoped_model.dart';
 import 'package:scoped_model_weather/view_models/home_viewmodel.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -20,8 +19,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // scopedModel = ScopedModel.of<AppScopedModel>(context, rebuildOnChange: true).homeScopedModel;
-    scopedModel = ScopedModel.of<HomeScopedModel>(context, rebuildOnChange: true);
+    scopedModel =
+        ScopedModel.of<HomeScopedModel>(context, rebuildOnChange: true);
   }
 
   @override
@@ -36,34 +35,20 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildScreenBody(HomeScopedModel model) {
-    // return ScopedModelDescendant<AppScopedModel>(
-    //   rebuildOnChange: true,
     return ScopedModelDescendant<HomeScopedModel>(
-        builder: (context, child, model) {
-    //   if (model.homeScopedModel == null) {
-    //     return Loader();
-    //   }
-    //   if (model.homeScopedModel.error != null) {
-    //     return Text('${model.homeScopedModel.error}');
-    //   }
-    //   if (model.homeScopedModel.citiesList == null) {
-    //     return Loader();
-    //   }
-    //   return _buildCitiesList(cities: model.homeScopedModel.citiesList);
-    //   //   builder: (context, child, model) {
-      if (model == null) {
-        return Loader();
-      }
-      if (model.error != null) {
-        return Text('${model.error}');
-      }
-      if (model.citiesList == null) {
-        return Loader();
-      }
-      return _buildCitiesList(cities: model.citiesList);
-
-
-    });
+      builder: (context, child, model) {
+        if (model == null) {
+          return Loader();
+        }
+        if (model.error != null) {
+          return Text('${model.error}');
+        }
+        if (model.citiesList == null) {
+          return Loader();
+        }
+        return _buildCitiesList(cities: model.citiesList);
+      },
+    );
   }
 
   Widget _buildCitiesList({List<City> cities}) {

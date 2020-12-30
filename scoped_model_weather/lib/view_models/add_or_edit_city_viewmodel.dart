@@ -26,10 +26,8 @@ class AddOrEditCityViewModel extends Model {
     return 'Name is not defined';
   }
 
-
   static AddOrEditCityViewModel of(BuildContext context) =>
       ScopedModel.of<AddOrEditCityViewModel>(context, rebuildOnChange: true);
-
 
   AddOrEditCityViewModel({@required this.repo}) {
     clearViewModel();
