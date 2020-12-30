@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:scoped_model_weather/app/app_routes.dart';
 import 'package:scoped_model_weather/data_models/city.dart';
+import 'package:scoped_model_weather/scoped_models/home_scoped_model.dart';
 import 'package:scoped_model_weather/ui/widgets/home_list_item.dart';
 import 'package:scoped_model_weather/ui/widgets/loader.dart';
-import 'package:scoped_model_weather/view_models/home_viewmodel.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen();

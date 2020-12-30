@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:scoped_model_weather/data_models/city.dart';
+import 'package:scoped_model_weather/scoped_models/add_or_edit_city_scoped_model.dart';
 import 'package:scoped_model_weather/ui/widgets/add_city_list_item.dart';
 import 'package:scoped_model_weather/ui/widgets/loader.dart';
-import 'package:scoped_model_weather/view_models/add_or_edit_city_viewmodel.dart';
 
 /*
-Both AddCityScreen and EditCityScreen are using the same viewModel AddOrEditCityViewModel.
+Both AddCityScreen and EditCityScreen are using the same scopedModel AddOrEditCityScopedModel.
 The screens are really similar, and definitely could be implemented in class file in production.
 But for now, AddCityScreen is StatefulWidget,
 while EditCityScreen is StatelessWidget.
@@ -20,20 +20,19 @@ class AddCityScreen extends StatefulWidget {
 
 class _AddCityScreenState extends State<AddCityScreen> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  AddOrEditCityViewModel viewModel;
+  AddOrEditCityScopedModel scopedModel;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    viewModel =
-        ScopedModel.of<AddOrEditCityViewModel>(context, rebuildOnChange: true);
+    scopedModel = ScopedModel.of<AddOrEditCityScopedModel>(context,
+        rebuildOnChange: true);
   }
 
   @override
   void dispose() {
-    viewModel.clearViewModel();
-    // viewModel.dispose();
+    scopedModel.clearScopedModel();
     super.dispose();
   }
 
@@ -41,7 +40,7 @@ class _AddCityScreenState extends State<AddCityScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        viewModel.clearViewModel();
+        scopedModel.clearScopedModel();
         return true;
       },
       child: Scaffold(
@@ -56,11 +55,11 @@ class _AddCityScreenState extends State<AddCityScreen> {
                 key: formKey,
                 autovalidate: false,
                 child: TextFormField(
-                  onChanged: (value) => viewModel.setQueryString(value),
+                  onChanged: (value) => scopedModel.setQueryString(value),
                 ),
               ),
               Expanded(
-                child: _buildScreenBody(viewModel),
+                child: _buildScreenBody(scopedModel),
               ),
             ],
           ),
@@ -69,7 +68,7 @@ class _AddCityScreenState extends State<AddCityScreen> {
     );
   }
 
-  Widget _buildScreenBody(AddOrEditCityViewModel model) {
+  Widget _buildScreenBody(AddOrEditCityScopedModel model) {
     if (model == null || model.isLoading == true) {
       return Center(child: Loader());
     }
@@ -106,7 +105,7 @@ class _AddCityScreenState extends State<AddCityScreen> {
   }
 
   void onTapItem(String name) {
-    viewModel.addSelectedCityName(name);
+    scopedModel.addSelectedCityName(name);
     Navigator.pop(context);
   }
 }

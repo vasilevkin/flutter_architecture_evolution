@@ -1,21 +1,7 @@
-import 'dart:async';
-
 import 'package:flutter/widgets.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:scoped_model_weather/data/repository/storage_repo.dart';
 import 'package:scoped_model_weather/data_models/city.dart';
-
-/*
-
-implements
-all_city_model
-add_city_model
-
-
-move all logic from data/ packages to model/
-separate models
-
- */
 
 class HomeScopedModel extends Model {
   final StorageRepository repo;

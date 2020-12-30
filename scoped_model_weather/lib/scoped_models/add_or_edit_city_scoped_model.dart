@@ -3,7 +3,7 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:scoped_model_weather/data/repository/storage_repo.dart';
 import 'package:scoped_model_weather/data_models/city.dart';
 
-class AddOrEditCityViewModel extends Model {
+class AddOrEditCityScopedModel extends Model {
   final StorageRepository repo;
 
   List<City> _suggestionsList;
@@ -26,18 +26,18 @@ class AddOrEditCityViewModel extends Model {
     return 'Name is not defined';
   }
 
-  static AddOrEditCityViewModel of(BuildContext context) =>
-      ScopedModel.of<AddOrEditCityViewModel>(context, rebuildOnChange: true);
+  static AddOrEditCityScopedModel of(BuildContext context) =>
+      ScopedModel.of<AddOrEditCityScopedModel>(context, rebuildOnChange: true);
 
-  AddOrEditCityViewModel({@required this.repo}) {
-    clearViewModel();
+  AddOrEditCityScopedModel({@required this.repo}) {
+    clearScopedModel();
     _getSelectedCityFromRepo();
     notifyListeners();
   }
 
   void setQueryString(String text) {
     _onChangedText(text);
-    clearViewModel();
+    clearScopedModel();
   }
 
   void setSelectedCity(City city) {
@@ -51,11 +51,11 @@ class AddOrEditCityViewModel extends Model {
   void updateCity(City city) {
     repo.updateCity(city);
     _getSelectedCityFromRepo();
-    clearViewModel();
+    clearScopedModel();
     notifyListeners();
   }
 
-  void clearViewModel() {
+  void clearScopedModel() {
     _suggestionsList = null;
     _error = null;
     _isLoading = false;
