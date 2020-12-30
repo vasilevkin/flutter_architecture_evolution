@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:scoped_model/scoped_model.dart';
 import 'package:scoped_model_weather/data_models/city.dart';
 import 'package:scoped_model_weather/ui/widgets/add_city_list_item.dart';
 import 'package:scoped_model_weather/ui/widgets/loader.dart';
@@ -25,7 +25,10 @@ class _AddCityScreenState extends State<AddCityScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    viewModel = Provider.of<AddOrEditCityViewModel>(context, listen: true);
+
+    viewModel = ScopedModel.of<AddOrEditCityViewModel>(context, rebuildOnChange: true);
+
+    // viewModel = Provider.of<AddOrEditCityViewModel>(context, listen: true);
   }
 
   @override

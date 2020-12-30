@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:scoped_model_weather/app/app_routes.dart';
 import 'package:scoped_model_weather/data_models/city.dart';
 import 'package:scoped_model_weather/ui/widgets/home_list_item.dart';
 import 'package:scoped_model_weather/ui/widgets/loader.dart';
+import 'package:scoped_model_weather/view_models/app_scoped_model.dart';
 import 'package:scoped_model_weather/view_models/home_viewmodel.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,12 +15,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  HomeScopedModel viewModel;
+  HomeScopedModel scopedModel;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    viewModel = ScopedModel.of<HomeScopedModel>(context, rebuildOnChange: true);
+    // scopedModel = ScopedModel.of<AppScopedModel>(context, rebuildOnChange: true).homeScopedModel;
+    scopedModel = ScopedModel.of<HomeScopedModel>(context, rebuildOnChange: true);
   }
 
   @override
@@ -28,15 +29,28 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(title: Text('Scoped Model Weather')),
       body: Center(
-        child: _buildScreenBody(viewModel),
+        child: _buildScreenBody(scopedModel),
       ),
       floatingActionButton: _buildFAB(),
     );
   }
 
   Widget _buildScreenBody(HomeScopedModel model) {
+    // return ScopedModelDescendant<AppScopedModel>(
+    //   rebuildOnChange: true,
     return ScopedModelDescendant<HomeScopedModel>(
         builder: (context, child, model) {
+    //   if (model.homeScopedModel == null) {
+    //     return Loader();
+    //   }
+    //   if (model.homeScopedModel.error != null) {
+    //     return Text('${model.homeScopedModel.error}');
+    //   }
+    //   if (model.homeScopedModel.citiesList == null) {
+    //     return Loader();
+    //   }
+    //   return _buildCitiesList(cities: model.homeScopedModel.citiesList);
+    //   //   builder: (context, child, model) {
       if (model == null) {
         return Loader();
       }
@@ -47,6 +61,8 @@ class _HomeScreenState extends State<HomeScreen> {
         return Loader();
       }
       return _buildCitiesList(cities: model.citiesList);
+
+
     });
   }
 
@@ -59,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
         final cityWeatherStateAbbr =
             cities[index].weather?.weatherStateAbbr ?? 'hc';
         final weatherImage =
-            viewModel.getImageForStateAbbr(cityWeatherStateAbbr);
+            scopedModel.getImageForStateAbbr(cityWeatherStateAbbr);
 
         return HomeListItem(
           cityName: cities[index].name,
@@ -67,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
           weatherStateImage: weatherImage,
           onTap: () => _showCityDetailScreen(cities[index]),
           onEditTap: () => _showEditCityScreen(cities[index]),
-          onDeleteTap: () => viewModel.deleteCity(cities[index]),
+          onDeleteTap: () => scopedModel.deleteCity(cities[index]),
         );
       },
     );
@@ -86,12 +102,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _showCityDetailScreen(City city) {
-    viewModel.setSelectedCity(city);
+    scopedModel.setSelectedCity(city);
     Navigator.pushNamed(context, ScopedModelWeatherAppRoutes.cityDetail);
   }
 
   void _showEditCityScreen(City city) {
-    viewModel.setSelectedCity(city);
+    scopedModel.setSelectedCity(city);
     Navigator.pushNamed(context, ScopedModelWeatherAppRoutes.editCity);
   }
 }

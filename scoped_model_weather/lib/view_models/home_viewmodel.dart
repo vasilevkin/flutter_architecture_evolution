@@ -30,26 +30,36 @@ class HomeScopedModel extends Model {
   Error get error => _error;
 
   static HomeScopedModel of(BuildContext context) =>
-      ScopedModel.of<HomeScopedModel>(context);
+      ScopedModel.of<HomeScopedModel>(context, rebuildOnChange: true);
 
-  HomeScopedModel({@required this.repo});
+  HomeScopedModel({@required this.repo}) {
+    loadCitiesList();
+  }
+
+  void _setCitiesList(List<City> list) {
+    _citiesList = list;
+    notifyListeners();
+  }
 
   void loadCitiesList() {
     _isLoading = true;
 
     repo.getCities.listen(
       (event) {
-        _citiesList = event;
+        // _citiesList = event;
         _error = null;
         _isLoading = false;
-        notifyListeners();
+        _setCitiesList(event);
+        // notifyListeners();
       },
     ).onError(
       (error) {
-        _citiesList = null;
+        // _citiesList = null;
         _error = error;
         _isLoading = false;
-        notifyListeners();
+        _setCitiesList(null);
+
+        // notifyListeners();
       },
     );
   }

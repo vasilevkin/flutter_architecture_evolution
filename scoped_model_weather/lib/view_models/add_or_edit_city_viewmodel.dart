@@ -1,8 +1,9 @@
 import 'package:flutter/widgets.dart';
+import 'package:scoped_model/scoped_model.dart';
 import 'package:scoped_model_weather/data/repository/storage_repo.dart';
 import 'package:scoped_model_weather/data_models/city.dart';
 
-class AddOrEditCityViewModel extends ChangeNotifier {
+class AddOrEditCityViewModel extends Model {
   final StorageRepository repo;
 
   List<City> _suggestionsList;
@@ -24,6 +25,11 @@ class AddOrEditCityViewModel extends ChangeNotifier {
     }
     return 'Name is not defined';
   }
+
+
+  static AddOrEditCityViewModel of(BuildContext context) =>
+      ScopedModel.of<AddOrEditCityViewModel>(context, rebuildOnChange: true);
+
 
   AddOrEditCityViewModel({@required this.repo}) {
     clearViewModel();

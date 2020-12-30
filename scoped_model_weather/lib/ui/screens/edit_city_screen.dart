@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:scoped_model/scoped_model.dart';
 import 'package:scoped_model_weather/data_models/city.dart';
 import 'package:scoped_model_weather/ui/widgets/add_city_list_item.dart';
 import 'package:scoped_model_weather/ui/widgets/loader.dart';
@@ -18,7 +18,11 @@ class EditCityScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = Provider.of<AddOrEditCityViewModel>(context, listen: true);
+
+  final viewModel = ScopedModel.of<AddOrEditCityViewModel>(context, rebuildOnChange: true);
+
+  // final viewModel = Provider.of<AddOrEditCityViewModel>(context, listen: true);
+    // final viewModel = Provider.of<AddOrEditCityViewModel>(context, listen: true);
 
     return WillPopScope(
       onWillPop: () async {

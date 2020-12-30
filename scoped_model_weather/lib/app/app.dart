@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:scoped_model_weather/app/app_routes.dart';
 import 'package:scoped_model_weather/data/repository/storage_repo.dart';
@@ -20,16 +19,26 @@ class ScopedModelWeatherApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (_) => AddOrEditCityViewModel(repo: repo),
-        ),
-      ],
-      child: ScopedModel<HomeScopedModel>(
-          model: AppScopedModel(repo: repo).homeScopedModel..loadCitiesList(),
+    return
+      // MultiProvider(
+    //   providers: [
+        // ChangeNotifierProvider(
+        //   create: (_) => AddOrEditCityViewModel(repo: repo),
+        // ),
+      // ],
+      // child:
+    ScopedModel<HomeScopedModel>(
+    // ScopedModel<AppScopedModel>(
+    //       model: AppScopedModel(repo: repo),
+
+          // model: AppScopedModel(repo: repo).homeScopedModel..loadCitiesList(),
+          model: HomeScopedModel(repo: repo)
+            // ..loadCitiesList()
+        ,
           // model: HomeViewModel(repo: repo)..loadCitiesList(),
-          child: _makeApp()),
+          child: ScopedModel(
+              model: AddOrEditCityViewModel(repo: repo),child: _makeApp())
+    // ),
     );
   }
 
