@@ -47,3 +47,6 @@ Flexible and configurable for different use cases.
 Scoped model pattern implementation. Scoped model library was originally extracted from the Fuchsia codebase.
 Scoped model is like a simplified version of Provider, or Provider for Dummies.
 Straightforward and easy to use.
+
+#### redux
+A state container approach, often used in web development.
