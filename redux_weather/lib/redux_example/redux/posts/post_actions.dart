@@ -7,6 +7,7 @@ import 'package:redux_weather/redux_example/redux/posts/post_state.dart';
 import 'package:redux/redux.dart';
 
 import 'package:meta/meta.dart';
+import 'package:redux_weather/redux_example/redux/store.dart';
 
 @immutable
 class SetPostsStateAction {

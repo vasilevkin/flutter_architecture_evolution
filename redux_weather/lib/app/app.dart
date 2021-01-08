@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:redux_weather/redux_example/example_screen.dart';
 
 class ReduxWeatherApp extends StatelessWidget {
   @override
@@ -8,7 +9,9 @@ class ReduxWeatherApp extends StatelessWidget {
         appBar: AppBar(
           actions: [
             FlatButton(
-              onPressed: () {},
+              onPressed: () {
+                exampleMain();
+              },
               child: Icon(Icons.redeem),
             ),
           ],
