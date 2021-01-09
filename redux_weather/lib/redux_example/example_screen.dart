@@ -1,36 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux_weather/redux_example/models/i_post.dart';
 import 'package:redux_weather/redux_example/redux/posts/post_actions.dart';
 import 'package:redux_weather/redux_example/redux/store.dart';
-
-void exampleMain() async {
-  await Redux.init();
-
-  runApp(ExampleApp());
-}
-
-class ExampleApp extends StatelessWidget {
-  static const String title = 'Redux demo example';
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: title,
-      theme: ThemeData(
-        primarySwatch: Colors.yellow,
-      ),
-      home: StoreProvider<AppState>(
-        store: Redux.store,
-        child: ExampleHomePage(
-          title: title,
-        ),
-      ),
-    );
-  }
-}
 
 class ExampleHomePage extends StatefulWidget {
   final String title;
@@ -50,13 +23,11 @@ class _ExampleHomePageState extends State<ExampleHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // leading: FlatButton(
-        //   onPressed: () =>
-        //   SystemNavigator.pop(),
-        //       // Navigator.pop(context),
-        //   child: Icon(Icons.arrow_back),
-        // ),
-        title: Text(widget.title),
+        backgroundColor: Colors.yellow,
+        title: Text(
+          widget.title,
+          style: TextStyle(color: Colors.black87),
+        ),
       ),
       body: Column(
         children: [
