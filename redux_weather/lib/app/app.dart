@@ -3,7 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux_weather/app/app_routes.dart';
 import 'package:redux_weather/data/repository/storage_repo.dart';
 import 'package:redux_weather/redux_example/example_screen.dart';
-import 'package:redux_weather/redux_example/redux/store.dart';
+import 'package:redux_weather/redux_example/redux/example_store.dart';
 import 'package:redux_weather/scoped_models/add_or_edit_city_scoped_model.dart';
 import 'package:redux_weather/scoped_models/home_scoped_model.dart';
 import 'package:redux_weather/ui/screens/add_city_screen.dart';
