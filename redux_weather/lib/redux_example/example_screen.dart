@@ -16,7 +16,7 @@ class ExampleHomePage extends StatefulWidget {
 
 class _ExampleHomePageState extends State<ExampleHomePage> {
   void _onFetchPostsPressed() {
-    Redux.store.dispatch(fetchPostsAction);
+    ExampleRedux.store.dispatch(fetchPostsAction);
   }
 
   @override
@@ -35,7 +35,7 @@ class _ExampleHomePageState extends State<ExampleHomePage> {
             onPressed: _onFetchPostsPressed,
             child: Text('Fetch posts'),
           ),
-          StoreConnector<AppState, bool>(
+          StoreConnector<ExampleAppState, bool>(
             distinct: true,
             converter: (store) => store.state.postsState.isLoading,
             builder: (context, isLoaging) {
@@ -44,7 +44,7 @@ class _ExampleHomePageState extends State<ExampleHomePage> {
                   : SizedBox.shrink();
             },
           ),
-          StoreConnector<AppState, bool>(
+          StoreConnector<ExampleAppState, bool>(
             distinct: true,
             converter: (store) => store.state.postsState.isError,
             builder: (context, isError) {
@@ -54,7 +54,7 @@ class _ExampleHomePageState extends State<ExampleHomePage> {
             },
           ),
           Expanded(
-            child: StoreConnector<AppState, List<Ipost>>(
+            child: StoreConnector<ExampleAppState, List<Ipost>>(
               distinct: true,
               converter: (store) => store.state.postsState.posts,
               builder: (context, posts) {

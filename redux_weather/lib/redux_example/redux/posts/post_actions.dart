@@ -16,7 +16,7 @@ class SetPostsStateAction {
   SetPostsStateAction(this.postsState);
 }
 
-Future<void> fetchPostsAction(Store<AppState> store) async {
+Future<void> fetchPostsAction(Store<ExampleAppState> store) async {
   store.dispatch(SetPostsStateAction(PostsState(isLoading: true)));
 
   try {

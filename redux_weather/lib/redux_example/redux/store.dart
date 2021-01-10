@@ -5,7 +5,7 @@ import 'package:redux_weather/redux_example/redux/posts/post_actions.dart';
 import 'package:redux_weather/redux_example/redux/posts/post_reducer.dart';
 import 'package:redux_weather/redux_example/redux/posts/post_state.dart';
 
-AppState appReducer(AppState state, dynamic action) {
+ExampleAppState exampleAppReducer(ExampleAppState state, dynamic action) {
   if (action is SetPostsStateAction) {
     final nextPostState = postsReducer(state.postsState, action);
 
@@ -16,20 +16,20 @@ AppState appReducer(AppState state, dynamic action) {
 }
 
 @immutable
-class AppState {
+class ExampleAppState {
   final PostsState postsState;
 
-  AppState({@required this.postsState});
+  ExampleAppState({@required this.postsState});
 
-  AppState copyWith({PostsState postsState}) {
-    return AppState(postsState: postsState ?? this.postsState);
+  ExampleAppState copyWith({PostsState postsState}) {
+    return ExampleAppState(postsState: postsState ?? this.postsState);
   }
 }
 
-class Redux {
-  static Store<AppState> _store;
+class ExampleRedux {
+  static Store<ExampleAppState> _store;
 
-  static Store<AppState> get store {
+  static Store<ExampleAppState> get store {
     if (_store == null) {
       throw Exception("Store is not initialized.");
     } else {
@@ -40,10 +40,10 @@ class Redux {
   static Future<void> init() async {
     final postsStateInitial = PostsState.initial();
 
-    _store = Store<AppState>(
-      appReducer,
+    _store = Store<ExampleAppState>(
+      exampleAppReducer,
       middleware: [thunkMiddleware],
-      initialState: AppState(postsState: postsStateInitial),
+      initialState: ExampleAppState(postsState: postsStateInitial),
     );
   }
 }

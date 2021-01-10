@@ -50,14 +50,14 @@ class ReduxWeatherApp extends StatelessWidget {
   }
 
   void exampleMain() async {
-    await Redux.init();
+    await ExampleRedux.init();
   }
 
   Widget _makeExampleScreen() {
     exampleMain();
 
-    return StoreProvider<AppState>(
-      store: Redux.store,
+    return StoreProvider<ExampleAppState>(
+      store: ExampleRedux.store,
       child: ExampleHomePage(
         title: 'Redux demo example',
       ),
