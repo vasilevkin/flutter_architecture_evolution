@@ -1,15 +1,10 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:redux_weather/redux/cities/city_state.dart';
-import 'file:///C:/dev/flutter_architecture_evolution/redux_weather/lib/redux/store.dart';
-import 'package:redux_weather/redux_example/models/i_post.dart';
-import 'package:redux_weather/redux_example/redux/posts/post_state.dart';
-
-import 'package:redux/redux.dart';
-
 import 'package:meta/meta.dart';
-import 'package:redux_weather/redux_example/redux/example_store.dart';
+import 'package:redux/redux.dart';
+import 'package:redux_weather/data/repository/storage_impl_in_memory.dart';
+import 'package:redux_weather/data/service/api_impl.dart';
+import 'package:redux_weather/redux/cities/city_state.dart';
+import 'package:redux_weather/redux/store.dart';
 
 @immutable
 class SetCityStateAction {
@@ -19,25 +14,47 @@ class SetCityStateAction {
 }
 
 Future<void> fetchCitiesAction(Store<AppState> store) async {
+  print('Redux:: cities are started to dispatch');
+
   store.dispatch(SetCityStateAction(CityState(isLoading: true)));
 
-  // try {
-  //   final response =
-  //   await http.get('http://jsonplaceholder.typicode.com/posts');
-  //
-  //   assert(response.statusCode == 200);
-  //
-  //   final jsonData = json.decode(response.body);
-  //
-  //   store.dispatch(
-  //     SetPostsStateAction(
-  //       PostsState(
-  //         isLoading: false,
-  //         posts: Ipost.listFromJson(jsonData),
-  //       ),
-  //     ),
-  //   );
-  // } catch (error) {
-  //   store.dispatch(SetPostsStateAction(PostsState(isLoading: false)));
-  // }
+  final repo = StorageInMemoryImpl(api: MetaWeatherApi());
+
+  try {
+    repo.getCities.listen(
+      (event) {
+        store.dispatch(
+          SetCityStateAction(
+            CityState(
+              isLoading: false,
+              cities: event,
+            ),
+          ),
+        );
+        print('Redux:: cities are dispatched= $event');
+
+        // _error = null;
+        // _isLoading = false;
+        // _setCitiesList(event);
+      },
+    ).onError(
+      (error) {
+        print('Redux:: cities are dispatched .Error= $error');
+
+        store.dispatch(
+            SetCityStateAction(CityState(isLoading: false, isError: true)));
+
+        // _error = error;
+        // _isLoading = false;
+        // _setCitiesList(null);
+      },
+    );
+  } catch (error) {
+    print('Redux:: fetchCitiesAction .Error= $error');
+
+    store.dispatch(
+        SetCityStateAction(CityState(isLoading: false, isError: true)));
+  }
 }
+
+class LoadCitiesAction {}

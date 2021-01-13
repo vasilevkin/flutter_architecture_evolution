@@ -4,11 +4,10 @@ import 'package:redux_thunk/redux_thunk.dart';
 import 'package:redux_weather/redux/cities/city_actions.dart';
 import 'package:redux_weather/redux/cities/city_reducer.dart';
 import 'package:redux_weather/redux/cities/city_state.dart';
-import 'package:redux_weather/redux_example/redux/posts/post_actions.dart';
-import 'package:redux_weather/redux_example/redux/posts/post_reducer.dart';
-import 'package:redux_weather/redux_example/redux/posts/post_state.dart';
 
-AppState AppReducer(AppState state, dynamic action) {
+AppState appReducer(AppState state, dynamic action) {
+  print('Redux:: appReducer action= $action');
+
   if (action is SetCityStateAction) {
     final nextCityState = cityReducer(state.cityState, action);
 
@@ -44,7 +43,7 @@ class Redux {
     final cityStateInitial = CityState.initial();
 
     _store = Store<AppState>(
-      AppReducer,
+      appReducer,
       middleware: [thunkMiddleware],
       initialState: AppState(cityState: cityStateInitial),
     );
