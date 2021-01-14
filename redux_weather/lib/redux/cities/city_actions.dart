@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:redux/redux.dart';
-import 'package:redux_weather/data/repository/storage_impl_in_memory.dart';
-import 'package:redux_weather/data/service/api_impl.dart';
 import 'package:redux_weather/redux/cities/city_state.dart';
 import 'package:redux_weather/redux/store.dart';
 
@@ -18,7 +16,7 @@ Future<void> fetchCitiesAction(Store<AppState> store) async {
 
   store.dispatch(SetCityStateAction(CityState(isLoading: true)));
 
-  final repo = StorageInMemoryImpl(api: MetaWeatherApi());
+  final repo = store.state.repo;
 
   try {
     repo.getCities.listen(

@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 class StorageInMemoryImpl implements StorageRepository {
   final ApiService api;
 
-  StreamController<List<City>> _citiesDataController = StreamController();
+  StreamController<List<City>> _citiesDataController = StreamController.broadcast();
   List<City> _citiesData;
   Map<String, Image> _abbrImages = Map();
   City _selectedCity;
