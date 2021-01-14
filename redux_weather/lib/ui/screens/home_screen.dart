@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux_weather/app/app_routes.dart';
 import 'package:redux_weather/data_models/city.dart';
+import 'package:redux_weather/redux/cities/city_state.dart';
 import 'package:redux_weather/redux/store.dart';
 import 'package:redux_weather/scoped_models/home_scoped_model.dart';
 import 'package:redux_weather/ui/widgets/home_list_item.dart';
@@ -58,46 +59,23 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildScreenBody() {
-    return Column(
-      children: [
-        StoreConnector<AppState, bool>(
-          distinct: true,
-          converter: (store) => store.state.cityState.isLoading,
-          builder: (context, isLoaging) {
-            return (isLoaging == true) ? Loader() : SizedBox.shrink();
-          },
-        ),
-        StoreConnector<AppState, bool>(
-          distinct: true,
-          converter: (store) => store.state.cityState.isError,
-          builder: (context, isError) {
-            return isError ? Text('Failed to fetch cities') : SizedBox.shrink();
-          },
-        ),
-        Expanded(
-          child: StoreConnector<AppState, List<City>>(
-            distinct: true,
-            converter: (store) => store.state.cityState.cities,
-            builder: (context, cities) => _buildCitiesList(cities: cities),
-          ),
-        ),
-      ],
+    return StoreConnector<AppState, CityState>(
+      distinct: true,
+      converter: (store) => store.state.cityState,
+      builder: (context, cityState) {
+        if (cityState == null || cityState.isLoading) {
+          return Loader();
+        }
+        if (cityState.isError) {
+          return Text('Failed to fetch cities');
+          // return Text('${model.error}');
+        }
+        if (cityState.cities == null) {
+          return Loader();
+        }
+        return _buildCitiesList(cities: cityState.cities);
+      },
     );
-
-    // return ScopedModelDescendant<HomeScopedModel>(
-    //   builder: (context, child, model) {
-    //     if (model == null) {
-    //       return Loader();
-    //     }
-    //     if (model.error != null) {
-    //       return Text('${model.error}');
-    //     }
-    //     if (model.citiesList == null) {
-    //       return Loader();
-    //     }
-    //     return _buildCitiesList(cities: model.citiesList);
-    //   },
-    // );
   }
 
   Widget _buildCitiesList({List<City> cities}) {

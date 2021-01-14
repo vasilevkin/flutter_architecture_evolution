@@ -29,7 +29,8 @@ Future<void> fetchCitiesAction(Store<AppState> store) async {
             ),
           ),
         );
-        print('Redux:: cities are dispatched= $event');
+        print('Redux:: # of cities dispatched= ${event.length}');
+        // print('Redux:: cities are dispatched= $event');
 
         // _error = null;
         // _isLoading = false;
