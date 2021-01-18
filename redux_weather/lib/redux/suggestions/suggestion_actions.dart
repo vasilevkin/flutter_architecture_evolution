@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
-import 'package:redux_weather/redux/store.dart';
+import 'package:redux_weather/redux/redux.dart';
 import 'package:redux_weather/redux/suggestions/suggestion_state.dart';
 
 @immutable

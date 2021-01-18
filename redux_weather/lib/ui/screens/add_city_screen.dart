@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux_weather/data_models/city.dart';
+import 'package:redux_weather/redux/redux.dart';
 import 'package:redux_weather/redux/store.dart';
 import 'package:redux_weather/redux/suggestions/suggestion_actions.dart';
 import 'package:redux_weather/redux/suggestions/suggestion_state.dart';

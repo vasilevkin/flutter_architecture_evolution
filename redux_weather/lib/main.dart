@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:redux_weather/app/app.dart';
-import 'package:redux_weather/redux/store.dart';
+import 'package:redux_weather/redux/redux.dart';
 
 void main() async {
   await Redux.init();
