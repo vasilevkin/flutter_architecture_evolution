@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:scoped_model/scoped_model.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux_weather/data_models/city.dart';
+import 'package:redux_weather/redux/store.dart';
+import 'package:redux_weather/redux/suggestions/suggestion_actions.dart';
+import 'package:redux_weather/redux/suggestions/suggestion_state.dart';
 import 'package:redux_weather/scoped_models/add_or_edit_city_scoped_model.dart';
 import 'package:redux_weather/ui/widgets/add_city_list_item.dart';
 import 'package:redux_weather/ui/widgets/loader.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 /*
 Both AddCityScreen and EditCityScreen are using the same scopedModel AddOrEditCityScopedModel.
@@ -14,6 +18,10 @@ For teaching purposes only.
 */
 
 class AddCityScreen extends StatefulWidget {
+  final void Function() onInit;
+
+  AddCityScreen({@required this.onInit});
+
   @override
   _AddCityScreenState createState() => _AddCityScreenState();
 }
@@ -55,7 +63,8 @@ class _AddCityScreenState extends State<AddCityScreen> {
                 key: formKey,
                 autovalidate: false,
                 child: TextFormField(
-                  onChanged: (value) => scopedModel.setQueryString(value),
+                  onChanged: (value) =>
+                      Redux.store.dispatch(fetchSuggestionsAction(value)),
                 ),
               ),
               Expanded(
@@ -69,16 +78,35 @@ class _AddCityScreenState extends State<AddCityScreen> {
   }
 
   Widget _buildScreenBody(AddOrEditCityScopedModel model) {
-    if (model == null || model.isLoading == true) {
-      return Center(child: Loader());
-    }
-    if (model.error != null) {
-      return _buildErrorMessage(text: model.error.message);
-    }
-    if (model.suggestionsList == null) {
-      return Text("Enter city name...");
-    }
-    return _buildSuggestionsList(cities: model.suggestionsList);
+    return StoreConnector<AppState, SuggestionState>(
+      distinct: true,
+      converter: (store) => store.state.suggestionState,
+      builder: (context, suggestionState) {
+        if (suggestionState == null || suggestionState.isLoading) {
+          return Loader();
+        }
+        if (suggestionState.isError) {
+          return Text('Failed to fetch names suggestions');
+          // return Text('${model.error}');
+        }
+        if (suggestionState.suggestions == null) {
+          return Loader();
+        }
+
+        return _buildSuggestionsList(cities: suggestionState.suggestions);
+      },
+    );
+
+    // if (model == null || model.isLoading == true) {
+    //   return Center(child: Loader());
+    // }
+    // if (model.error != null) {
+    //   return _buildErrorMessage(text: model.error.message);
+    // }
+    // if (model.suggestionsList == null) {
+    //   return Text("Enter city name...");
+    // }
+    // return _buildSuggestionsList(cities: model.suggestionsList);
   }
 
   Widget _buildSuggestionsList({List<City> cities}) {

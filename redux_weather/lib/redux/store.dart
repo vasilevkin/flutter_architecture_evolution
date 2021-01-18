@@ -7,6 +7,9 @@ import 'package:redux_weather/data/service/api_impl.dart';
 import 'package:redux_weather/redux/cities/city_actions.dart';
 import 'package:redux_weather/redux/cities/city_reducer.dart';
 import 'package:redux_weather/redux/cities/city_state.dart';
+import 'package:redux_weather/redux/suggestions/suggestion_actions.dart';
+import 'package:redux_weather/redux/suggestions/suggestion_reducer.dart';
+import 'package:redux_weather/redux/suggestions/suggestion_state.dart';
 
 AppState appReducer(AppState state, dynamic action) {
   print('Redux:: appReducer action= $action');
@@ -17,19 +20,34 @@ AppState appReducer(AppState state, dynamic action) {
     return state.copyWith(cityState: nextCityState);
   }
 
+  if (action is SetSuggestionStateAction) {
+    final nextSuggestionState =
+        suggestionReducer(state.suggestionState, action);
+
+    return state.copyWith(suggestionState: nextSuggestionState);
+  }
+
   return state;
 }
 
 @immutable
 class AppState {
   final CityState cityState;
+
+  final SuggestionState suggestionState;
+
   final StorageRepository repo;
 
-  AppState({@required this.cityState, this.repo});
+  AppState({@required this.cityState, this.suggestionState, this.repo});
 
-  AppState copyWith({CityState cityState, StorageRepository repo}) {
+  AppState copyWith({
+    CityState cityState,
+    SuggestionState suggestionState,
+    StorageRepository repo,
+  }) {
     return AppState(
       cityState: cityState ?? this.cityState,
+      suggestionState: suggestionState ?? this.suggestionState,
       repo: repo ?? this.repo,
     );
   }
@@ -58,12 +76,18 @@ class Redux {
   static Future<void> init() async {
     final cityStateInitial = CityState.initial();
 
+    final suggestionStateInitial = SuggestionState.initial();
+
     _repo = StorageInMemoryImpl(api: MetaWeatherApi());
 
     _store = Store<AppState>(
       appReducer,
       middleware: [thunkMiddleware],
-      initialState: AppState(cityState: cityStateInitial, repo: repo),
+      initialState: AppState(
+        cityState: cityStateInitial,
+        suggestionState: suggestionStateInitial,
+        repo: repo,
+      ),
     );
   }
 }

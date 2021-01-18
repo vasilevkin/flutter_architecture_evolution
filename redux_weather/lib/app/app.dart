@@ -5,6 +5,7 @@ import 'package:redux_weather/app/app_routes.dart';
 import 'package:redux_weather/data/repository/storage_repo.dart';
 import 'package:redux_weather/redux/cities/city_actions.dart';
 import 'package:redux_weather/redux/store.dart';
+import 'package:redux_weather/redux/suggestions/suggestion_actions.dart';
 import 'package:redux_weather/redux_example/example_screen.dart';
 import 'package:redux_weather/redux_example/redux/example_store.dart';
 import 'package:redux_weather/scoped_models/add_or_edit_city_scoped_model.dart';
@@ -49,7 +50,7 @@ class ReduxWeatherApp extends StatelessWidget {
       ),
       routes: {
         ReduxWeatherAppRoutes.home: (cont) => _makeHomeScreen(cont, title),
-        ReduxWeatherAppRoutes.addCity: (_) => AddCityScreen(),
+        ReduxWeatherAppRoutes.addCity: (context) => _makeAddCityScreen(context),
         ReduxWeatherAppRoutes.cityDetail: (_) => CityDetailScreen(repo: repo),
         ReduxWeatherAppRoutes.editCity: (_) => EditCityScreen(),
         ReduxWeatherAppRoutes.example: (_) => _makeExampleScreen(),
@@ -64,6 +65,14 @@ class ReduxWeatherApp extends StatelessWidget {
         StoreProvider.of<AppState>(context).dispatch(LoadCitiesAction);
 
         Redux.store.dispatch(fetchCitiesAction);
+      },
+    );
+  }
+
+  Widget _makeAddCityScreen(BuildContext context) {
+    return AddCityScreen(
+      onInit: () {
+        Redux.store.dispatch(fetchSuggestionsAction(''));
       },
     );
   }
