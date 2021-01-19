@@ -5,7 +5,7 @@ suggestionReducer(SuggestionState prevState, SetSuggestionStateAction action) {
   final payload = action.suggestionState;
 
   return prevState.copyWith(
-    isError: payload.isError,
+    error: payload.error,
     isLoading: payload.isLoading,
     suggestions: payload.suggestions,
   );

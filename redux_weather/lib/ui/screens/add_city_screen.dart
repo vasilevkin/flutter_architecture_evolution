@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux_weather/app/error_messages.dart';
 import 'package:redux_weather/data_models/city.dart';
 import 'package:redux_weather/redux/redux.dart';
 import 'package:redux_weather/redux/store.dart';
@@ -30,6 +31,12 @@ class AddCityScreen extends StatefulWidget {
 class _AddCityScreenState extends State<AddCityScreen> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   AddOrEditCityScopedModel scopedModel;
+
+  @override
+  void initState() {
+    widget.onInit();
+    super.initState();
+  }
 
   @override
   void didChangeDependencies() {
@@ -69,7 +76,7 @@ class _AddCityScreenState extends State<AddCityScreen> {
                 ),
               ),
               Expanded(
-                child: _buildScreenBody(scopedModel),
+                child: _buildScreenBody(),
               ),
             ],
           ),
@@ -78,36 +85,24 @@ class _AddCityScreenState extends State<AddCityScreen> {
     );
   }
 
-  Widget _buildScreenBody(AddOrEditCityScopedModel model) {
+  Widget _buildScreenBody() {
     return StoreConnector<AppState, SuggestionState>(
       distinct: true,
       converter: (store) => store.state.suggestionState,
       builder: (context, suggestionState) {
         if (suggestionState == null || suggestionState.isLoading) {
+          return Center(child: Loader());
+        }
+        if (suggestionState.error != ErrorMessages.empty) {
+          return _buildErrorMessage(text: suggestionState.error);
+        }
+        if (suggestionState.suggestions == null ||
+            suggestionState.suggestions.isEmpty) {
           return Loader();
         }
-        if (suggestionState.isError) {
-          return Text('Failed to fetch names suggestions');
-          // return Text('${model.error}');
-        }
-        if (suggestionState.suggestions == null) {
-          return Loader();
-        }
-
         return _buildSuggestionsList(cities: suggestionState.suggestions);
       },
     );
-
-    // if (model == null || model.isLoading == true) {
-    //   return Center(child: Loader());
-    // }
-    // if (model.error != null) {
-    //   return _buildErrorMessage(text: model.error.message);
-    // }
-    // if (model.suggestionsList == null) {
-    //   return Text("Enter city name...");
-    // }
-    // return _buildSuggestionsList(cities: model.suggestionsList);
   }
 
   Widget _buildSuggestionsList({List<City> cities}) {
@@ -127,7 +122,7 @@ class _AddCityScreenState extends State<AddCityScreen> {
   Widget _buildErrorMessage({String text}) {
     return Padding(
       padding: EdgeInsets.all(20),
-      child: text == 'Enter city name...'
+      child: text == ErrorMessages.emptySearchString
           ? Text(text)
           : Text(text, style: TextStyle(color: Colors.redAccent)),
     );

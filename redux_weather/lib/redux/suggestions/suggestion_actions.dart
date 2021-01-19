@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
+import 'package:redux_weather/app/error_messages.dart';
 import 'package:redux_weather/redux/redux.dart';
 import 'package:redux_weather/redux/suggestions/suggestion_state.dart';
 
@@ -20,6 +21,19 @@ Future<void> fetchSuggestionsAction(String request) async {
   final repo = store.state.repo;
 
   try {
+    if (request == "" || request.length == 0) {
+      store.dispatch(
+        SetSuggestionStateAction(
+          SuggestionState(
+            isLoading: false,
+            error: ErrorMessages.emptySearchString,
+            suggestions: const [],
+          ),
+        ),
+      );
+      return;
+    }
+
     final _cities = await repo.searchCitiesByQuery(request);
 
     if (_cities.isEmpty) {
@@ -29,14 +43,11 @@ Future<void> fetchSuggestionsAction(String request) async {
         SetSuggestionStateAction(
           SuggestionState(
             isLoading: false,
-            isError: true,
-            suggestions: null,
+            error: ErrorMessages.cityNotFound,
+            suggestions: const [],
           ),
         ),
       );
-
-      // _error = ArgumentError('<< City not found >>');
-      // _suggestionsList = null;
     } else {
       print('Redux:: # of suggestions dispatched= ${_cities.length}');
 
@@ -44,14 +55,11 @@ Future<void> fetchSuggestionsAction(String request) async {
         SetSuggestionStateAction(
           SuggestionState(
             isLoading: false,
-            isError: false,
+            error: ErrorMessages.empty,
             suggestions: _cities,
           ),
         ),
       );
-
-      // _suggestionsList = _cities;
-      // _error = null;
     }
   } catch (error) {
     print('Redux:: fetchSuggestionsAction .Error= $error');
@@ -60,13 +68,10 @@ Future<void> fetchSuggestionsAction(String request) async {
       SetSuggestionStateAction(
         SuggestionState(
           isLoading: false,
-          isError: true,
-          suggestions: null,
+          error: '${ErrorMessages.unknownError} ${error.toString()}',
+          suggestions: const [],
         ),
       ),
     );
-
-    // _suggestionsList = null;
-    // _error = ArgumentError(error.toString());
   }
 }

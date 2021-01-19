@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:scoped_model/scoped_model.dart';
+import 'package:redux_weather/app/error_messages.dart';
 import 'package:redux_weather/data_models/city.dart';
 import 'package:redux_weather/scoped_models/add_or_edit_city_scoped_model.dart';
 import 'package:redux_weather/ui/widgets/add_city_list_item.dart';
 import 'package:redux_weather/ui/widgets/loader.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 /*
 Both AddCityScreen and EditCityScreen are using the same scopedModel AddOrEditCityScopedModel.
@@ -18,8 +19,8 @@ class EditCityScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scopedModel =
-        ScopedModel.of<AddOrEditCityScopedModel>(context, rebuildOnChange: true);
+    final scopedModel = ScopedModel.of<AddOrEditCityScopedModel>(context,
+        rebuildOnChange: true);
 
     return WillPopScope(
       onWillPop: () async {
@@ -86,7 +87,7 @@ class EditCityScreen extends StatelessWidget {
   Widget _buildErrorMessage({String text}) {
     return Padding(
       padding: EdgeInsets.all(20),
-      child: text == 'Enter city name...'
+      child: text == ErrorMessages.emptySearchString
           ? Text(text)
           : Text(text, style: TextStyle(color: Colors.redAccent)),
     );
