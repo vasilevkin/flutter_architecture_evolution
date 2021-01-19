@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_weather/app/app_routes.dart';
+import 'package:redux_weather/app/constants.dart';
 import 'package:redux_weather/data/repository/storage_repo.dart';
 import 'package:redux_weather/redux/cities/city_actions.dart';
 import 'package:redux_weather/redux/redux.dart';
@@ -18,8 +19,6 @@ import 'package:redux_weather/ui/screens/home_screen.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class ReduxWeatherApp extends StatelessWidget {
-  static const String title = 'Redux Weather';
-
   final StorageRepository repo;
   final Store<AppState> store;
 
@@ -44,13 +43,14 @@ class ReduxWeatherApp extends StatelessWidget {
 
   Widget _makeApp() {
     return MaterialApp(
-      title: title,
+      title: Constants.appTitle,
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       routes: {
-        ReduxWeatherAppRoutes.home: (cont) => _makeHomeScreen(cont, title),
+        ReduxWeatherAppRoutes.home: (context) =>
+            _makeHomeScreen(context, Constants.appTitle),
         ReduxWeatherAppRoutes.addCity: (context) => _makeAddCityScreen(context),
         ReduxWeatherAppRoutes.cityDetail: (_) => CityDetailScreen(repo: repo),
         ReduxWeatherAppRoutes.editCity: (_) => EditCityScreen(),
@@ -88,7 +88,7 @@ class ReduxWeatherApp extends StatelessWidget {
     return StoreProvider<ExampleAppState>(
       store: ExampleRedux.store,
       child: ExampleHomePage(
-        title: 'Redux demo example',
+        title: Constants.exampleTitle,
       ),
     );
   }

@@ -1,9 +1,9 @@
 //region AppRoutes
 class ReduxWeatherAppRoutes {
-  static final home = '/';
-  static final addCity = '/addCity';
-  static final cityDetail = '/cityDetail';
-  static final editCity = '/editCity';
-  static final example = '/example';
+  static const home = '/';
+  static const addCity = '/addCity';
+  static const cityDetail = '/cityDetail';
+  static const editCity = '/editCity';
+  static const example = '/example';
 }
 //endregion

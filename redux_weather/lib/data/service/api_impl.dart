@@ -16,7 +16,7 @@ class MetaWeatherApi implements ApiService {
 
   @override
   Future<List<City>> getCities(String name) async {
-    final url = '${api}search/?query=$name';
+    final url = '${Constants.api}search/?query=$name';
     final response = await http.get(url);
     final body = Utf8Decoder().convert(response.bodyBytes);
     final data = jsonDecode(body) as List;
@@ -26,7 +26,7 @@ class MetaWeatherApi implements ApiService {
 
   @override
   Future<Weather> getWeather(City city) async {
-    final url = '$api${city.woeId}';
+    final url = '${Constants.api}${city.woeId}';
     final response = await http.get(url);
     final body = Utf8Decoder().convert(response.bodyBytes);
     final data = jsonDecode(body);
@@ -38,7 +38,7 @@ class MetaWeatherApi implements ApiService {
   @override
   Image getImage(String abbr) {
     return Image.network(
-      '${host}static/img/weather/png/64/$abbr.png',
+      '${Constants.host}static/img/weather/png/64/$abbr.png',
     );
   }
 }

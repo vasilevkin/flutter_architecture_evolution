@@ -49,14 +49,14 @@ class CityDetailScreen extends StatelessWidget {
                         fontSize: 40,
                         fontWeight: FontWeight.w800,
                         color: Colors.white54,
-                        shadows: textShadows),
+                        shadows: Constants.textShadows),
                   ),
                   Text(
                     _city?.weather?.applicableDate?.toIso8601String() ?? '',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white54,
-                      shadows: textShadows,
+                      shadows: Constants.textShadows,
                     ),
                   ),
                   const SizedBox(
@@ -83,7 +83,7 @@ class CityDetailScreen extends StatelessWidget {
                                   color: Colors.white,
                                   fontWeight: FontWeight.w800,
                                   fontSize: 70,
-                                  shadows: textShadows),
+                                  shadows: Constants.textShadows),
                             );
                           },
                         ),
@@ -96,7 +96,7 @@ class CityDetailScreen extends StatelessWidget {
                               style: TextStyle(
                                 color: Colors.white70,
                                 fontWeight: FontWeight.w800,
-                                shadows: textShadows,
+                                shadows: Constants.textShadows,
                               ),
                             ),
                           ),
@@ -110,7 +110,7 @@ class CityDetailScreen extends StatelessWidget {
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 23,
-                      shadows: textShadows,
+                      shadows: Constants.textShadows,
                     ),
                   ),
                   SizedBox(

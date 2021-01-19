@@ -17,7 +17,7 @@ class MinorWeatherDetail extends StatelessWidget {
         children: <Widget>[
           Text(
             name ?? '',
-            style: TextStyle(color: Colors.white, shadows: textShadows),
+            style: TextStyle(color: Colors.white, shadows: Constants.textShadows),
           ),
           const SizedBox(
             height: 10,
@@ -26,7 +26,7 @@ class MinorWeatherDetail extends StatelessWidget {
             value ?? '',
             style: TextStyle(
               color: Colors.white,
-              shadows: textShadows,
+              shadows: Constants.textShadows,
             ),
           ),
         ],
