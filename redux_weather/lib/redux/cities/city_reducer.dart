@@ -5,7 +5,7 @@ cityReducer(CityState prevState, SetCityStateAction action) {
   final payload = action.cityState;
 
   return prevState.copyWith(
-    isError: payload.isError,
+    error: payload.error,
     isLoading: payload.isLoading,
     cities: payload.cities,
   );

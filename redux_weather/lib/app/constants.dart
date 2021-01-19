@@ -18,4 +18,5 @@ class Constants {
   // Strings
   static const String appTitle = 'Redux Weather';
   static const String exampleTitle = 'Redux demo example';
+  static const String homeFABtooltip = 'Add a new city';
 }

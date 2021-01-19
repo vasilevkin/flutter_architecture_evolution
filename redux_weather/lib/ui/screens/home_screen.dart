@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux_weather/app/app_routes.dart';
+import 'package:redux_weather/app/constants.dart';
+import 'package:redux_weather/app/error_messages.dart';
 import 'package:redux_weather/data_models/city.dart';
 import 'package:redux_weather/redux/cities/city_state.dart';
 import 'package:redux_weather/redux/store.dart';
@@ -40,22 +42,22 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
-        actions: [
-          FlatButton(
-            onPressed: () {
-              Navigator.pushNamed(context, ReduxWeatherAppRoutes.example);
-            },
-            child: Icon(Icons.redeem),
-          ),
-        ],
+        actions: _buildAppBarActions(),
       ),
-      body: Center(
-        child: _buildScreenBody(
-            // scopedModel
-            ),
-      ),
+      body: _buildScreenBody(),
       floatingActionButton: _buildFAB(),
     );
+  }
+
+  List<Widget> _buildAppBarActions() {
+    return [
+      FlatButton(
+        onPressed: () {
+          Navigator.pushNamed(context, ReduxWeatherAppRoutes.example);
+        },
+        child: Icon(Icons.redeem),
+      ),
+    ];
   }
 
   Widget _buildScreenBody() {
@@ -64,14 +66,13 @@ class _HomeScreenState extends State<HomeScreen> {
       converter: (store) => store.state.cityState,
       builder: (context, cityState) {
         if (cityState == null || cityState.isLoading) {
-          return Loader();
+          return Center(child: Loader());
         }
-        if (cityState.isError) {
-          return Text('Failed to fetch cities');
-          // return Text('${model.error}');
+        if (cityState.error != ErrorMessages.empty) {
+          return _buildErrorMessage(text: cityState.error);
         }
-        if (cityState.cities == null) {
-          return Loader();
+        if (cityState.cities == null || cityState.cities.isEmpty) {
+          return _buildErrorMessage(text: ErrorMessages.tapPlusToAdd);
         }
         return _buildCitiesList(cities: cityState.cities);
       },
@@ -79,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildCitiesList({List<City> cities}) {
-    if (cities.length == 0) return Text('Tap + to add a new city...');
+    if (cities.length == 0) return Text(ErrorMessages.tapPlusToAdd);
 
     return ListView.builder(
       itemCount: cities.length,
@@ -101,10 +102,19 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  Widget _buildErrorMessage({String text}) {
+    return Padding(
+      padding: EdgeInsets.all(20),
+      child: text == ErrorMessages.tapPlusToAdd
+          ? Center(child: Text(text))
+          : Text(text, style: TextStyle(color: Colors.redAccent)),
+    );
+  }
+
   Widget _buildFAB() {
     return FloatingActionButton(
       onPressed: _tapAddCity,
-      tooltip: 'Add a new city',
+      tooltip: Constants.homeFABtooltip,
       child: Icon(Icons.add),
     );
   }
