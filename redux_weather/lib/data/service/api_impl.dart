@@ -1,11 +1,11 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:redux_weather/app/constants.dart';
 import 'package:redux_weather/data/service/api_service.dart';
 import 'package:redux_weather/data_models/city.dart';
 import 'package:redux_weather/data_models/weather.dart';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 class MetaWeatherApi implements ApiService {
   @override

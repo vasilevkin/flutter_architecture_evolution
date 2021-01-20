@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:redux_weather/app/constants.dart';
-import 'package:scoped_model/scoped_model.dart';
 import 'package:redux_weather/data/repository/storage_repo.dart';
 import 'package:redux_weather/data_models/city.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class AddOrEditCityScopedModel extends Model {
   final StorageRepository repo;

@@ -1,4 +1,4 @@
-import 'package:redux_weather/data_models/city.dart';
+
 
 class Weather {
   int id;

@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux_weather/redux_example/models/i_post.dart';
-import 'package:redux_weather/redux_example/redux/posts/post_actions.dart';
 import 'package:redux_weather/redux_example/redux/example_store.dart';
+import 'package:redux_weather/redux_example/redux/posts/post_actions.dart';
 
 class ExampleHomePage extends StatefulWidget {
   final String title;

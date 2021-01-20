@@ -122,11 +122,13 @@ class CityDetailScreen extends StatelessWidget {
                     children: [
                       MinorWeatherDetail(
                         name: Constants.minTemp,
-                        value: _city.weather?.minTemp?.toStringAsFixed(1) ?? Constants.emptyString,
+                        value: _city.weather?.minTemp?.toStringAsFixed(1) ??
+                            Constants.emptyString,
                       ),
                       MinorWeatherDetail(
                         name: Constants.maxTemp,
-                        value: _city.weather?.maxTemp?.toStringAsFixed(1) ?? Constants.emptyString,
+                        value: _city.weather?.maxTemp?.toStringAsFixed(1) ??
+                            Constants.emptyString,
                       ),
                     ],
                   ),

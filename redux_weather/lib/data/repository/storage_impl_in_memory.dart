@@ -1,16 +1,17 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:redux_weather/data/repository/storage_repo.dart';
 import 'package:redux_weather/data/service/api_service.dart';
 import 'package:redux_weather/data_models/city.dart';
 import 'package:redux_weather/data_models/weather.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 
 class StorageInMemoryImpl implements StorageRepository {
   final ApiService api;
 
-  StreamController<List<City>> _citiesDataController = StreamController.broadcast();
+  StreamController<List<City>> _citiesDataController =
+      StreamController.broadcast();
   List<City> _citiesData;
   Map<String, Image> _abbrImages = Map();
   City _selectedCity;
