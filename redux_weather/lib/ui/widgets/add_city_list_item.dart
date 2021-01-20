@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:redux_weather/app/constants.dart';
 
 class AddCityListItem extends StatelessWidget {
   final String cityName;
@@ -6,7 +7,7 @@ class AddCityListItem extends StatelessWidget {
 
   const AddCityListItem({
     Key key,
-    this.cityName = "No Name",
+    this.cityName = Constants.emptyCityName,
     this.onTap,
   }) : super(key: key);
 

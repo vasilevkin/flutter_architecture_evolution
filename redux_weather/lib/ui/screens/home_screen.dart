@@ -114,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildFAB() {
     return FloatingActionButton(
       onPressed: _tapAddCity,
-      tooltip: Constants.homeFABtooltip,
+      tooltip: Constants.addCityTitle,
       child: Icon(Icons.add),
     );
   }

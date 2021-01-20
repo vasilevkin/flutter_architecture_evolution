@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:redux_weather/app/constants.dart';
 
 class HomeListItem extends StatelessWidget {
   final String cityName;
@@ -9,7 +10,7 @@ class HomeListItem extends StatelessWidget {
   final Function onDeleteTap;
 
   HomeListItem({
-    this.cityName = "No Name",
+    this.cityName = Constants.emptyCityName,
     this.temperature = 0,
     this.weatherStateImage,
     this.onTap,
@@ -25,7 +26,7 @@ class HomeListItem extends StatelessWidget {
         leading: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text("${temperature?.toInt()} ℃"),
+            Text('${temperature?.toInt()} ${Constants.degreeUnit}'),
             Padding(
               padding: EdgeInsets.only(left: 8),
               child: Container(

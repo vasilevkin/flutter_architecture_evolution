@@ -73,7 +73,7 @@ class ReduxWeatherApp extends StatelessWidget {
   Widget _makeAddCityScreen(BuildContext context) {
     return AddCityScreen(
       onInit: () {
-        Redux.store.dispatch(fetchSuggestionsAction(''));
+        Redux.store.dispatch(fetchSuggestionsAction(Constants.emptyString));
       },
     );
   }

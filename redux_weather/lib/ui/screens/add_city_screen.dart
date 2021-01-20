@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux_weather/app/constants.dart';
 import 'package:redux_weather/app/error_messages.dart';
 import 'package:redux_weather/data_models/city.dart';
 import 'package:redux_weather/redux/redux.dart';
@@ -61,7 +62,7 @@ class _AddCityScreenState extends State<AddCityScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Add a new City"),
+          title: Text(Constants.addCityTitle),
         ),
         body: Padding(
           padding: EdgeInsets.all(16.0),

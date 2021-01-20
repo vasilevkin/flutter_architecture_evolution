@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:redux_weather/app/constants.dart';
 import 'package:redux_weather/app/error_messages.dart';
 import 'package:redux_weather/data_models/city.dart';
 import 'package:redux_weather/scoped_models/add_or_edit_city_scoped_model.dart';
@@ -29,7 +30,7 @@ class EditCityScreen extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Edit City: ${scopedModel.selectedCityName}'),
+          title: Text('${Constants.editCity} ${scopedModel.selectedCityName}'),
         ),
         body: Padding(
           padding: EdgeInsets.all(16.0),
@@ -60,7 +61,7 @@ class EditCityScreen extends StatelessWidget {
       return _buildErrorMessage(text: model.error.message);
     }
     if (model.suggestionsList == null) {
-      return Text('Please enter a new city name...');
+      return Text(Constants.enterNewCityName);
     }
     return _buildSuggestionsList(
         scopedModel: model, cities: model.suggestionsList);

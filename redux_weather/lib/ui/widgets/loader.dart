@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:redux_weather/app/constants.dart';
 import 'package:vector_math/vector_math.dart' as vector;
 
 class Loader extends StatefulWidget {
@@ -30,7 +31,7 @@ class _LoaderState extends State<Loader> with SingleTickerProviderStateMixin {
         );
       },
       child: Image.asset(
-        "assets/loader_image.png",
+        Constants.loaderImage,
         height: 50,
       ),
     );

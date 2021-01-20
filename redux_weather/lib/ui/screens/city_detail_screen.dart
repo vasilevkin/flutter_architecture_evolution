@@ -1,6 +1,6 @@
-import 'package:redux_weather/data/repository/storage_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_weather/app/constants.dart';
+import 'package:redux_weather/data/repository/storage_repo.dart';
 import 'package:redux_weather/data_models/city.dart';
 import 'package:redux_weather/ui/widgets/minor_weather_detail.dart';
 
@@ -52,7 +52,8 @@ class CityDetailScreen extends StatelessWidget {
                         shadows: Constants.textShadows),
                   ),
                   Text(
-                    _city?.weather?.applicableDate?.toIso8601String() ?? '',
+                    _city?.weather?.applicableDate?.toIso8601String() ??
+                        Constants.emptyString,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white54,
@@ -92,7 +93,7 @@ class CityDetailScreen extends StatelessWidget {
                           child: Align(
                             alignment: Alignment.topRight,
                             child: Text(
-                              "°C",
+                              Constants.degreeUnit,
                               style: TextStyle(
                                 color: Colors.white70,
                                 fontWeight: FontWeight.w800,
@@ -105,7 +106,7 @@ class CityDetailScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    _city.weather?.weatherStateName ?? '',
+                    _city.weather?.weatherStateName ?? Constants.emptyString,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white,
@@ -120,12 +121,12 @@ class CityDetailScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       MinorWeatherDetail(
-                        name: "minTemp",
-                        value: _city.weather?.minTemp?.toStringAsFixed(1) ?? '',
+                        name: Constants.minTemp,
+                        value: _city.weather?.minTemp?.toStringAsFixed(1) ?? Constants.emptyString,
                       ),
                       MinorWeatherDetail(
-                        name: "maxTemp",
-                        value: _city.weather?.maxTemp?.toStringAsFixed(1) ?? '',
+                        name: Constants.maxTemp,
+                        value: _city.weather?.maxTemp?.toStringAsFixed(1) ?? Constants.emptyString,
                       ),
                     ],
                   ),
@@ -156,31 +157,33 @@ class CityDetailScreen extends StatelessWidget {
                     Wrap(
                       children: [
                         MinorWeatherDetail(
-                          name: "Wind Speed",
+                          name: Constants.windSpeed,
                           value: _city.weather?.windSpeed?.toStringAsFixed(2),
                         ),
                         MinorWeatherDetail(
-                          name: "Wind Compass",
-                          value: _city.weather?.windDirectionCompass?.toString(),
+                          name: Constants.windCompass,
+                          value:
+                              _city.weather?.windDirectionCompass?.toString(),
                         ),
                         MinorWeatherDetail(
-                          name: "Wind Direction",
-                          value: _city.weather?.windDirection?.toStringAsFixed(0),
+                          name: Constants.windDirection,
+                          value:
+                              _city.weather?.windDirection?.toStringAsFixed(0),
                         ),
                         MinorWeatherDetail(
-                          name: "Air Pressure",
+                          name: Constants.airPressure,
                           value: _city.weather?.airPressure?.toString(),
                         ),
                         MinorWeatherDetail(
-                          name: "Humidity",
+                          name: Constants.humidity,
                           value: _city.weather?.humidity?.toString(),
                         ),
                         MinorWeatherDetail(
-                          name: "Visibility",
+                          name: Constants.visibility,
                           value: _city.weather?.visibility?.toStringAsFixed(1),
                         ),
                         MinorWeatherDetail(
-                          name: "Predictability",
+                          name: Constants.predictability,
                           value: _city.weather?.predictability?.toString(),
                         ),
                       ],
