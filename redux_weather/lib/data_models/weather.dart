@@ -1,4 +1,4 @@
-
+import 'package:redux_weather/app/constants.dart';
 
 class Weather {
   int id;
@@ -17,7 +17,7 @@ class Weather {
   double visibility;
   int predictability;
 
-  Weather(
+  Weather._(
       {this.id,
       this.weatherStateName,
       this.weatherStateAbbr,
@@ -34,12 +34,31 @@ class Weather {
       this.visibility,
       this.predictability});
 
+  factory Weather.initial() => Weather._(
+        id: Constants.initialId,
+        weatherStateName: Constants.initialName,
+        weatherStateAbbr: Constants.initialStateAbbr,
+        windDirectionCompass: Constants.initialDirectionCompass,
+        created: DateTime.now(),
+        applicableDate: DateTime.now(),
+        minTemp: Constants.initialMinTemp,
+        maxTemp: Constants.initialMaxTemp,
+        theTemp: Constants.initialZero,
+        windSpeed: Constants.initialZero,
+        windDirection: Constants.initialZero,
+        airPressure: Constants.initialZero,
+        humidity: Constants.initialZero,
+        visibility: Constants.initialZero,
+        predictability: Constants.initialId,
+      );
+
   Weather.onlyTemp({
     this.id,
     this.theTemp,
   });
 
-  factory Weather.fromJson(Map<String, dynamic> json) => Weather(
+  factory Weather.fromJson(Map<String, dynamic> json) =>
+      Weather.initial().copyWith(
         id: json["id"],
         weatherStateName: json["weather_state_name"],
         weatherStateAbbr: json["weather_state_abbr"],
@@ -75,6 +94,42 @@ class Weather {
         "visibility": visibility,
         "predictability": predictability,
       };
+
+  Weather copyWith({
+    int id,
+    String weatherStateName,
+    String weatherStateAbbr,
+    String windDirectionCompass,
+    DateTime created,
+    DateTime applicableDate,
+    double minTemp,
+    double maxTemp,
+    double theTemp,
+    double windSpeed,
+    double windDirection,
+    double airPressure,
+    num humidity,
+    double visibility,
+    int predictability,
+  }) {
+    return Weather._(
+      id: id ?? this.id,
+      weatherStateName: weatherStateName ?? this.weatherStateName,
+      weatherStateAbbr: weatherStateAbbr ?? this.weatherStateAbbr,
+      windDirectionCompass: windDirectionCompass ?? this.windDirectionCompass,
+      created: created ?? this.created,
+      applicableDate: applicableDate ?? this.applicableDate,
+      minTemp: minTemp ?? this.minTemp,
+      maxTemp: maxTemp ?? this.maxTemp,
+      theTemp: theTemp ?? this.theTemp,
+      windSpeed: windSpeed ?? this.windSpeed,
+      windDirection: windDirection ?? this.windDirection,
+      airPressure: airPressure ?? this.airPressure,
+      humidity: humidity ?? this.humidity,
+      visibility: visibility ?? this.visibility,
+      predictability: predictability ?? this.predictability,
+    );
+  }
 
   @override
   String toString() {

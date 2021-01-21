@@ -10,7 +10,7 @@ class AddOrEditCityScopedModel extends Model {
   List<City> _suggestionsList;
   bool _isLoading = true;
   ArgumentError _error;
-  City _selectedCity = City();
+  City _selectedCity = City.initial();
 
   List<City> get suggestionsList => _suggestionsList;
 

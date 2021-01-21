@@ -35,6 +35,14 @@ class Constants {
   static const String visibility = 'Visibility';
   static const String predictability = 'Predictability';
 
+  static const String initialName = '';
+  static const int initialId = 0;
+  static const String initialStateAbbr = 'hc';
+  static const String initialDirectionCompass = 'No direction';
+  static const double initialMinTemp = double.minPositive;
+  static const double initialMaxTemp = double.maxFinite;
+  static const double initialZero = 0.0;
+
   // Assets
   static const String loaderImage = 'assets/loader_image.png';
 }

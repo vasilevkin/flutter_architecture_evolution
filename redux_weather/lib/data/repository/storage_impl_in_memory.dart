@@ -74,12 +74,12 @@ class StorageInMemoryImpl implements StorageRepository {
 
   @override
   City getSelectedCity() {
-    return _selectedCity ?? City();
+    return _selectedCity ?? City.initial();
   }
 
   @override
   void setSelectedCity(City city) {
-    _selectedCity = city ?? City();
+    _selectedCity = city ?? City.initial();
   }
 
   // _private methods
@@ -93,7 +93,7 @@ class StorageInMemoryImpl implements StorageRepository {
   Future<City> _fetchCityWeatherByName(String name) async {
     City cityWithoutWeather = await api.getCity(name);
     Weather weather = await api.getWeather(cityWithoutWeather);
-    City city = City(
+    City city = City.initial().copyWith(
       name: cityWithoutWeather.name,
       woeId: cityWithoutWeather.woeId,
       weather: weather,
