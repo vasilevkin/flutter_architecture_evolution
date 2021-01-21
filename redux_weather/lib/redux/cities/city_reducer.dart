@@ -8,5 +8,7 @@ cityReducer(CityState prevState, SetCityStateAction action) {
     error: payload.error,
     isLoading: payload.isLoading,
     cities: payload.cities,
+    selectedCity: payload.selectedCity,
+    stateImageForSelectedCity: payload.stateImageForSelectedCity,
   );
 }

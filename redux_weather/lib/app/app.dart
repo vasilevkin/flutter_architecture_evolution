@@ -52,7 +52,7 @@ class ReduxWeatherApp extends StatelessWidget {
         ReduxWeatherAppRoutes.home: (context) =>
             _makeHomeScreen(context, Constants.appTitle),
         ReduxWeatherAppRoutes.addCity: (context) => _makeAddCityScreen(context),
-        ReduxWeatherAppRoutes.cityDetail: (_) => CityDetailScreen(repo: repo),
+        ReduxWeatherAppRoutes.cityDetail: (_) => _makeCityDetailScreen(),
         ReduxWeatherAppRoutes.editCity: (_) => EditCityScreen(),
         ReduxWeatherAppRoutes.example: (_) => _makeExampleScreen(),
       },
@@ -74,6 +74,14 @@ class ReduxWeatherApp extends StatelessWidget {
     return AddCityScreen(
       onInit: () {
         Redux.store.dispatch(fetchSuggestionsAction(Constants.emptyString));
+      },
+    );
+  }
+
+  Widget _makeCityDetailScreen() {
+    return CityDetailScreen(
+      onInit: () {
+        Redux.store.dispatch(fetchSelectedCityAction);
       },
     );
   }

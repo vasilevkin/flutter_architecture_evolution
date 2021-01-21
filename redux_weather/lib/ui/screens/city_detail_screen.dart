@@ -1,24 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux_weather/app/constants.dart';
-import 'package:redux_weather/data/repository/storage_repo.dart';
+import 'package:redux_weather/app/error_messages.dart';
 import 'package:redux_weather/data_models/city.dart';
+import 'package:redux_weather/redux/cities/city_state.dart';
+import 'package:redux_weather/redux/store.dart';
+import 'package:redux_weather/ui/widgets/loader.dart';
 import 'package:redux_weather/ui/widgets/minor_weather_detail.dart';
 
 class CityDetailScreen extends StatelessWidget {
-  final StorageRepository repo;
+  final void Function() onInit;
 
-  final City _city;
-  final Image _stateImage;
-
-  CityDetailScreen({
-    @required this.repo,
-  })  : assert(repo != null),
-        _city = repo.getSelectedCity(),
-        _stateImage = repo.getImageForStateAbbr(
-            repo.getSelectedCity()?.weather?.weatherStateAbbr ?? 'hc');
+  CityDetailScreen({@required this.onInit});
 
   @override
   Widget build(BuildContext context) {
+    onInit();
+
+    return StoreConnector<AppState, CityState>(
+      distinct: true,
+      converter: (store) => store.state.cityState,
+      builder: (context, cityState) {
+        final _city = cityState.selectedCity;
+        final _stateImage = cityState.stateImageForSelectedCity;
+
+        print('CityDetailScreen:: _city= $_city');
+        print('CityDetailScreen:: _stateImage= $_stateImage');
+
+        if (_city.name == null) return Loader();
+
+        if (cityState == null || cityState.isLoading) {
+          return Center(child: Loader());
+        }
+        if (cityState.error != ErrorMessages.empty) {
+          return _buildErrorMessage(text: cityState.error);
+        }
+        return _buildBody(context, _city, _stateImage);
+      },
+    );
+  }
+
+  Widget _buildBody(BuildContext context, City _city, Image _stateImage) {
     return Scaffold(
       appBar: AppBar(
         title: Text(_city.name),
@@ -203,6 +225,13 @@ class CityDetailScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context)),
+    );
+  }
+
+  Widget _buildErrorMessage({String text}) {
+    return Padding(
+      padding: EdgeInsets.all(20),
+      child: Text(text, style: TextStyle(color: Colors.redAccent)),
     );
   }
 }

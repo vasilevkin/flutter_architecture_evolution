@@ -45,4 +45,5 @@ class Constants {
 
   // Assets
   static const String loaderImage = 'assets/loader_image.png';
+  static const String placeholderImage = 'assets/no_image.png';
 }
