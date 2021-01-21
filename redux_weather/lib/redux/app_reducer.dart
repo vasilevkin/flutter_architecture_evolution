@@ -7,17 +7,23 @@ import 'package:redux_weather/redux/suggestions/suggestion_reducer.dart';
 AppState appReducer(AppState state, dynamic action) {
   print('Redux:: appReducer action= $action');
 
-  if (action is SetCityStateAction) {
-    final nextCityState = cityReducer(state.cityState, action);
+  switch (action.runtimeType) {
+    case SetCityStateAction:
+      final nextCityState = cityReducer(state.cityState, action);
 
-    return state.copyWith(cityState: nextCityState);
-  }
+      return state.copyWith(cityState: nextCityState);
+      break;
 
-  if (action is SetSuggestionStateAction) {
-    final nextSuggestionState =
-        suggestionReducer(state.suggestionState, action);
+    case SetSuggestionStateAction:
+      final nextSuggestionState =
+          suggestionReducer(state.suggestionState, action);
 
-    return state.copyWith(suggestionState: nextSuggestionState);
+      return state.copyWith(suggestionState: nextSuggestionState);
+      break;
+
+    default:
+      print('appReducer:: Unknown action: $action');
+      break;
   }
 
   return state;
