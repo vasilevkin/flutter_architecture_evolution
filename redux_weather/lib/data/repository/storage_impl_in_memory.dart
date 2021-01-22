@@ -33,9 +33,9 @@ class StorageInMemoryImpl implements StorageRepository {
   @override
   Future<void> addCity(String cityName) async {
     City city = await _fetchCityWeatherByName(cityName);
+    city = await _fetchAndAddImageToCity(city);
 
     _citiesData.add(city);
-
     _updateCities();
   }
 
@@ -115,8 +115,18 @@ class StorageInMemoryImpl implements StorageRepository {
 
     for (String cityName in cityNames) {
       City city = await _fetchCityWeatherByName(cityName);
-
+      city = await _fetchAndAddImageToCity(city);
       _citiesData.add(city);
     }
+  }
+
+  Future<City> _fetchAndAddImageToCity(City city) async {
+    final Image imageWeather =
+        getImageForStateAbbr(city.weather.weatherStateAbbr);
+    final City cityWithImage = city.copyWith(imageWeather: imageWeather);
+
+    print('repo:: _fetchAndAddImageToCity cityWithImage= $cityWithImage');
+
+    return cityWithImage;
   }
 }

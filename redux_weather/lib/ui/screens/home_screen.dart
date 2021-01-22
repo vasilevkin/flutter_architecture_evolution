@@ -4,12 +4,12 @@ import 'package:redux_weather/app/app_routes.dart';
 import 'package:redux_weather/app/constants.dart';
 import 'package:redux_weather/app/error_messages.dart';
 import 'package:redux_weather/data_models/city.dart';
+import 'package:redux_weather/redux/cities/city_actions.dart';
 import 'package:redux_weather/redux/cities/city_state.dart';
+import 'package:redux_weather/redux/redux.dart';
 import 'package:redux_weather/redux/store.dart';
-import 'package:redux_weather/scoped_models/home_scoped_model.dart';
 import 'package:redux_weather/ui/widgets/home_list_item.dart';
 import 'package:redux_weather/ui/widgets/loader.dart';
-import 'package:scoped_model/scoped_model.dart';
 
 class HomeScreen extends StatefulWidget {
   final String title;
@@ -26,15 +26,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     widget.onInit();
     super.initState();
-  }
-
-  HomeScopedModel scopedModel;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    scopedModel =
-        ScopedModel.of<HomeScopedModel>(context, rebuildOnChange: true);
   }
 
   @override
@@ -85,18 +76,14 @@ class _HomeScreenState extends State<HomeScreen> {
     return ListView.builder(
       itemCount: cities.length,
       itemBuilder: (context, index) {
-        final cityWeatherStateAbbr =
-            cities[index].weather?.weatherStateAbbr ?? 'hc';
-        final weatherImage =
-            scopedModel.getImageForStateAbbr(cityWeatherStateAbbr);
-
         return HomeListItem(
           cityName: cities[index].name,
           temperature: cities[index].weather?.theTemp,
-          weatherStateImage: weatherImage,
+          weatherStateImage: cities[index].imageWeather,
           onTap: () => _showCityDetailScreen(cities[index]),
           onEditTap: () => _showEditCityScreen(cities[index]),
-          onDeleteTap: () => scopedModel.deleteCity(cities[index]),
+          onDeleteTap: () =>
+              Redux.store.dispatch(deleteCityAction(cities[index])),
         );
       },
     );
@@ -124,12 +111,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _showCityDetailScreen(City city) {
-    scopedModel.setSelectedCity(city);
+    Redux.store.dispatch(setSelectedCityAction(city));
     Navigator.pushNamed(context, ReduxWeatherAppRoutes.cityDetail);
   }
 
   void _showEditCityScreen(City city) {
-    scopedModel.setSelectedCity(city);
+    Redux.store.dispatch(setSelectedCityAction(city));
     Navigator.pushNamed(context, ReduxWeatherAppRoutes.editCity);
   }
 }

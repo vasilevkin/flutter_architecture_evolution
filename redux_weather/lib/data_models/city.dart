@@ -6,17 +6,20 @@ class City {
   final String name;
   final int woeId;
   final Weather weather;
+  final Image imageWeather;
 
   City._({
     this.name,
     this.woeId,
     this.weather,
+    this.imageWeather,
   });
 
   factory City.initial() => City._(
         name: Constants.initialName,
         woeId: Constants.initialId,
         weather: Weather.initial(),
+        imageWeather: Image.asset(Constants.placeholderImage),
       );
 
   factory City.fromJson(Map<String, dynamic> map) {
@@ -41,6 +44,7 @@ class City {
       name: name,
       woeId: woeId,
       weather: weather,
+      imageWeather: imageWeather,
     );
   }
 
@@ -48,16 +52,18 @@ class City {
     @required String name,
     @required int woeId,
     @required Weather weather,
+    @required Image imageWeather,
   }) {
     return City._(
       name: name ?? this.name,
       woeId: woeId ?? this.woeId,
       weather: weather ?? this.weather,
+      imageWeather: imageWeather ?? this.imageWeather,
     );
   }
 
   @override
   String toString() {
-    return 'City{name: $name, woeId: $woeId, weather: $weather}';
+    return 'City{name: $name, woeId: $woeId, weather: $weather, imageWeather: $imageWeather}';
   }
 }

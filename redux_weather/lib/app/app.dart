@@ -11,7 +11,6 @@ import 'package:redux_weather/redux/suggestions/suggestion_actions.dart';
 import 'package:redux_weather/redux_example/example_screen.dart';
 import 'package:redux_weather/redux_example/redux/example_store.dart';
 import 'package:redux_weather/scoped_models/add_or_edit_city_scoped_model.dart';
-import 'package:redux_weather/scoped_models/home_scoped_model.dart';
 import 'package:redux_weather/ui/screens/add_city_screen.dart';
 import 'package:redux_weather/ui/screens/city_detail_screen.dart';
 import 'package:redux_weather/ui/screens/edit_city_screen.dart';
@@ -31,12 +30,9 @@ class ReduxWeatherApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreProvider(
       store: store,
-      child: ScopedModel<HomeScopedModel>(
-        model: HomeScopedModel(repo: repo),
-        child: ScopedModel(
-          model: AddOrEditCityScopedModel(repo: repo),
-          child: _makeApp(),
-        ),
+      child: ScopedModel(
+        model: AddOrEditCityScopedModel(repo: repo),
+        child: _makeApp(),
       ),
     );
   }

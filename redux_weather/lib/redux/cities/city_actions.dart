@@ -5,6 +5,7 @@ import 'package:redux_weather/app/constants.dart';
 import 'package:redux_weather/app/error_messages.dart';
 import 'package:redux_weather/data_models/city.dart';
 import 'package:redux_weather/redux/cities/city_state.dart';
+import 'package:redux_weather/redux/redux.dart';
 import 'package:redux_weather/redux/store.dart';
 
 @immutable
@@ -15,7 +16,7 @@ class SetCityStateAction {
 }
 
 Future<void> fetchCitiesAction(Store<AppState> store) async {
-  print('Redux:: cities are started to dispatch');
+  print('Redux:: fetch cities are started to dispatch');
 
   store.dispatch(SetCityStateAction(CityState(isLoading: true)));
 
@@ -67,7 +68,7 @@ Future<void> fetchCitiesAction(Store<AppState> store) async {
 }
 
 Future<void> fetchSelectedCityAction(Store<AppState> store) async {
-  print('Redux:: selected city is started to dispatch');
+  print('Redux:: fetch selected city is started to dispatch');
 
   store.dispatch(SetCityStateAction(CityState(isLoading: true)));
 
@@ -88,7 +89,7 @@ Future<void> fetchSelectedCityAction(Store<AppState> store) async {
         ),
       ),
     );
-    print('Redux:: selected city is dispatched= $_city');
+    print('Redux:: fetch selected city is dispatched= $_city');
     print('Redux:: stateImageForSelectedCity is dispatched= $_stateImage');
   } catch (error) {
     print('Redux:: fetchSelectedCityAction .Error= $error');
@@ -103,6 +104,60 @@ Future<void> fetchSelectedCityAction(Store<AppState> store) async {
         ),
       ),
     );
+  }
+}
+
+Future<void> setSelectedCityAction(City city) async {
+  final store = Redux.store;
+
+  print('Redux:: set selected city is started to dispatch');
+
+  store.dispatch(SetCityStateAction(CityState(isLoading: true)));
+
+  final repo = store.state.repo;
+
+  try {
+    repo.setSelectedCity(city);
+    store.dispatch(
+      SetCityStateAction(
+        CityState(
+          isLoading: false,
+          error: ErrorMessages.empty,
+          selectedCity: city,
+        ),
+      ),
+    );
+    print('Redux:: set selected city is dispatched. city= $city');
+  } catch (error) {
+    print('Redux:: setSelectedCityAction .Error= $error');
+
+    store.dispatch(
+      SetCityStateAction(
+        CityState(
+          isLoading: false,
+          error: '${ErrorMessages.unknownError} ${error.toString()}',
+          selectedCity: City.initial(),
+          stateImageForSelectedCity: Image.asset(Constants.placeholderImage),
+        ),
+      ),
+    );
+  }
+}
+
+Future<void> deleteCityAction(City city) async {
+  final store = Redux.store;
+
+  print('Redux:: delete city is started to dispatch');
+
+  store.dispatch(SetCityStateAction(CityState(isLoading: true)));
+
+  final repo = store.state.repo;
+
+  try {
+    await repo.deleteCity(city);
+    print('Redux:: deleteCityAction is dispatched. city= $city');
+  } catch (error) {
+    print('Redux:: deleteCityAction .Error= $error');
   }
 }
 
