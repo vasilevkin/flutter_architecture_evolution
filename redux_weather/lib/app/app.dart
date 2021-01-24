@@ -30,10 +30,7 @@ class ReduxWeatherApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreProvider(
       store: store,
-      child: ScopedModel(
-        model: AddOrEditCityScopedModel(repo: repo),
-        child: _makeApp(),
-      ),
+      child: _makeApp(),
     );
   }
 

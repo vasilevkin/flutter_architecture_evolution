@@ -1,74 +1,88 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux_weather/app/constants.dart';
 import 'package:redux_weather/app/error_messages.dart';
 import 'package:redux_weather/data_models/city.dart';
-import 'package:redux_weather/scoped_models/add_or_edit_city_scoped_model.dart';
+import 'package:redux_weather/redux/cities/city_actions.dart';
+import 'package:redux_weather/redux/cities/city_state.dart';
+import 'package:redux_weather/redux/redux.dart';
+import 'package:redux_weather/redux/store.dart';
+import 'package:redux_weather/redux/suggestions/suggestion_actions.dart';
+import 'package:redux_weather/redux/suggestions/suggestion_state.dart';
 import 'package:redux_weather/ui/widgets/add_city_list_item.dart';
 import 'package:redux_weather/ui/widgets/loader.dart';
-import 'package:scoped_model/scoped_model.dart';
-
-/*
-Both AddCityScreen and EditCityScreen are using the same scopedModel AddOrEditCityScopedModel.
-The screens are really similar, and definitely could be implemented in class file in production.
-But for now, AddCityScreen is StatefulWidget,
-while EditCityScreen is StatelessWidget.
-For teaching purposes only.
-*/
 
 class EditCityScreen extends StatelessWidget {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    final scopedModel = ScopedModel.of<AddOrEditCityScopedModel>(context,
-        rebuildOnChange: true);
-
-    return WillPopScope(
-      onWillPop: () async {
-        scopedModel.clearScopedModel();
-        return true;
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('${Constants.editCity} ${scopedModel.selectedCityName}'),
-        ),
-        body: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              Form(
-                key: formKey,
-                autovalidate: false,
-                child: TextFormField(
-                  onChanged: (value) => scopedModel.setQueryString(value),
-                ),
+    return Scaffold(
+      appBar: AppBar(
+        title: _buildAppBarText(),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            Form(
+              key: formKey,
+              autovalidate: false,
+              child: TextFormField(
+                onChanged: (value) =>
+                    Redux.store.dispatch(fetchSuggestionsAction(value)),
               ),
-              Expanded(
-                child: _buildScreenBody(scopedModel),
-              ),
-            ],
-          ),
+            ),
+            Expanded(
+              child: _buildScreenBody(),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  Widget _buildScreenBody(AddOrEditCityScopedModel model) {
-    if (model == null || model.isLoading == true) {
-      return Center(child: Loader());
-    }
-    if (model.error != null) {
-      return _buildErrorMessage(text: model.error.message);
-    }
-    if (model.suggestionsList == null) {
-      return Text(Constants.enterNewCityName);
-    }
-    return _buildSuggestionsList(
-        scopedModel: model, cities: model.suggestionsList);
+  Widget _buildAppBarText() {
+    return StoreConnector<AppState, CityState>(
+      distinct: true,
+      converter: (store) => store.state.cityState,
+      builder: (context, cityState) {
+        if (cityState == null || cityState.isLoading) {
+          return Center(child: Loader());
+        }
+        if (cityState.error != ErrorMessages.empty) {
+          return _buildErrorMessage(text: cityState.error);
+        }
+        if (cityState.cities == null || cityState.cities.isEmpty) {
+          return _buildErrorMessage(text: ErrorMessages.tapPlusToAdd);
+        }
+
+        return Text('${Constants.editCity} ${cityState.selectedCity.name}');
+      },
+    );
+  }
+
+  Widget _buildScreenBody() {
+    return StoreConnector<AppState, SuggestionState>(
+      distinct: true,
+      converter: (store) => store.state.suggestionState,
+      builder: (context, suggestionState) {
+        if (suggestionState == null || suggestionState.isLoading) {
+          return Center(child: Loader());
+        }
+        if (suggestionState.error != ErrorMessages.empty) {
+          return _buildErrorMessage(text: suggestionState.error);
+        }
+        if (suggestionState.suggestions == null ||
+            suggestionState.suggestions.isEmpty) {
+          return _buildErrorMessage(text: Constants.enterNewCityName);
+        }
+        return _buildSuggestionsList(cities: suggestionState.suggestions);
+      },
+    );
   }
 
   Widget _buildSuggestionsList({
-    @required AddOrEditCityScopedModel scopedModel,
     @required List<City> cities,
   }) {
     return ListView.builder(
@@ -78,8 +92,7 @@ class EditCityScreen extends StatelessWidget {
 
         return AddCityListItem(
           cityName: city.name,
-          onTap: () =>
-              onTapItem(context: context, scopedModel: scopedModel, city: city),
+          onTap: () => onTapItem(context: context, city: city),
         );
       },
     );
@@ -88,7 +101,8 @@ class EditCityScreen extends StatelessWidget {
   Widget _buildErrorMessage({String text}) {
     return Padding(
       padding: EdgeInsets.all(20),
-      child: text == ErrorMessages.emptySearchString
+      child: (text == ErrorMessages.emptySearchString ||
+              text == Constants.enterNewCityName)
           ? Text(text)
           : Text(text, style: TextStyle(color: Colors.redAccent)),
     );
@@ -96,10 +110,9 @@ class EditCityScreen extends StatelessWidget {
 
   void onTapItem({
     @required BuildContext context,
-    @required AddOrEditCityScopedModel scopedModel,
     @required City city,
   }) {
-    scopedModel.updateCity(city);
+    Redux.store.dispatch(updateCityAction(city));
     Navigator.pop(context);
   }
 }

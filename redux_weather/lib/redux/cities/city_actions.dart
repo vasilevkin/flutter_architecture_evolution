@@ -161,4 +161,40 @@ Future<void> deleteCityAction(City city) async {
   }
 }
 
+Future<void> addCityAction(String name) async {
+  final store = Redux.store;
+
+  print('Redux:: add city is started to dispatch');
+
+  store.dispatch(SetCityStateAction(CityState(isLoading: true)));
+
+  final repo = store.state.repo;
+
+  try {
+    await repo.addCity(name);
+
+    print('Redux:: addCityAction is dispatched. city name= $name');
+  } catch (error) {
+    print('Redux:: addCityAction .Error= $error');
+  }
+}
+
+Future<void> updateCityAction(City city) async {
+  final store = Redux.store;
+
+  print('Redux:: update city is started to dispatch');
+
+  store.dispatch(SetCityStateAction(CityState(isLoading: true)));
+
+  final repo = store.state.repo;
+
+  try {
+    await repo.updateCity(city);
+
+    print('Redux:: updateCityAction is dispatched. city= $city');
+  } catch (error) {
+    print('Redux:: updateCityAction .Error= $error');
+  }
+}
+
 class LoadCitiesAction {}
