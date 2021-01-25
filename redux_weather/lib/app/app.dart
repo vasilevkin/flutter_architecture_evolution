@@ -10,12 +10,10 @@ import 'package:redux_weather/redux/store.dart';
 import 'package:redux_weather/redux/suggestions/suggestion_actions.dart';
 import 'package:redux_weather/redux_example/example_screen.dart';
 import 'package:redux_weather/redux_example/redux/example_store.dart';
-import 'package:redux_weather/scoped_models/add_or_edit_city_scoped_model.dart';
 import 'package:redux_weather/ui/screens/add_city_screen.dart';
 import 'package:redux_weather/ui/screens/city_detail_screen.dart';
 import 'package:redux_weather/ui/screens/edit_city_screen.dart';
 import 'package:redux_weather/ui/screens/home_screen.dart';
-import 'package:scoped_model/scoped_model.dart';
 
 class ReduxWeatherApp extends StatelessWidget {
   final StorageRepository repo;
@@ -42,28 +40,25 @@ class ReduxWeatherApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       routes: {
-        ReduxWeatherAppRoutes.home: (context) =>
-            _makeHomeScreen(context, Constants.appTitle),
-        ReduxWeatherAppRoutes.addCity: (context) => _makeAddCityScreen(context),
+        ReduxWeatherAppRoutes.home: (_) => _makeHomeScreen(Constants.appTitle),
+        ReduxWeatherAppRoutes.addCity: (_) => _makeAddCityScreen(),
         ReduxWeatherAppRoutes.cityDetail: (_) => _makeCityDetailScreen(),
-        ReduxWeatherAppRoutes.editCity: (_) => EditCityScreen(),
+        ReduxWeatherAppRoutes.editCity: (_) => _makeEditCityScreen(),
         ReduxWeatherAppRoutes.example: (_) => _makeExampleScreen(),
       },
     );
   }
 
-  Widget _makeHomeScreen(BuildContext context, String title) {
+  Widget _makeHomeScreen(String title) {
     return HomeScreen(
       title: title,
       onInit: () {
-        StoreProvider.of<AppState>(context).dispatch(LoadCitiesAction);
-
         Redux.store.dispatch(fetchCitiesAction);
       },
     );
   }
 
-  Widget _makeAddCityScreen(BuildContext context) {
+  Widget _makeAddCityScreen() {
     return AddCityScreen(
       onInit: () {
         Redux.store.dispatch(fetchSuggestionsAction(Constants.emptyString));
@@ -75,6 +70,14 @@ class ReduxWeatherApp extends StatelessWidget {
     return CityDetailScreen(
       onInit: () {
         Redux.store.dispatch(fetchSelectedCityAction);
+      },
+    );
+  }
+
+  Widget _makeEditCityScreen() {
+    return EditCityScreen(
+      onInit: () {
+        Redux.store.dispatch(fetchSuggestionsAction(Constants.emptyString));
       },
     );
   }

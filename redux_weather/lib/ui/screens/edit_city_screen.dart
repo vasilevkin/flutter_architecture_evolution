@@ -14,9 +14,27 @@ import 'package:redux_weather/ui/widgets/loader.dart';
 
 class EditCityScreen extends StatelessWidget {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final void Function() onInit;
+
+/*
+  AddCityScreen is StatefulWidget.
+  but EditCityScreen is StatelessWidget.
+  StatelessWidget is immutable, all instance fields should be final.
+  List _firstRun is final, but contained data can be changed.
+  This is one of the approaches to save state in StatelessWidget.
+  For teaching purposes only.
+*/
+  final List<bool> _firstRun = [true];
+
+  EditCityScreen({@required this.onInit});
 
   @override
   Widget build(BuildContext context) {
+    if (_firstRun.first) {
+      onInit();
+      _firstRun.first = false;
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: _buildAppBarText(),
@@ -103,7 +121,7 @@ class EditCityScreen extends StatelessWidget {
       padding: EdgeInsets.all(20),
       child: (text == ErrorMessages.emptySearchString ||
               text == Constants.enterNewCityName)
-          ? Text(text)
+          ? Text(Constants.enterNewCityName)
           : Text(text, style: TextStyle(color: Colors.redAccent)),
     );
   }
