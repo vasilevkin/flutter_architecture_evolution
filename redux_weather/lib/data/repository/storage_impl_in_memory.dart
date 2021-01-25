@@ -10,25 +10,21 @@ import 'package:redux_weather/data_models/weather.dart';
 class StorageInMemoryImpl implements StorageRepository {
   final ApiService api;
 
-  StreamController<List<City>> _citiesDataController =
-      StreamController.broadcast();
   List<City> _citiesData;
   Map<String, Image> _abbrImages = Map();
   City _selectedCity;
-
-  // Output streams
-  Stream<List<City>> get getCities => _citiesDataController.stream;
 
   StorageInMemoryImpl({@required this.api}) : assert(api != null) {
     _updateCities();
   }
 
-  @override
-  void dispose() {
-    _citiesDataController.close();
-  }
-
   // StorageRepository implementation
+
+  @override
+  Future<List<City>> getCities() async {
+    await _updateCities();
+    return _citiesData;
+  }
 
   @override
   Future<void> addCity(String cityName) async {
@@ -42,6 +38,7 @@ class StorageInMemoryImpl implements StorageRepository {
   @override
   Future<void> updateCity(City city) async {
     City cityWithWeather = await _fetchCityWeatherByName(city.name);
+    cityWithWeather = await _fetchAndAddImageToCity(city);
     var index = _citiesData.indexOf(_selectedCity);
     _citiesData[index] = cityWithWeather;
 
@@ -51,7 +48,6 @@ class StorageInMemoryImpl implements StorageRepository {
   @override
   Future<void> deleteCity(City city) async {
     _citiesData.remove(city);
-
     _updateCities();
   }
 
@@ -84,10 +80,10 @@ class StorageInMemoryImpl implements StorageRepository {
 
   // _private methods
 
-  void _updateCities() async {
-    if (_citiesData == null) await _addSomeCitiesInEmptyRepo();
-
-    _citiesDataController.sink.add(_citiesData);
+  Future<void> _updateCities() async {
+    if (_citiesData == null) {
+      await _addSomeCitiesInEmptyRepo();
+    }
   }
 
   Future<City> _fetchCityWeatherByName(String name) async {
@@ -111,13 +107,15 @@ class StorageInMemoryImpl implements StorageRepository {
       "Paris",
     ];
 
-    _citiesData = List();
+    List<City> _citiesData2 = List();
 
-    for (String cityName in cityNames) {
+    await Future.forEach(cityNames, (cityName) async {
       City city = await _fetchCityWeatherByName(cityName);
       city = await _fetchAndAddImageToCity(city);
-      _citiesData.add(city);
-    }
+      _citiesData2.add(city);
+    }).then((_) {
+      _citiesData = _citiesData2;
+    });
   }
 
   Future<City> _fetchAndAddImageToCity(City city) async {

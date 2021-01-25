@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:redux_weather/data_models/city.dart';
 
 abstract class StorageRepository {
-  Stream<List<City>> get getCities;
 
-  void dispose();
+  Future<List<City>> getCities();
 
   Future<void> addCity(String cityName);
 
