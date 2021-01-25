@@ -16,39 +16,7 @@ class SetCityStateAction {
 }
 
 Future<void> fetchCitiesAction(Store<AppState> store) async {
-  print('Redux:: fetch cities are started to dispatch');
-
-  store.dispatch(SetCityStateAction(CityState(isLoading: true)));
-
-  final repo = store.state.repo;
-
-  try {
-    final event = await repo.getCities();
-
-    store.dispatch(
-      SetCityStateAction(
-        CityState(
-          isLoading: false,
-          error: ErrorMessages.empty,
-          cities: event,
-        ),
-      ),
-    );
-    print('Redux:: # of cities dispatched= ${event.length}');
-    // print('Redux:: cities are dispatched= $event');
-  } catch (error) {
-    print('Redux:: fetchCitiesAction .Error= $error');
-
-    store.dispatch(
-      SetCityStateAction(
-        CityState(
-          isLoading: false,
-          error: '${ErrorMessages.unknownError} ${error.toString()}',
-          cities: const [],
-        ),
-      ),
-    );
-  }
+  await _sendAction(actionName: 'fetchCitiesAction', actionBody: () {});
 }
 
 Future<void> fetchSelectedCityAction(Store<AppState> store) async {
@@ -129,96 +97,43 @@ Future<void> setSelectedCityAction(City city) async {
 }
 
 Future<void> deleteCityAction(City city) async {
-  final store = Redux.store;
-
-  print('Redux:: delete city is started to dispatch');
-
-  store.dispatch(SetCityStateAction(CityState(isLoading: true)));
-
-  final repo = store.state.repo;
-
-  try {
-    await repo.deleteCity(city);
-
-    final event = await repo.getCities();
-
-    store.dispatch(
-      SetCityStateAction(
-        CityState(
-          isLoading: false,
-          error: ErrorMessages.empty,
-          cities: event,
-        ),
-      ),
-    );
-    print(
-        'Redux:: deleteCityAction is dispatched. city= $city  :: # of cities dispatched= ${event.length}');
-  } catch (error) {
-    print('Redux:: deleteCityAction .Error= $error');
-
-    store.dispatch(
-      SetCityStateAction(
-        CityState(
-          isLoading: false,
-          error: '${ErrorMessages.unknownError} ${error.toString()}',
-          cities: const [],
-        ),
-      ),
-    );
-  }
+  await _sendAction(
+      actionName: 'deleteCityAction',
+      actionBody: () async {
+        await Redux.store.state.repo.deleteCity(city);
+      });
 }
 
 Future<void> addCityAction(String name) async {
-  final store = Redux.store;
-
-  print('Redux:: add city is started to dispatch');
-
-  store.dispatch(SetCityStateAction(CityState(isLoading: true)));
-
-  final repo = store.state.repo;
-
-  try {
-    await repo.addCity(name);
-
-    final event = await repo.getCities();
-
-    store.dispatch(
-      SetCityStateAction(
-        CityState(
-          isLoading: false,
-          error: ErrorMessages.empty,
-          cities: event,
-        ),
-      ),
-    );
-    print(
-        'Redux:: addCityAction is dispatched. city name= $name  :: # of cities dispatched= ${event.length}');
-  } catch (error) {
-    print('Redux:: addCityAction .Error= $error');
-
-    store.dispatch(
-      SetCityStateAction(
-        CityState(
-          isLoading: false,
-          error: '${ErrorMessages.unknownError} ${error.toString()}',
-          cities: const [],
-        ),
-      ),
-    );
-  }
+  await _sendAction(
+      actionName: 'addCityAction',
+      actionBody: () async {
+        await Redux.store.state.repo.addCity(name);
+      });
 }
 
 Future<void> updateCityAction(City city) async {
+  await _sendAction(
+      actionName: 'updateCityAction',
+      actionBody: () async {
+        await Redux.store.state.repo.updateCity(city);
+      });
+}
+
+Future<void> _sendAction({
+  @required String actionName,
+  @required Function actionBody,
+}) async {
   final store = Redux.store;
 
-  print('Redux:: update city is started to dispatch');
-
-  store.dispatch(SetCityStateAction(CityState(isLoading: true)));
-
-  final repo = store.state.repo;
-
   try {
-    await repo.updateCity(city);
+    print('Redux:: $actionName is started to dispatch');
+
+    store.dispatch(SetCityStateAction(CityState(isLoading: true)));
+
+    final repo = store.state.repo;
+
+    await actionBody();
 
     final event = await repo.getCities();
 
@@ -232,9 +147,10 @@ Future<void> updateCityAction(City city) async {
       ),
     );
     print(
-        'Redux:: updateCityAction is dispatched. city= $city  :: # of cities dispatched= ${event.length}');
+        'Redux:: $actionName is dispatched. :: # of cities dispatched= ${event.length}');
+    // print('Redux:: cities are dispatched= $event');
   } catch (error) {
-    print('Redux:: updateCityAction .Error= $error');
+    print('Redux:: $actionName .Error= $error');
 
     store.dispatch(
       SetCityStateAction(

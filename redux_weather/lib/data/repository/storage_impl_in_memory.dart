@@ -123,7 +123,7 @@ class StorageInMemoryImpl implements StorageRepository {
         getImageForStateAbbr(city.weather.weatherStateAbbr);
     final City cityWithImage = city.copyWith(imageWeather: imageWeather);
 
-    print('repo:: _fetchAndAddImageToCity cityWithImage= $cityWithImage');
+    print('repo:: _fetchAndAddImageToCity cityWithImage= ${cityWithImage.name}, image= ${cityWithImage.imageWeather.image}');
 
     return cityWithImage;
   }
