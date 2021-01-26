@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:redux/redux.dart';
 import 'package:mobx_weather/app/app_routes.dart';
 import 'package:mobx_weather/app/constants.dart';
 import 'package:mobx_weather/data/repository/storage_repo.dart';
+import 'package:mobx_weather/mobx_example/example_screen.dart';
 import 'package:mobx_weather/redux/cities/city_actions.dart';
 import 'package:mobx_weather/redux/redux.dart';
 import 'package:mobx_weather/redux/store.dart';
 import 'package:mobx_weather/redux/suggestions/suggestion_actions.dart';
-import 'package:mobx_weather/redux_example/example_screen.dart';
-import 'package:mobx_weather/redux_example/redux/example_store.dart';
 import 'package:mobx_weather/ui/screens/add_city_screen.dart';
 import 'package:mobx_weather/ui/screens/city_detail_screen.dart';
 import 'package:mobx_weather/ui/screens/edit_city_screen.dart';
 import 'package:mobx_weather/ui/screens/home_screen.dart';
+import 'package:redux/redux.dart';
 
 class MobxWeatherApp extends StatelessWidget {
   final StorageRepository repo;
@@ -82,18 +81,9 @@ class MobxWeatherApp extends StatelessWidget {
     );
   }
 
-  void exampleMain() async {
-    await ExampleRedux.init();
-  }
-
   Widget _makeExampleScreen() {
-    exampleMain();
-
-    return StoreProvider<ExampleAppState>(
-      store: ExampleRedux.store,
-      child: ExampleHomePage(
-        title: Constants.exampleTitle,
-      ),
+    return ExampleHomePage(
+      title: Constants.exampleTitle,
     );
   }
 }

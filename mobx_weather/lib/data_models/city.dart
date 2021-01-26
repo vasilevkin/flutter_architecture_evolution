@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:mobx_weather/app/constants.dart';
 import 'package:mobx_weather/data_models/weather.dart';
 

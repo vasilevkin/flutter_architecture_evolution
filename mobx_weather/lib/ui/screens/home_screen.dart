@@ -42,11 +42,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<Widget> _buildAppBarActions() {
     return [
-      FlatButton(
+      TextButton(
         onPressed: () {
           Navigator.pushNamed(context, MobxWeatherAppRoutes.example);
         },
-        child: Icon(Icons.redeem),
+        child: Icon(Icons.text_rotation_angleup),
       ),
     ];
   }
