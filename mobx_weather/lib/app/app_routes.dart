@@ -1,5 +1,5 @@
 //region AppRoutes
-class ReduxWeatherAppRoutes {
+class MobxWeatherAppRoutes {
   static const home = '/';
   static const addCity = '/addCity';
   static const cityDetail = '/cityDetail';

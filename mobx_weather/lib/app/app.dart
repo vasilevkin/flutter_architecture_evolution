@@ -15,11 +15,11 @@ import 'package:mobx_weather/ui/screens/city_detail_screen.dart';
 import 'package:mobx_weather/ui/screens/edit_city_screen.dart';
 import 'package:mobx_weather/ui/screens/home_screen.dart';
 
-class ReduxWeatherApp extends StatelessWidget {
+class MobxWeatherApp extends StatelessWidget {
   final StorageRepository repo;
   final Store<AppState> store;
 
-  ReduxWeatherApp({
+  MobxWeatherApp({
     @required this.repo,
     @required this.store,
   });
@@ -40,11 +40,11 @@ class ReduxWeatherApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       routes: {
-        ReduxWeatherAppRoutes.home: (_) => _makeHomeScreen(Constants.appTitle),
-        ReduxWeatherAppRoutes.addCity: (_) => _makeAddCityScreen(),
-        ReduxWeatherAppRoutes.cityDetail: (_) => _makeCityDetailScreen(),
-        ReduxWeatherAppRoutes.editCity: (_) => _makeEditCityScreen(),
-        ReduxWeatherAppRoutes.example: (_) => _makeExampleScreen(),
+        MobxWeatherAppRoutes.home: (_) => _makeHomeScreen(Constants.appTitle),
+        MobxWeatherAppRoutes.addCity: (_) => _makeAddCityScreen(),
+        MobxWeatherAppRoutes.cityDetail: (_) => _makeCityDetailScreen(),
+        MobxWeatherAppRoutes.editCity: (_) => _makeEditCityScreen(),
+        MobxWeatherAppRoutes.example: (_) => _makeExampleScreen(),
       },
     );
   }

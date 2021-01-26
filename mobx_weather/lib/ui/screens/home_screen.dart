@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return [
       FlatButton(
         onPressed: () {
-          Navigator.pushNamed(context, ReduxWeatherAppRoutes.example);
+          Navigator.pushNamed(context, MobxWeatherAppRoutes.example);
         },
         child: Icon(Icons.redeem),
       ),
@@ -107,16 +107,16 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _tapAddCity() async {
-    Navigator.pushNamed(context, ReduxWeatherAppRoutes.addCity);
+    Navigator.pushNamed(context, MobxWeatherAppRoutes.addCity);
   }
 
   void _showCityDetailScreen(City city) {
     Redux.store.dispatch(setSelectedCityAction(city));
-    Navigator.pushNamed(context, ReduxWeatherAppRoutes.cityDetail);
+    Navigator.pushNamed(context, MobxWeatherAppRoutes.cityDetail);
   }
 
   void _showEditCityScreen(City city) {
     Redux.store.dispatch(setSelectedCityAction(city));
-    Navigator.pushNamed(context, ReduxWeatherAppRoutes.editCity);
+    Navigator.pushNamed(context, MobxWeatherAppRoutes.editCity);
   }
 }

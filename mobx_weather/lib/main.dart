@@ -7,5 +7,5 @@ void main() async {
 
   final store = Redux.store;
 
-  runApp(ReduxWeatherApp(repo: store.state.repo, store: store));
+  runApp(MobxWeatherApp(repo: store.state.repo, store: store));
 }
