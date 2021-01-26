@@ -1,5 +1,5 @@
-import 'package:redux_weather/redux/cities/city_actions.dart';
-import 'package:redux_weather/redux/cities/city_state.dart';
+import 'package:mobx_weather/redux/cities/city_actions.dart';
+import 'package:mobx_weather/redux/cities/city_state.dart';
 
 cityReducer(CityState prevState, SetCityStateAction action) {
   final payload = action.cityState;

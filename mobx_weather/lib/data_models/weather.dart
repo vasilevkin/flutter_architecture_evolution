@@ -1,4 +1,4 @@
-import 'package:redux_weather/app/constants.dart';
+import 'package:mobx_weather/app/constants.dart';
 
 class Weather {
   int id;

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:redux_weather/app/constants.dart';
-import 'package:redux_weather/data_models/weather.dart';
+import 'package:mobx_weather/app/constants.dart';
+import 'package:mobx_weather/data_models/weather.dart';
 
 class City {
   final String name;

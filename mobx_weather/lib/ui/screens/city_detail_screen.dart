@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:redux_weather/app/constants.dart';
-import 'package:redux_weather/app/error_messages.dart';
-import 'package:redux_weather/data_models/city.dart';
-import 'package:redux_weather/redux/cities/city_state.dart';
-import 'package:redux_weather/redux/store.dart';
-import 'package:redux_weather/ui/widgets/loader.dart';
-import 'package:redux_weather/ui/widgets/minor_weather_detail.dart';
+import 'package:mobx_weather/app/constants.dart';
+import 'package:mobx_weather/app/error_messages.dart';
+import 'package:mobx_weather/data_models/city.dart';
+import 'package:mobx_weather/redux/cities/city_state.dart';
+import 'package:mobx_weather/redux/store.dart';
+import 'package:mobx_weather/ui/widgets/loader.dart';
+import 'package:mobx_weather/ui/widgets/minor_weather_detail.dart';
 
 class CityDetailScreen extends StatelessWidget {
   final void Function() onInit;

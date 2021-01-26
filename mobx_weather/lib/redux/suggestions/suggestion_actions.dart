@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
-import 'package:redux_weather/app/constants.dart';
-import 'package:redux_weather/app/error_messages.dart';
-import 'package:redux_weather/redux/redux.dart';
-import 'package:redux_weather/redux/suggestions/suggestion_state.dart';
+import 'package:mobx_weather/app/constants.dart';
+import 'package:mobx_weather/app/error_messages.dart';
+import 'package:mobx_weather/redux/redux.dart';
+import 'package:mobx_weather/redux/suggestions/suggestion_state.dart';
 
 @immutable
 class SetSuggestionStateAction {

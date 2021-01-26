@@ -1,4 +1,4 @@
-package com.example.redux_weather
+package com.example.mobx_weather
 
 import io.flutter.embedding.android.FlutterActivity
 

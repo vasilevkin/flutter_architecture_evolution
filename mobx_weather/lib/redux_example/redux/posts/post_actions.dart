@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 import 'package:redux/redux.dart';
-import 'package:redux_weather/redux_example/models/i_post.dart';
-import 'package:redux_weather/redux_example/redux/example_store.dart';
-import 'package:redux_weather/redux_example/redux/posts/post_state.dart';
+import 'package:mobx_weather/redux_example/models/i_post.dart';
+import 'package:mobx_weather/redux_example/redux/example_store.dart';
+import 'package:mobx_weather/redux_example/redux/posts/post_state.dart';
 
 @immutable
 class SetPostsStateAction {

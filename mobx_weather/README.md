@@ -1,4 +1,4 @@
-# redux_weather
+# mobx_weather
 
 A state container approach, often used in web development.
 

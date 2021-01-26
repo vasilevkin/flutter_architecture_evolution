@@ -1,5 +1,5 @@
-import 'package:redux_weather/redux/suggestions/suggestion_actions.dart';
-import 'package:redux_weather/redux/suggestions/suggestion_state.dart';
+import 'package:mobx_weather/redux/suggestions/suggestion_actions.dart';
+import 'package:mobx_weather/redux/suggestions/suggestion_state.dart';
 
 suggestionReducer(SuggestionState prevState, SetSuggestionStateAction action) {
   final payload = action.suggestionState;

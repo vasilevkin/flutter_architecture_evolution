@@ -1,7 +1,7 @@
 import 'package:meta/meta.dart';
-import 'package:redux_weather/data/repository/storage_repo.dart';
-import 'package:redux_weather/redux/cities/city_state.dart';
-import 'package:redux_weather/redux/suggestions/suggestion_state.dart';
+import 'package:mobx_weather/data/repository/storage_repo.dart';
+import 'package:mobx_weather/redux/cities/city_state.dart';
+import 'package:mobx_weather/redux/suggestions/suggestion_state.dart';
 
 @immutable
 class AppState {

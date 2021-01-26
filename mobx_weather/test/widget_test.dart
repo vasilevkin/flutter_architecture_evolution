@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:redux_weather/main.dart';
+import 'package:mobx_weather/main.dart';
 
 void main() {
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:redux_weather/redux_example/models/i_post.dart';
+import 'package:mobx_weather/redux_example/models/i_post.dart';
 
 @immutable
 class PostsState {

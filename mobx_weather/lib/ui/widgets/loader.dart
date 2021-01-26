@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:redux_weather/app/constants.dart';
+import 'package:mobx_weather/app/constants.dart';
 import 'package:vector_math/vector_math.dart' as vector;
 
 class Loader extends StatefulWidget {

@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:redux_weather/data/repository/storage_repo.dart';
-import 'package:redux_weather/data/service/api_service.dart';
-import 'package:redux_weather/data_models/city.dart';
-import 'package:redux_weather/data_models/weather.dart';
+import 'package:mobx_weather/data/repository/storage_repo.dart';
+import 'package:mobx_weather/data/service/api_service.dart';
+import 'package:mobx_weather/data_models/city.dart';
+import 'package:mobx_weather/data_models/weather.dart';
 
 class StorageInMemoryImpl implements StorageRepository {
   final ApiService api;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:redux_weather/app/constants.dart';
+import 'package:mobx_weather/app/constants.dart';
 
 class AddCityListItem extends StatelessWidget {
   final String cityName;
