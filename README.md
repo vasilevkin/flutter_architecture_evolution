@@ -50,3 +50,7 @@ Straightforward and easy to use.
 
 #### redux
 A state container approach, often used in web development.
+
+#### mobx
+MobX is a battle tested library that makes state management simple and scalable by transparently applying functional reactive programming (TFRP).
+Anything that can be derived from the application state, should be. Automatically.
