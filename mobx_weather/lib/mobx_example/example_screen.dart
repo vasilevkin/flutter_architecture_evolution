@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobx_weather/mobx_example/screens/review.dart';
 
 class ExampleHomePage extends StatefulWidget {
   final String title;
@@ -20,7 +21,7 @@ class _ExampleHomePageState extends State<ExampleHomePage> {
           style: TextStyle(color: Colors.black87),
         ),
       ),
-      body: Container(),
+      body: Review(),
     );
   }
 }
