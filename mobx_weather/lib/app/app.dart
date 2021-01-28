@@ -3,7 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:mobx_weather/app/app_routes.dart';
 import 'package:mobx_weather/app/constants.dart';
 import 'package:mobx_weather/data/repository/storage_repo.dart';
-import 'package:mobx_weather/mobx_example/example_screen.dart';
+import 'package:mobx_weather/mobx_example_reviews/example_screen.dart';
 import 'package:mobx_weather/redux/cities/city_actions.dart';
 import 'package:mobx_weather/redux/redux.dart';
 import 'package:mobx_weather/redux/store.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobx_weather/mobx_example/models/review_model.dart';
-import 'package:mobx_weather/mobx_example/models/reviews_base.dart';
+import 'package:mobx_weather/mobx_example_reviews/models/review_model.dart';
+import 'package:mobx_weather/mobx_example_reviews/models/reviews_base.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

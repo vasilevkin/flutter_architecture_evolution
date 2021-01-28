@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:mobx/mobx.dart';
-import 'package:mobx_weather/mobx_example/models/review_model.dart';
+import 'package:mobx_weather/mobx_example_reviews/models/review_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'reviews_base.g.dart';

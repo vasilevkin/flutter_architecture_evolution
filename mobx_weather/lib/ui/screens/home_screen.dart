@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
         onPressed: () {
           Navigator.pushNamed(context, MobxWeatherAppRoutes.example);
         },
-        child: Icon(Icons.text_rotation_angleup),
+        child: Icon(Icons.rate_review),
       ),
     ];
   }

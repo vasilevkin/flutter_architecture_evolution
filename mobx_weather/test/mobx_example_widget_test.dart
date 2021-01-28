@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobx_weather/mobx_example/screens/review.dart';
+import 'package:mobx_weather/mobx_example_reviews/screens/review.dart';
 
 void main() async {
   testWidgets('Test for rendering UI', (WidgetTester tester) async {

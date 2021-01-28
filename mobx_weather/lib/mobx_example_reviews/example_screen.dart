@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobx_weather/mobx_example/screens/review.dart';
+import 'package:mobx_weather/mobx_example_reviews/screens/review.dart';
 
 class ExampleHomePage extends StatefulWidget {
   final String title;
