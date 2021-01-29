@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:mobx_weather/app/app_routes.dart';
 import 'package:mobx_weather/app/constants.dart';
 import 'package:mobx_weather/data/repository/storage_repo.dart';
+import 'package:mobx_weather/mobx_example_github/github_example_ui.dart';
 import 'package:mobx_weather/mobx_example_reviews/example_screen.dart';
 import 'package:mobx_weather/redux/cities/city_actions.dart';
 import 'package:mobx_weather/redux/redux.dart';
@@ -44,6 +45,7 @@ class MobxWeatherApp extends StatelessWidget {
         MobxWeatherAppRoutes.cityDetail: (_) => _makeCityDetailScreen(),
         MobxWeatherAppRoutes.editCity: (_) => _makeEditCityScreen(),
         MobxWeatherAppRoutes.example: (_) => _makeExampleScreen(),
+        MobxWeatherAppRoutes.exampleGitHub: (_) => _makeExampleGitHubScreen(),
       },
     );
   }
@@ -86,4 +88,6 @@ class MobxWeatherApp extends StatelessWidget {
       title: Constants.exampleTitle,
     );
   }
+
+  Widget _makeExampleGitHubScreen() => GithubExample();
 }

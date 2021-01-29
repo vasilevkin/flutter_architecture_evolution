@@ -44,6 +44,12 @@ class _HomeScreenState extends State<HomeScreen> {
     return [
       IconButton(
         onPressed: () {
+          Navigator.pushNamed(context, MobxWeatherAppRoutes.exampleGitHub);
+        },
+        icon: Icon(Icons.app_registration),
+      ),
+      IconButton(
+        onPressed: () {
           Navigator.pushNamed(context, MobxWeatherAppRoutes.example);
         },
         icon: Icon(Icons.rate_review),
