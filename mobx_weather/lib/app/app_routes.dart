@@ -6,5 +6,6 @@ class MobxWeatherAppRoutes {
   static const editCity = '/editCity';
   static const example = '/example';
   static const exampleGitHub = '/exampleGitHub';
+  static const exampleFakeWeather = '/exampleFakeWeather';
 }
 //endregion

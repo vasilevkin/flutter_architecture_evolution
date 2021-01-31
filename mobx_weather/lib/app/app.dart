@@ -3,6 +3,9 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:mobx_weather/app/app_routes.dart';
 import 'package:mobx_weather/app/constants.dart';
 import 'package:mobx_weather/data/repository/storage_repo.dart';
+import 'package:mobx_weather/mobx_example_fake_weather/pages/fake_weather_search_page.dart';
+import 'package:mobx_weather/mobx_example_fake_weather/repository/fake_weather_repo.dart';
+import 'package:mobx_weather/mobx_example_fake_weather/store/fake_weather_store.dart';
 import 'package:mobx_weather/mobx_example_github/github_example_ui.dart';
 import 'package:mobx_weather/mobx_example_reviews/example_screen.dart';
 import 'package:mobx_weather/redux/cities/city_actions.dart';
@@ -13,6 +16,7 @@ import 'package:mobx_weather/ui/screens/add_city_screen.dart';
 import 'package:mobx_weather/ui/screens/city_detail_screen.dart';
 import 'package:mobx_weather/ui/screens/edit_city_screen.dart';
 import 'package:mobx_weather/ui/screens/home_screen.dart';
+import 'package:provider/provider.dart';
 import 'package:redux/redux.dart';
 
 class MobxWeatherApp extends StatelessWidget {
@@ -46,6 +50,8 @@ class MobxWeatherApp extends StatelessWidget {
         MobxWeatherAppRoutes.editCity: (_) => _makeEditCityScreen(),
         MobxWeatherAppRoutes.example: (_) => _makeExampleScreen(),
         MobxWeatherAppRoutes.exampleGitHub: (_) => _makeExampleGitHubScreen(),
+        MobxWeatherAppRoutes.exampleFakeWeather: (_) =>
+            _makeExampleFakeWeatherScreen(),
       },
     );
   }
@@ -90,4 +96,11 @@ class MobxWeatherApp extends StatelessWidget {
   }
 
   Widget _makeExampleGitHubScreen() => GithubExample();
+
+  Widget _makeExampleFakeWeatherScreen() {
+    return Provider(
+      create: (context) => FakeWeatherStore(FakeWeatherRepositoryImpl()),
+      child: FakeWeatherSearchPage(),
+    );
+  }
 }
