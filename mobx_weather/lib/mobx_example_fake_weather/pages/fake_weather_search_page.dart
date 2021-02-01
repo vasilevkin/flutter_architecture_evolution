@@ -49,18 +49,20 @@ class _FakeWeatherSearchPageState extends State<FakeWeatherSearchPage> {
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 16),
         alignment: Alignment.center,
-        child: Observer(
-          builder: (_) {
-            switch (_fakeWeatherStore.state) {
-              case FakeStoreState.initial:
-                return buildInitialInput();
-              case FakeStoreState.loading:
-                return buildLoading();
-              case FakeStoreState.loaded:
-                return buildColumnWithData(_fakeWeatherStore.fakeWeather);
-            }
-            return Container();
-          },
+        child: SingleChildScrollView(
+          child: Observer(
+            builder: (_) {
+              switch (_fakeWeatherStore.state) {
+                case FakeStoreState.initial:
+                  return buildInitialInput();
+                case FakeStoreState.loading:
+                  return buildLoading();
+                case FakeStoreState.loaded:
+                  return buildColumnWithData(_fakeWeatherStore.fakeWeather);
+              }
+              return Container();
+            },
+          ),
         ),
       ),
     );
@@ -97,24 +99,31 @@ class _FakeWeatherSearchPageState extends State<FakeWeatherSearchPage> {
 }
 
 class CityInputField extends StatelessWidget {
+  final _controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 50),
       child: TextField(
+        controller: _controller,
         onSubmitted: (value) => submitCityName(context, value),
         textInputAction: TextInputAction.search,
         decoration: InputDecoration(
           hintText: 'Enter a city',
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-          suffixIcon: Icon(Icons.search),
+          suffixIcon: IconButton(
+            onPressed: () => _controller.clear(),
+            icon: Icon(Icons.clear),
+          ),
         ),
       ),
     );
   }
 
   void submitCityName(BuildContext context, String cityName) {
-    final fakeWeatherStore = Provider.of<FakeWeatherStore>(context);
+    final fakeWeatherStore =
+        Provider.of<FakeWeatherStore>(context, listen: false);
 
     fakeWeatherStore.getFakeWeather(cityName);
   }
