@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:mobx_weather/app/app_routes.dart';
@@ -33,40 +34,64 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
-        actions: _buildAppBarActions(),
       ),
+      drawer: _buildDrawer(),
       body: _buildScreenBody(),
       floatingActionButton: _buildFAB(),
     );
   }
 
-  List<Widget> _buildAppBarActions() {
-    return [
-      IconButton(
-        onPressed: () {
-          Navigator.pushNamed(context, MobxWeatherAppRoutes.exampleChangeTheme);
-        },
-        icon: Icon(Icons.color_lens),
+  Drawer _buildDrawer() {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          DrawerHeader(
+            decoration: BoxDecoration(
+              color: Colors.deepPurple,
+            ),
+            child: Text(
+              Constants.appTitle,
+              style: TextStyle(fontSize: 40),
+            ),
+          ),
+          ListTile(
+            leading: Icon(Icons.color_lens),
+            title: Text(Constants.exampleChangeThemeTitle),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(
+                  context, MobxWeatherAppRoutes.exampleChangeTheme);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.color_lens),
+            title: Text(Constants.exampleFakeWeatherTitle),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(
+                  context, MobxWeatherAppRoutes.exampleFakeWeather);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.app_registration),
+            title: Text(Constants.exampleGitHubTitle),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, MobxWeatherAppRoutes.exampleGitHub);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.rate_review),
+            title: Text(Constants.exampleTitle),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, MobxWeatherAppRoutes.example);
+            },
+          ),
+        ],
       ),
-      IconButton(
-        onPressed: () {
-          Navigator.pushNamed(context, MobxWeatherAppRoutes.exampleFakeWeather);
-        },
-        icon: Icon(Icons.wb_sunny),
-      ),
-      IconButton(
-        onPressed: () {
-          Navigator.pushNamed(context, MobxWeatherAppRoutes.exampleGitHub);
-        },
-        icon: Icon(Icons.app_registration),
-      ),
-      IconButton(
-        onPressed: () {
-          Navigator.pushNamed(context, MobxWeatherAppRoutes.example);
-        },
-        icon: Icon(Icons.rate_review),
-      ),
-    ];
+    );
   }
 
   Widget _buildScreenBody() {

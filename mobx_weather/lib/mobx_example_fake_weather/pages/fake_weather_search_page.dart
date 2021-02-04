@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
+import 'package:mobx_weather/app/constants.dart';
 import 'package:mobx_weather/mobx_example_fake_weather/data_model/fake_weather.dart';
 import 'package:mobx_weather/mobx_example_fake_weather/store/fake_weather_store.dart';
 import 'package:provider/provider.dart';
@@ -44,7 +45,7 @@ class _FakeWeatherSearchPageState extends State<FakeWeatherSearchPage> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text('Fake Weather Search'),
+        title: Text(Constants.exampleFakeWeatherTitle),
       ),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 16),

@@ -18,6 +18,7 @@ class Constants {
   // Strings
   static const String appTitle = 'MobX Weather';
   static const String exampleTitle = 'MobX demo example';
+  static const String exampleFakeWeatherTitle = 'Fake Weather Search';
   static const String exampleGitHubTitle = 'MobX GitHub Repos demo example';
   static const String exampleChangeThemeTitle = 'MobX Theme demo example';
   static const String exampleChangeThemeSelectTheme = 'Select theme';
