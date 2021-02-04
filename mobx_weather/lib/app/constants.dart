@@ -19,6 +19,15 @@ class Constants {
   static const String appTitle = 'MobX Weather';
   static const String exampleTitle = 'MobX demo example';
   static const String exampleGitHubTitle = 'MobX GitHub Repos demo example';
+  static const String exampleChangeThemeTitle = 'MobX Theme demo example';
+  static const String exampleChangeThemeSelectTheme = 'Select theme';
+  static const String exampleChangeThemeLight = 'Light theme';
+  static const String exampleChangeThemeDark = 'Dark theme';
+  static const String exampleChangeThemeCurrent = 'The current theme is : ';
+  static const String exampleChangeThemeGoToSettings = 'Go to Settings Page';
+  static const String exampleChangeThemeSettings = 'Change Theme Settings';
+  static const String exampleChangeThemeButton = 'Change Theme';
+
   static const String addCityTitle = 'Add a new city';
   static const String emptyCityName = 'No Name';
   static const String editCity = 'Edit City:';
