@@ -33,19 +33,27 @@ class MobxWeatherApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StoreProvider(
-      store: store,
-      child: _makeApp(),
+    return MultiProvider(
+      providers: [
+        Provider<ThemeStore>(
+          create: (_) => ThemeStore(),
+        ),
+      ],
+      child: StoreProvider(
+        store: store,
+        child: Observer(
+          builder: (context) {
+            return _makeApp(context);
+          },
+        ),
+      ),
     );
   }
 
-  Widget _makeApp() {
+  Widget _makeApp(BuildContext context) {
     return MaterialApp(
       title: Constants.appTitle,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      theme: context.watch<ThemeStore>().currentThemeData,
       routes: {
         MobxWeatherAppRoutes.home: (_) => _makeHomeScreen(Constants.appTitle),
         MobxWeatherAppRoutes.addCity: (_) => _makeAddCityScreen(),
@@ -110,20 +118,6 @@ class MobxWeatherApp extends StatelessWidget {
   }
 
   Widget _makeExampleChangeThemeScreen() {
-    return MultiProvider(
-      providers: [
-        Provider<ThemeStore>(
-          create: (_) => ThemeStore(),
-        ),
-      ],
-      child: Observer(
-        builder: (context) {
-          return MaterialApp(
-            theme: context.watch<ThemeStore>().currentThemeData,
-            home: ChangeThemeHomePage(),
-          );
-        },
-      ),
-    );
+    return ChangeThemeHomePage();
   }
 }
