@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobx_weather/mobx_example_reviews/models/review_model.dart';
-import 'package:mobx_weather/mobx_example_reviews/models/reviews_base.dart';
-import 'package:mobx_weather/mobx_example_reviews/screens/review_widget.dart';
-import 'package:mobx_weather/mobx_example_reviews/widgets/info_card.dart';
+import 'package:mobx_weather/mobx_examples/mobx_example_reviews/models/review_model.dart';
+import 'package:mobx_weather/mobx_examples/mobx_example_reviews/models/reviews_base.dart';
+import 'package:mobx_weather/mobx_examples/mobx_example_reviews/screens/review_widget.dart';
+import 'package:mobx_weather/mobx_examples/mobx_example_reviews/widgets/info_card.dart';
 
 class Review extends StatefulWidget {
   @override

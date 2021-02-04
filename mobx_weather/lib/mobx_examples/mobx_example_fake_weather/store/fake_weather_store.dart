@@ -1,6 +1,6 @@
 import 'package:mobx/mobx.dart';
-import 'package:mobx_weather/mobx_example_fake_weather/data_model/fake_weather.dart';
-import 'package:mobx_weather/mobx_example_fake_weather/repository/fake_weather_repo.dart';
+import 'package:mobx_weather/mobx_examples/mobx_example_fake_weather/data_model/fake_weather.dart';
+import 'package:mobx_weather/mobx_examples/mobx_example_fake_weather/repository/fake_weather_repo.dart';
 
 part 'fake_weather_store.g.dart';
 

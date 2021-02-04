@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobx_weather/mobx_example_github/github_store.dart';
+import 'package:mobx_weather/mobx_examples/mobx_example_github/github_store.dart';
 
 class UserInput extends StatelessWidget {
   final GithubStore store;

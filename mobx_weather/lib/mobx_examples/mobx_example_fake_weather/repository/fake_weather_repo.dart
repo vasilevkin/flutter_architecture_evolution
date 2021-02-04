@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:mobx_weather/mobx_example_fake_weather/data_model/fake_weather.dart';
+import 'package:mobx_weather/mobx_examples/mobx_example_fake_weather/data_model/fake_weather.dart';
 
 abstract class FakeWeatherRepository {
   Future<FakeWeather> fetchFakeWeather(String cityName);

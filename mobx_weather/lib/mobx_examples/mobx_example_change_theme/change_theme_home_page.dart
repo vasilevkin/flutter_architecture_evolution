@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx_weather/app/constants.dart';
-import 'package:mobx_weather/mobx_example_change_theme/settings_page.dart';
-import 'package:mobx_weather/mobx_example_change_theme/theme_store.dart';
+import 'package:mobx_weather/mobx_examples/mobx_example_change_theme/settings_page.dart';
+import 'package:mobx_weather/mobx_examples/mobx_example_change_theme/theme_store.dart';
 import 'package:provider/provider.dart';
 
 class ChangeThemeHomePage extends StatelessWidget {

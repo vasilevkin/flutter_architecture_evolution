@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
-import 'package:mobx_weather/mobx_example_github/github_store.dart';
+import 'package:mobx_weather/mobx_examples/mobx_example_github/github_store.dart';
 
 class ShowError extends StatelessWidget {
   final GithubStore store;
