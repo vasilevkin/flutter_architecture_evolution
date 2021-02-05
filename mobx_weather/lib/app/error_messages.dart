@@ -8,4 +8,7 @@ class ErrorMessages {
   static const cityNotFound = '<< City not found >>';
   static const unknownError = 'Unexpected error: ';
   static const empty = '';
+
+  // Examples
+  static const exampleApiCallsLoadError = 'Failed to load items.';
 }

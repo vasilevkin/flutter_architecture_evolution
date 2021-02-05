@@ -5,6 +5,11 @@ class Constants {
   static const host = 'https://www.metaweather.com/';
   static const api = '$host/api/location/';
 
+  static const String exampleApiCallsPostsEndpoint =
+      'https://jsonplaceholder.typicode.com/posts';
+  static const String exampleApiCallsUsersEndpoint =
+      'https://reqres.in/api/users?page=1';
+
   // Decoration
   static const textShadows = [
     BoxShadow(
@@ -28,6 +33,11 @@ class Constants {
   static const String exampleChangeThemeGoToSettings = 'Go to Settings Page';
   static const String exampleChangeThemeSettings = 'Change Theme Settings';
   static const String exampleChangeThemeButton = 'Change Theme';
+
+  static const String exampleApiCallsTitle = 'MobX api calls demo example';
+  static const String exampleApiCallsPosts = 'Posts';
+  static const String exampleApiCallsUsers = 'Users';
+  static const String exampleApiCallsRetry = 'Tap to retry';
 
   static const String addCityTitle = 'Add a new city';
   static const String emptyCityName = 'No Name';

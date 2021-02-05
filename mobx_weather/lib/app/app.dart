@@ -4,6 +4,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:mobx_weather/app/app_routes.dart';
 import 'package:mobx_weather/app/constants.dart';
 import 'package:mobx_weather/data/repository/storage_repo.dart';
+import 'package:mobx_weather/mobx_examples/mobx_example_api_calls/ui/home_page.dart';
 import 'package:mobx_weather/mobx_examples/mobx_example_change_theme/change_theme_home_page.dart';
 import 'package:mobx_weather/mobx_examples/mobx_example_change_theme/theme_store.dart';
 import 'package:mobx_weather/mobx_examples/mobx_example_fake_weather/pages/fake_weather_search_page.dart';
@@ -65,6 +66,8 @@ class MobxWeatherApp extends StatelessWidget {
             _makeExampleFakeWeatherScreen(),
         MobxWeatherAppRoutes.exampleChangeTheme: (_) =>
             _makeExampleChangeThemeScreen(),
+        MobxWeatherAppRoutes.exampleApiCalls: (_) =>
+            _makeExampleApiCallsScreen(),
       },
     );
   }
@@ -119,5 +122,9 @@ class MobxWeatherApp extends StatelessWidget {
 
   Widget _makeExampleChangeThemeScreen() {
     return ChangeThemeHomePage();
+  }
+
+  Widget _makeExampleApiCallsScreen() {
+    return HomePage();
   }
 }

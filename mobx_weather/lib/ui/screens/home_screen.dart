@@ -56,12 +56,19 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           ListTile(
-            leading: Icon(Icons.color_lens),
-            title: Text(Constants.exampleChangeThemeTitle),
+            leading: Icon(Icons.rate_review),
+            title: Text(Constants.exampleTitle),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushNamed(
-                  context, MobxWeatherAppRoutes.exampleChangeTheme);
+              Navigator.pushNamed(context, MobxWeatherAppRoutes.example);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.app_registration),
+            title: Text(Constants.exampleGitHubTitle),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, MobxWeatherAppRoutes.exampleGitHub);
             },
           ),
           ListTile(
@@ -74,19 +81,21 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
           ListTile(
-            leading: Icon(Icons.app_registration),
-            title: Text(Constants.exampleGitHubTitle),
+            leading: Icon(Icons.color_lens),
+            title: Text(Constants.exampleChangeThemeTitle),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushNamed(context, MobxWeatherAppRoutes.exampleGitHub);
+              Navigator.pushNamed(
+                  context, MobxWeatherAppRoutes.exampleChangeTheme);
             },
           ),
           ListTile(
-            leading: Icon(Icons.rate_review),
-            title: Text(Constants.exampleTitle),
+            leading: Icon(Icons.api),
+            title: Text(Constants.exampleApiCallsTitle),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushNamed(context, MobxWeatherAppRoutes.example);
+              Navigator.pushNamed(
+                  context, MobxWeatherAppRoutes.exampleApiCalls);
             },
           ),
         ],
