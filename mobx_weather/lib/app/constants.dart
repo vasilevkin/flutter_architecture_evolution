@@ -39,6 +39,11 @@ class Constants {
   static const String exampleApiCallsUsers = 'Users';
   static const String exampleApiCallsRetry = 'Tap to retry';
 
+  static const String exampleCounterTitle = 'MobX Counter demo example';
+  static const String exampleCounterText =
+      'You have pushed the button this many times:';
+  static const String exampleCounterTooltip = 'Increment';
+
   static const String addCityTitle = 'Add a new city';
   static const String emptyCityName = 'No Name';
   static const String editCity = 'Edit City:';

@@ -9,5 +9,6 @@ class MobxWeatherAppRoutes {
   static const exampleFakeWeather = '/exampleFakeWeather';
   static const exampleChangeTheme = '/exampleChangeTheme';
   static const exampleApiCalls = '/exampleApiCalls';
+  static const exampleCounter = '/exampleCounter';
 }
 //endregion

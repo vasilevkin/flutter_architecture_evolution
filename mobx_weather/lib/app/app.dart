@@ -7,6 +7,7 @@ import 'package:mobx_weather/data/repository/storage_repo.dart';
 import 'package:mobx_weather/mobx_examples/mobx_example_api_calls/ui/home_page.dart';
 import 'package:mobx_weather/mobx_examples/mobx_example_change_theme/change_theme_home_page.dart';
 import 'package:mobx_weather/mobx_examples/mobx_example_change_theme/theme_store.dart';
+import 'package:mobx_weather/mobx_examples/mobx_example_counter/my_home_page.dart';
 import 'package:mobx_weather/mobx_examples/mobx_example_fake_weather/pages/fake_weather_search_page.dart';
 import 'package:mobx_weather/mobx_examples/mobx_example_fake_weather/repository/fake_weather_repo.dart';
 import 'package:mobx_weather/mobx_examples/mobx_example_fake_weather/store/fake_weather_store.dart';
@@ -68,6 +69,7 @@ class MobxWeatherApp extends StatelessWidget {
             _makeExampleChangeThemeScreen(),
         MobxWeatherAppRoutes.exampleApiCalls: (_) =>
             _makeExampleApiCallsScreen(),
+        MobxWeatherAppRoutes.exampleCounter: (_) => _makeExampleCounterScreen(),
       },
     );
   }
@@ -126,5 +128,9 @@ class MobxWeatherApp extends StatelessWidget {
 
   Widget _makeExampleApiCallsScreen() {
     return HomePage();
+  }
+
+  Widget _makeExampleCounterScreen() {
+    return MyHomePage();
   }
 }
