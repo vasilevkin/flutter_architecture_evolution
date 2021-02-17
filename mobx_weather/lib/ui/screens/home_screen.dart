@@ -98,6 +98,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   context, MobxWeatherAppRoutes.exampleApiCalls);
             },
           ),
+          ListTile(
+            leading: Icon(Icons.lock_clock),
+            title: Text(Constants.exampleClockTitle),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(
+                  context, MobxWeatherAppRoutes.exampleClock);
+            },
+          ),
         ],
       ),
     );

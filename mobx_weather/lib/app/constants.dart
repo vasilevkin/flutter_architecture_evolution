@@ -44,6 +44,11 @@ class Constants {
       'You have pushed the button this many times:';
   static const String exampleCounterTooltip = 'Increment';
 
+  static const String exampleClockTitle = 'MobX clock demo example';
+  static const String exampleClockAtom = 'Clock Atom';
+  static const String exampleClockStarted = 'Clock:: clock started ticking';
+  static const String exampleClockStopped = 'Clock:: clock stopped ticking';
+
   static const String addCityTitle = 'Add a new city';
   static const String emptyCityName = 'No Name';
   static const String editCity = 'Edit City:';
