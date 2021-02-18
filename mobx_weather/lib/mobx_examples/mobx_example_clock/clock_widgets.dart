@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_analog_clock/flutter_analog_clock.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx_weather/app/constants.dart';
 import 'package:mobx_weather/mobx_examples/mobx_example_clock/clock.dart';
@@ -18,23 +19,28 @@ class _ClockExampleState extends State<ClockExample> {
         appBar: AppBar(
           title: const Text(Constants.exampleClockTitle),
         ),
-        body: Center(
-          child: Observer(
-            builder: (_) {
-              final time = clock.now;
-              final formattedTime =
-                  [time.hour, time.minute, time.second].join(':');
+        body: Column(
+          children: [
+            Expanded(child: FlutterAnalogClock()),
+            Center(
+              child: Observer(
+                builder: (_) {
+                  final time = clock.now;
+                  final formattedTime =
+                      [time.hour, time.minute, time.second].join(':');
 
-              return Text(
-                formattedTime,
-                style: const TextStyle(
-                  fontSize: 60,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.teal,
-                ),
-              );
-            },
-          ),
+                  return Text(
+                    formattedTime,
+                    style: const TextStyle(
+                      fontSize: 60,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.teal,
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
         ),
       );
 }
