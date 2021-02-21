@@ -10,6 +10,7 @@ class MobxWeatherAppRoutes {
   static const exampleChangeTheme = '/exampleChangeTheme';
   static const exampleApiCalls = '/exampleApiCalls';
   static const exampleCounter = '/exampleCounter';
+  static const exampleMultiCounter = '/exampleMultiCounter';
   static const exampleClock = '/exampleClock';
   static const exampleTodos = '/exampleTodos';
 }

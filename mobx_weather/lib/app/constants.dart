@@ -44,6 +44,13 @@ class Constants {
       'You have pushed the button this many times:';
   static const String exampleCounterTooltip = 'Increment';
 
+  static const String exampleMultiCounterTitle =
+      'MobX Multi Counter demo example';
+  static const String exampleMultiCounterAdd = 'Add Counter';
+  static const String exampleMultiCounterCount = 'Count:';
+  static const String exampleMultiCounterReset = 'Reset';
+  static const String exampleMultiCounterDetails = 'Counter details';
+
   static const String exampleClockTitle = 'MobX clock demo example';
   static const String exampleClockAtom = 'Clock Atom';
   static const String exampleClockStarted = 'Clock:: clock started ticking';
@@ -56,7 +63,8 @@ class Constants {
   static const String exampleTodosCompleted = 'Completed';
   static const String exampleTodosRemoveCompleted = 'Remove Completed';
   static const String exampleTodosMarkCompleted = 'Mark All Completed';
-  static const String exampleTodosNoTodos = "There are no Todos here. Why don't you add one?";
+  static const String exampleTodosNoTodos =
+      "There are no Todos here. Why don't you add one?";
   static const String exampleTodosTodo = 'todo';
   static const String exampleTodosTodos = 'todos';
 

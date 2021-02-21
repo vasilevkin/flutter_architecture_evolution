@@ -108,6 +108,15 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
           ListTile(
+            leading: Icon(Icons.multiline_chart),
+            title: Text(Constants.exampleMultiCounterTitle),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(
+                  context, MobxWeatherAppRoutes.exampleMultiCounter);
+            },
+          ),
+          ListTile(
             leading: Icon(Icons.lock_clock),
             title: Text(Constants.exampleClockTitle),
             onTap: () {
