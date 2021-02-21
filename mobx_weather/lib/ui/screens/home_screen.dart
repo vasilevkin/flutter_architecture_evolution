@@ -99,12 +99,30 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
           ListTile(
+            leading: Icon(Icons.countertops),
+            title: Text(Constants.exampleCounterTitle),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(
+                  context, MobxWeatherAppRoutes.exampleCounter);
+            },
+          ),
+          ListTile(
             leading: Icon(Icons.lock_clock),
             title: Text(Constants.exampleClockTitle),
             onTap: () {
               Navigator.pop(context);
               Navigator.pushNamed(
                   context, MobxWeatherAppRoutes.exampleClock);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.note),
+            title: Text(Constants.exampleTodosTitle),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(
+                  context, MobxWeatherAppRoutes.exampleTodos);
             },
           ),
         ],

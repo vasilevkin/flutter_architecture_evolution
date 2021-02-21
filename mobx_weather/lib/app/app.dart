@@ -14,6 +14,7 @@ import 'package:mobx_weather/mobx_examples/mobx_example_fake_weather/repository/
 import 'package:mobx_weather/mobx_examples/mobx_example_fake_weather/store/fake_weather_store.dart';
 import 'package:mobx_weather/mobx_examples/mobx_example_github/github_example_ui.dart';
 import 'package:mobx_weather/mobx_examples/mobx_example_reviews/example_screen.dart';
+import 'package:mobx_weather/mobx_examples/mobx_example_todos/todo_example_screen.dart';
 import 'package:mobx_weather/redux/cities/city_actions.dart';
 import 'package:mobx_weather/redux/redux.dart';
 import 'package:mobx_weather/redux/store.dart';
@@ -72,6 +73,7 @@ class MobxWeatherApp extends StatelessWidget {
             _makeExampleApiCallsScreen(),
         MobxWeatherAppRoutes.exampleCounter: (_) => _makeExampleCounterScreen(),
         MobxWeatherAppRoutes.exampleClock: (_) => _makeExampleClockScreen(),
+        MobxWeatherAppRoutes.exampleTodos: (_) => _makeExampleTodosScreen(),
       },
     );
   }
@@ -138,5 +140,9 @@ class MobxWeatherApp extends StatelessWidget {
 
   Widget _makeExampleClockScreen() {
     return ClockExample();
+  }
+
+  Widget _makeExampleTodosScreen() {
+    return TodoExampleScreen();
   }
 }

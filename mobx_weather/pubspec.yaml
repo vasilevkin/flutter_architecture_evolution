@@ -41,6 +41,7 @@ dependencies:
   github: ^7.0.4
   provider: ^4.3.3
   flutter_analog_clock: ^0.1.1
+  dart_json_mapper: ^1.7.9
 
 dev_dependencies:
   flutter_test:

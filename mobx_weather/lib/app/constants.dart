@@ -49,6 +49,17 @@ class Constants {
   static const String exampleClockStarted = 'Clock:: clock started ticking';
   static const String exampleClockStopped = 'Clock:: clock stopped ticking';
 
+  static const String exampleTodosTitle = 'MobX ToDos demo example';
+  static const String exampleTodosAddTodo = 'Add a new todo';
+  static const String exampleTodosAll = 'All';
+  static const String exampleTodosPending = 'Pending';
+  static const String exampleTodosCompleted = 'Completed';
+  static const String exampleTodosRemoveCompleted = 'Remove Completed';
+  static const String exampleTodosMarkCompleted = 'Mark All Completed';
+  static const String exampleTodosNoTodos = "There are no Todos here. Why don't you add one?";
+  static const String exampleTodosTodo = 'todo';
+  static const String exampleTodosTodos = 'todos';
+
   static const String addCityTitle = 'Add a new city';
   static const String emptyCityName = 'No Name';
   static const String editCity = 'Edit City:';
