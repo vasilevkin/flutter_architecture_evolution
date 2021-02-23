@@ -68,6 +68,13 @@ class Constants {
   static const String exampleTodosTodo = 'todo';
   static const String exampleTodosTodos = 'todos';
 
+  static const String exampleHackerNewsTitle = 'MobX Hacker news demo example';
+  static const String exampleHackerNewsNewest = 'Newest';
+  static const String exampleHackerNewsTop = 'Top';
+  static const String exampleHackerNewsLoading = 'Loading items...';
+  static const String exampleHackerNewsTapToTry = 'Tap to try again';
+  static const String exampleHackerNewsComments = 'comments(s)';
+
   static const String addCityTitle = 'Add a new city';
   static const String emptyCityName = 'No Name';
   static const String editCity = 'Edit City:';

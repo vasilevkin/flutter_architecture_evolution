@@ -13,6 +13,7 @@ import 'package:mobx_weather/mobx_examples/mobx_example_fake_weather/pages/fake_
 import 'package:mobx_weather/mobx_examples/mobx_example_fake_weather/repository/fake_weather_repo.dart';
 import 'package:mobx_weather/mobx_examples/mobx_example_fake_weather/store/fake_weather_store.dart';
 import 'package:mobx_weather/mobx_examples/mobx_example_github/github_example_ui.dart';
+import 'package:mobx_weather/mobx_examples/mobx_example_hacker_news/hacker_news_example.dart';
 import 'package:mobx_weather/mobx_examples/mobx_example_multi_counter/multi_counter_example.dart';
 import 'package:mobx_weather/mobx_examples/mobx_example_multi_counter/multi_counter_store.dart';
 import 'package:mobx_weather/mobx_examples/mobx_example_reviews/example_screen.dart';
@@ -78,6 +79,8 @@ class MobxWeatherApp extends StatelessWidget {
             _makeExampleMultiCounterScreen(),
         MobxWeatherAppRoutes.exampleClock: (_) => _makeExampleClockScreen(),
         MobxWeatherAppRoutes.exampleTodos: (_) => _makeExampleTodosScreen(),
+        MobxWeatherAppRoutes.exampleHackerNews: (_) =>
+            _makeExampleHackerNewsScreen(),
       },
     );
   }
@@ -155,5 +158,9 @@ class MobxWeatherApp extends StatelessWidget {
 
   Widget _makeExampleTodosScreen() {
     return TodoExampleScreen();
+  }
+
+  Widget _makeExampleHackerNewsScreen() {
+    return HackerNewsExample();
   }
 }

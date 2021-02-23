@@ -11,4 +11,5 @@ class ErrorMessages {
 
   // Examples
   static const exampleApiCallsLoadError = 'Failed to load items.';
+  static const exampleHackerNewsNotOpen = 'Could not open:';
 }

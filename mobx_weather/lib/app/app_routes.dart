@@ -13,5 +13,6 @@ class MobxWeatherAppRoutes {
   static const exampleMultiCounter = '/exampleMultiCounter';
   static const exampleClock = '/exampleClock';
   static const exampleTodos = '/exampleTodos';
+  static const exampleHackerNews = '/exampleHackerNews';
 }
 //endregion
