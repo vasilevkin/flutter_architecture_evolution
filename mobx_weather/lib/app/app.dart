@@ -16,6 +16,7 @@ import 'package:mobx_weather/mobx_examples/mobx_example_github/github_example_ui
 import 'package:mobx_weather/mobx_examples/mobx_example_hacker_news/hacker_news_example.dart';
 import 'package:mobx_weather/mobx_examples/mobx_example_multi_counter/multi_counter_example.dart';
 import 'package:mobx_weather/mobx_examples/mobx_example_multi_counter/multi_counter_store.dart';
+import 'package:mobx_weather/mobx_examples/mobx_example_random_number_stream/random_number_example.dart';
 import 'package:mobx_weather/mobx_examples/mobx_example_reviews/example_screen.dart';
 import 'package:mobx_weather/mobx_examples/mobx_example_todos/todo_example_screen.dart';
 import 'package:mobx_weather/redux/cities/city_actions.dart';
@@ -81,6 +82,8 @@ class MobxWeatherApp extends StatelessWidget {
         MobxWeatherAppRoutes.exampleTodos: (_) => _makeExampleTodosScreen(),
         MobxWeatherAppRoutes.exampleHackerNews: (_) =>
             _makeExampleHackerNewsScreen(),
+        MobxWeatherAppRoutes.exampleRandomNumberStream: (_) =>
+            _makeExampleRandomNumberStreamScreen(),
       },
     );
   }
@@ -162,5 +165,9 @@ class MobxWeatherApp extends StatelessWidget {
 
   Widget _makeExampleHackerNewsScreen() {
     return HackerNewsExample();
+  }
+
+  Widget _makeExampleRandomNumberStreamScreen() {
+    return RandomNumberExample();
   }
 }

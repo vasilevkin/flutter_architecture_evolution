@@ -75,6 +75,10 @@ class Constants {
   static const String exampleHackerNewsTapToTry = 'Tap to try again';
   static const String exampleHackerNewsComments = 'comments(s)';
 
+  static const String exampleRandomNumberStreamTitle =
+      'MobX Rundom number stream demo example';
+  static const String exampleRandomNumberRandomNumber = 'Rundom number';
+
   static const String addCityTitle = 'Add a new city';
   static const String emptyCityName = 'No Name';
   static const String editCity = 'Edit City:';
