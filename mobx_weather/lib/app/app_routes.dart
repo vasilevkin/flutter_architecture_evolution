@@ -15,5 +15,6 @@ class MobxWeatherAppRoutes {
   static const exampleTodos = '/exampleTodos';
   static const exampleHackerNews = '/exampleHackerNews';
   static const exampleRandomNumberStream = '/exampleRandomNumberStream';
+  static const exampleDice = '/exampleDice';
 }
 //endregion

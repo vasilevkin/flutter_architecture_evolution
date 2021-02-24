@@ -79,6 +79,10 @@ class Constants {
       'MobX Rundom number stream demo example';
   static const String exampleRandomNumberRandomNumber = 'Rundom number';
 
+  static const String exampleDiceTitle = 'MobX Dice demo example';
+  static const String exampleDiceTap = 'Tap the dice !!!';
+  static const String exampleDiceTotal = 'Total';
+
   static const String addCityTitle = 'Add a new city';
   static const String emptyCityName = 'No Name';
   static const String editCity = 'Edit City:';

@@ -9,6 +9,8 @@ import 'package:mobx_weather/mobx_examples/mobx_example_change_theme/change_them
 import 'package:mobx_weather/mobx_examples/mobx_example_change_theme/theme_store.dart';
 import 'package:mobx_weather/mobx_examples/mobx_example_clock/clock_widgets.dart';
 import 'package:mobx_weather/mobx_examples/mobx_example_counter/my_home_page.dart';
+import 'package:mobx_weather/mobx_examples/mobx_example_dice/dice_counter.dart';
+import 'package:mobx_weather/mobx_examples/mobx_example_dice/dice_example.dart';
 import 'package:mobx_weather/mobx_examples/mobx_example_fake_weather/pages/fake_weather_search_page.dart';
 import 'package:mobx_weather/mobx_examples/mobx_example_fake_weather/repository/fake_weather_repo.dart';
 import 'package:mobx_weather/mobx_examples/mobx_example_fake_weather/store/fake_weather_store.dart';
@@ -84,6 +86,7 @@ class MobxWeatherApp extends StatelessWidget {
             _makeExampleHackerNewsScreen(),
         MobxWeatherAppRoutes.exampleRandomNumberStream: (_) =>
             _makeExampleRandomNumberStreamScreen(),
+        MobxWeatherAppRoutes.exampleDice: (_) => _makeExampleDiceScreen(),
       },
     );
   }
@@ -169,5 +172,10 @@ class MobxWeatherApp extends StatelessWidget {
 
   Widget _makeExampleRandomNumberStreamScreen() {
     return RandomNumberExample();
+  }
+
+  Widget _makeExampleDiceScreen() {
+    return Provider<DiceCounter>(
+        create: (_) => DiceCounter(), child: DiceExample());
   }
 }

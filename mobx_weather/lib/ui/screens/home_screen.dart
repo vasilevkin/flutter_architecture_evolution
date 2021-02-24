@@ -152,6 +152,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   context, MobxWeatherAppRoutes.exampleRandomNumberStream);
             },
           ),
+          ListTile(
+            leading: Icon(Icons.square_foot),
+            title: Text(Constants.exampleDiceTitle),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(
+                  context, MobxWeatherAppRoutes.exampleDice);
+            },
+          ),
         ],
       ),
     );
