@@ -83,6 +83,16 @@ class Constants {
   static const String exampleDiceTap = 'Tap the dice !!!';
   static const String exampleDiceTotal = 'Total';
 
+  static const String exampleFormTitle = 'MobX Sign Up form demo example';
+  static const String exampleFormUsername = 'Username';
+  static const String exampleFormHintUsername = 'Pick a username';
+  static const String exampleFormEmail = 'Email';
+  static const String exampleFormHintEmail = 'Enter your email address';
+  static const String exampleFormPassword = 'Password';
+  static const String exampleFormHintPassword = 'Set a password';
+  static const String exampleFormSignUp = 'Sign Up';
+  static const String exampleFormAdmin = 'admin';
+
   static const String addCityTitle = 'Add a new city';
   static const String emptyCityName = 'No Name';
   static const String editCity = 'Edit City:';

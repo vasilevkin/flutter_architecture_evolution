@@ -20,6 +20,7 @@ import 'package:mobx_weather/mobx_examples/mobx_example_multi_counter/multi_coun
 import 'package:mobx_weather/mobx_examples/mobx_example_multi_counter/multi_counter_store.dart';
 import 'package:mobx_weather/mobx_examples/mobx_example_random_number_stream/random_number_example.dart';
 import 'package:mobx_weather/mobx_examples/mobx_example_reviews/example_screen.dart';
+import 'package:mobx_weather/mobx_examples/mobx_example_signup_form/form_example.dart';
 import 'package:mobx_weather/mobx_examples/mobx_example_todos/todo_example_screen.dart';
 import 'package:mobx_weather/redux/cities/city_actions.dart';
 import 'package:mobx_weather/redux/redux.dart';
@@ -87,6 +88,7 @@ class MobxWeatherApp extends StatelessWidget {
         MobxWeatherAppRoutes.exampleRandomNumberStream: (_) =>
             _makeExampleRandomNumberStreamScreen(),
         MobxWeatherAppRoutes.exampleDice: (_) => _makeExampleDiceScreen(),
+        MobxWeatherAppRoutes.exampleForm: (_) => _makeExampleFormScreen(),
       },
     );
   }
@@ -177,5 +179,9 @@ class MobxWeatherApp extends StatelessWidget {
   Widget _makeExampleDiceScreen() {
     return Provider<DiceCounter>(
         create: (_) => DiceCounter(), child: DiceExample());
+  }
+
+  Widget _makeExampleFormScreen() {
+    return FormExample();
   }
 }

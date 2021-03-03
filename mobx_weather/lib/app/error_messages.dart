@@ -12,4 +12,7 @@ class ErrorMessages {
   // Examples
   static const exampleApiCallsLoadError = 'Failed to load items.';
   static const exampleHackerNewsNotOpen = 'Could not open:';
+  static const exampleFormBlank = 'Cannot be blank';
+  static const exampleFormUsernameAdmin = 'Username cannot be "admin"';
+  static const exampleFormEmail = 'Not a valid email';
 }
