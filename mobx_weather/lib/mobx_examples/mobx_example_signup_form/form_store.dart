@@ -25,6 +25,9 @@ abstract class _FormStore with Store {
   String password = '';
 
   @observable
+  String confirmPassword = '';
+
+  @observable
   ObservableFuture<bool> usernameCheck = ObservableFuture.value(true);
 
   @computed
@@ -40,6 +43,7 @@ abstract class _FormStore with Store {
       reaction((_) => name, validateUserName),
       reaction((_) => email, validateEmail),
       reaction((_) => password, validatePassword),
+      reaction((_) => confirmPassword, validateConfirmPassword),
     ];
   }
 
@@ -78,6 +82,12 @@ abstract class _FormStore with Store {
         isNull(value) || value.isEmpty ? ErrorMessages.exampleFormBlank : null;
   }
 
+  @action
+  void validateConfirmPassword(String confirm) {
+    error.confirmPassword =
+        password == confirm ? null : ErrorMessages.exampleFormPasswordsMatch;
+  }
+
   Future<bool> checkValidUsername(String value) async {
     await Future.delayed(const Duration(seconds: 1));
     return value != Constants.exampleFormAdmin;
@@ -85,6 +95,7 @@ abstract class _FormStore with Store {
 
   void validateAll() {
     validatePassword(password);
+    validateConfirmPassword(confirmPassword);
     validateEmail(email);
     validateUserName(name);
   }

@@ -90,6 +90,8 @@ class Constants {
   static const String exampleFormHintEmail = 'Enter your email address';
   static const String exampleFormPassword = 'Password';
   static const String exampleFormHintPassword = 'Set a password';
+  static const String exampleFormPasswordConfirm = 'Confirm Password';
+  static const String exampleFormHintPasswordConfirm = 'Passwords should match';
   static const String exampleFormSignUp = 'Sign Up';
   static const String exampleFormAdmin = 'admin';
 

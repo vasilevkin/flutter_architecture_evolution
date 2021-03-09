@@ -14,6 +14,13 @@ abstract class _FormErrorState with Store {
   @observable
   String password;
 
+  @observable
+  String confirmPassword;
+
   @computed
-  bool get hasErrors => username != null || email != null || password != null;
+  bool get hasErrors =>
+      username != null ||
+      email != null ||
+      password != null ||
+      confirmPassword != null;
 }

@@ -15,4 +15,6 @@ class ErrorMessages {
   static const exampleFormBlank = 'Cannot be blank';
   static const exampleFormUsernameAdmin = 'Username cannot be "admin"';
   static const exampleFormEmail = 'Not a valid email';
+  static const exampleFormPasswordsMatch =
+      'Password and Confirm Password must be identical';
 }

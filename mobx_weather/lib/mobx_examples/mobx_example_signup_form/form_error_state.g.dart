@@ -62,12 +62,28 @@ mixin _$FormErrorState on _FormErrorState, Store {
     });
   }
 
+  final _$confirmPasswordAtom = Atom(name: '_FormErrorState.confirmPassword');
+
+  @override
+  String get confirmPassword {
+    _$confirmPasswordAtom.reportRead();
+    return super.confirmPassword;
+  }
+
+  @override
+  set confirmPassword(String value) {
+    _$confirmPasswordAtom.reportWrite(value, super.confirmPassword, () {
+      super.confirmPassword = value;
+    });
+  }
+
   @override
   String toString() {
     return '''
 username: ${username},
 email: ${email},
 password: ${password},
+confirmPassword: ${confirmPassword},
 hasErrors: ${hasErrors}
     ''';
   }

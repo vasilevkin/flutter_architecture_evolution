@@ -30,53 +30,65 @@ class _FormExampleState extends State<FormExample> {
         appBar: AppBar(
           title: Text(Constants.exampleFormTitle),
         ),
-        body: Form(
-          child: Padding(
-            padding: const EdgeInsets.all(8),
-            child: Column(
-              children: [
-                Observer(
-                  builder: (_) => TextField(
-                    decoration: InputDecoration(
-                      labelText: Constants.exampleFormUsername,
-                      hintText: Constants.exampleFormHintUsername,
-                      errorText: store.error.username,
+        body: SingleChildScrollView(
+          child: Form(
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Column(
+                children: [
+                  Observer(
+                    builder: (_) => AnimatedOpacity(
+                      opacity: store.isUserCheckPending ? 1 : 0,
+                      duration: const Duration(milliseconds: 300),
+                      child: const LinearProgressIndicator(),
                     ),
-                    onChanged: (value) => store.name = value,
                   ),
-                ),
-                Observer(
-                  builder: (_) => AnimatedOpacity(
-                    opacity: store.isUserCheckPending ? 1 : 0,
-                    duration: const Duration(milliseconds: 300),
-                    child: const LinearProgressIndicator(),
-                  ),
-                ),
-                Observer(
-                  builder: (_) => TextField(
-                    decoration: InputDecoration(
-                      labelText: Constants.exampleFormEmail,
-                      hintText: Constants.exampleFormHintEmail,
-                      errorText: store.error.email,
+                  Observer(
+                    builder: (_) => TextField(
+                      decoration: InputDecoration(
+                        labelText: Constants.exampleFormUsername,
+                        hintText: Constants.exampleFormHintUsername,
+                        errorText: store.error.username,
+                      ),
+                      onChanged: (value) => store.name = value,
                     ),
-                    onChanged: (value) => store.email = value,
                   ),
-                ),
-                Observer(
-                  builder: (_) => TextField(
-                    decoration: InputDecoration(
-                      labelText: Constants.exampleFormPassword,
-                      hintText: Constants.exampleFormHintPassword,
-                      errorText: store.error.password,
+                  Observer(
+                    builder: (_) => TextField(
+                      decoration: InputDecoration(
+                        labelText: Constants.exampleFormEmail,
+                        hintText: Constants.exampleFormHintEmail,
+                        errorText: store.error.email,
+                      ),
+                      onChanged: (value) => store.email = value,
                     ),
-                    onChanged: (value) => store.password = value,
                   ),
-                ),
-                RaisedButton(
-                  onPressed: store.validateAll,
-                  child: const Text(Constants.exampleFormSignUp),
-                ),
-              ],
+                  Observer(
+                    builder: (_) => TextField(
+                      decoration: InputDecoration(
+                        labelText: Constants.exampleFormPassword,
+                        hintText: Constants.exampleFormHintPassword,
+                        errorText: store.error.password,
+                      ),
+                      onChanged: (value) => store.password = value,
+                    ),
+                  ),
+                  Observer(
+                    builder: (_) => TextField(
+                      decoration: InputDecoration(
+                        labelText: Constants.exampleFormPasswordConfirm,
+                        hintText: Constants.exampleFormHintPasswordConfirm,
+                        errorText: store.error.confirmPassword,
+                      ),
+                      onChanged: (value) => store.confirmPassword = value,
+                    ),
+                  ),
+                  RaisedButton(
+                    onPressed: store.validateAll,
+                    child: const Text(Constants.exampleFormSignUp),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
