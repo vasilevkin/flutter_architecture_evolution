@@ -1,5 +1,5 @@
 //region AppRoutes
-class ReduxWeatherAppRoutes {
+class GetxWeatherAppRoutes {
   static const home = '/';
   static const addCity = '/addCity';
   static const cityDetail = '/cityDetail';

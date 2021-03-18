@@ -1,6 +1,6 @@
-# redux_weather
+# getx_weather
 
-A state container approach, often used in web development.
+State, navigation, dependency manager framework approach for Flutter.
 
 ## Getting Started
 

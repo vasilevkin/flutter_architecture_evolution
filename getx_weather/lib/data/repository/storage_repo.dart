@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:redux_weather/data_models/city.dart';
+import 'package:getx_weather/data_models/city.dart';
 
 abstract class StorageRepository {
   Future<List<City>> getCities();

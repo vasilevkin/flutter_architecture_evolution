@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
-import 'package:redux_weather/app/app_routes.dart';
-import 'package:redux_weather/app/constants.dart';
-import 'package:redux_weather/data/repository/storage_repo.dart';
-import 'package:redux_weather/redux/cities/city_actions.dart';
-import 'package:redux_weather/redux/redux.dart';
-import 'package:redux_weather/redux/store.dart';
-import 'package:redux_weather/redux/suggestions/suggestion_actions.dart';
-import 'package:redux_weather/redux_example/example_screen.dart';
-import 'package:redux_weather/redux_example/redux/example_store.dart';
-import 'package:redux_weather/ui/screens/add_city_screen.dart';
-import 'package:redux_weather/ui/screens/city_detail_screen.dart';
-import 'package:redux_weather/ui/screens/edit_city_screen.dart';
-import 'package:redux_weather/ui/screens/home_screen.dart';
+import 'package:getx_weather/app/app_routes.dart';
+import 'package:getx_weather/app/constants.dart';
+import 'package:getx_weather/data/repository/storage_repo.dart';
+import 'package:getx_weather/redux/cities/city_actions.dart';
+import 'package:getx_weather/redux/redux.dart';
+import 'package:getx_weather/redux/store.dart';
+import 'package:getx_weather/redux/suggestions/suggestion_actions.dart';
+import 'package:getx_weather/redux_example/example_screen.dart';
+import 'package:getx_weather/redux_example/redux/example_store.dart';
+import 'package:getx_weather/ui/screens/add_city_screen.dart';
+import 'package:getx_weather/ui/screens/city_detail_screen.dart';
+import 'package:getx_weather/ui/screens/edit_city_screen.dart';
+import 'package:getx_weather/ui/screens/home_screen.dart';
 
-class ReduxWeatherApp extends StatelessWidget {
+class GetxWeatherApp extends StatelessWidget {
   final StorageRepository repo;
   final Store<AppState> store;
 
-  ReduxWeatherApp({
+  GetxWeatherApp({
     @required this.repo,
     @required this.store,
   });
@@ -40,11 +40,11 @@ class ReduxWeatherApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       routes: {
-        ReduxWeatherAppRoutes.home: (_) => _makeHomeScreen(Constants.appTitle),
-        ReduxWeatherAppRoutes.addCity: (_) => _makeAddCityScreen(),
-        ReduxWeatherAppRoutes.cityDetail: (_) => _makeCityDetailScreen(),
-        ReduxWeatherAppRoutes.editCity: (_) => _makeEditCityScreen(),
-        ReduxWeatherAppRoutes.example: (_) => _makeExampleScreen(),
+        GetxWeatherAppRoutes.home: (_) => _makeHomeScreen(Constants.appTitle),
+        GetxWeatherAppRoutes.addCity: (_) => _makeAddCityScreen(),
+        GetxWeatherAppRoutes.cityDetail: (_) => _makeCityDetailScreen(),
+        GetxWeatherAppRoutes.editCity: (_) => _makeEditCityScreen(),
+        GetxWeatherAppRoutes.example: (_) => _makeExampleScreen(),
       },
     );
   }

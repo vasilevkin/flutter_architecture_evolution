@@ -1,9 +1,9 @@
 import 'package:meta/meta.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
-import 'package:redux_weather/redux_example/redux/posts/post_actions.dart';
-import 'package:redux_weather/redux_example/redux/posts/post_reducer.dart';
-import 'package:redux_weather/redux_example/redux/posts/post_state.dart';
+import 'package:getx_weather/redux_example/redux/posts/post_actions.dart';
+import 'package:getx_weather/redux_example/redux/posts/post_reducer.dart';
+import 'package:getx_weather/redux_example/redux/posts/post_state.dart';
 
 ExampleAppState exampleAppReducer(ExampleAppState state, dynamic action) {
   if (action is SetPostsStateAction) {

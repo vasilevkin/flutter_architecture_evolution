@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:redux_weather/app/app_routes.dart';
-import 'package:redux_weather/app/constants.dart';
-import 'package:redux_weather/app/error_messages.dart';
-import 'package:redux_weather/data_models/city.dart';
-import 'package:redux_weather/redux/cities/city_actions.dart';
-import 'package:redux_weather/redux/cities/city_state.dart';
-import 'package:redux_weather/redux/redux.dart';
-import 'package:redux_weather/redux/store.dart';
-import 'package:redux_weather/ui/widgets/home_list_item.dart';
-import 'package:redux_weather/ui/widgets/loader.dart';
+import 'package:getx_weather/app/app_routes.dart';
+import 'package:getx_weather/app/constants.dart';
+import 'package:getx_weather/app/error_messages.dart';
+import 'package:getx_weather/data_models/city.dart';
+import 'package:getx_weather/redux/cities/city_actions.dart';
+import 'package:getx_weather/redux/cities/city_state.dart';
+import 'package:getx_weather/redux/redux.dart';
+import 'package:getx_weather/redux/store.dart';
+import 'package:getx_weather/ui/widgets/home_list_item.dart';
+import 'package:getx_weather/ui/widgets/loader.dart';
 
 class HomeScreen extends StatefulWidget {
   final String title;
@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return [
       FlatButton(
         onPressed: () {
-          Navigator.pushNamed(context, ReduxWeatherAppRoutes.example);
+          Navigator.pushNamed(context, GetxWeatherAppRoutes.example);
         },
         child: Icon(Icons.redeem),
       ),
@@ -107,16 +107,16 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _tapAddCity() async {
-    Navigator.pushNamed(context, ReduxWeatherAppRoutes.addCity);
+    Navigator.pushNamed(context, GetxWeatherAppRoutes.addCity);
   }
 
   void _showCityDetailScreen(City city) {
     Redux.store.dispatch(setSelectedCityAction(city));
-    Navigator.pushNamed(context, ReduxWeatherAppRoutes.cityDetail);
+    Navigator.pushNamed(context, GetxWeatherAppRoutes.cityDetail);
   }
 
   void _showEditCityScreen(City city) {
     Redux.store.dispatch(setSelectedCityAction(city));
-    Navigator.pushNamed(context, ReduxWeatherAppRoutes.editCity);
+    Navigator.pushNamed(context, GetxWeatherAppRoutes.editCity);
   }
 }

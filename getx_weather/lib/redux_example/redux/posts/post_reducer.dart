@@ -1,5 +1,5 @@
-import 'package:redux_weather/redux_example/redux/posts/post_actions.dart';
-import 'package:redux_weather/redux_example/redux/posts/post_state.dart';
+import 'package:getx_weather/redux_example/redux/posts/post_actions.dart';
+import 'package:getx_weather/redux_example/redux/posts/post_state.dart';
 
 postsReducer(PostsState prevState, SetPostsStateAction action) {
   final payload = action.postsState;

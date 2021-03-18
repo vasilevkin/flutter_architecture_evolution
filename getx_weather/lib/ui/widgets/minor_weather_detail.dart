@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:redux_weather/app/constants.dart';
+import 'package:getx_weather/app/constants.dart';
 
 class MinorWeatherDetail extends StatelessWidget {
   final String name;

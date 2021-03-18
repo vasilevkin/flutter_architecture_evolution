@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:redux_weather/app/constants.dart';
-import 'package:redux_weather/app/error_messages.dart';
-import 'package:redux_weather/data_models/city.dart';
+import 'package:getx_weather/app/constants.dart';
+import 'package:getx_weather/app/error_messages.dart';
+import 'package:getx_weather/data_models/city.dart';
 
 @immutable
 class CityState {

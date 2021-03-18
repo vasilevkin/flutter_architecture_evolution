@@ -1,5 +1,5 @@
-name: redux_weather
-description: A state container approach, often used in web development.
+name: getx_weather
+description: State, navigation, dependency manager framework approach.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.

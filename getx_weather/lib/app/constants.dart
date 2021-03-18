@@ -16,7 +16,7 @@ class Constants {
   ];
 
   // Strings
-  static const String appTitle = 'Redux Weather';
+  static const String appTitle = 'GetX Weather';
   static const String exampleTitle = 'Redux demo example';
   static const String addCityTitle = 'Add a new city';
   static const String emptyCityName = 'No Name';
