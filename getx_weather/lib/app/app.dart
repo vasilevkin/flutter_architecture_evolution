@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:get/get.dart';
 import 'package:getx_weather/app/app_routes.dart';
 import 'package:getx_weather/app/constants.dart';
 import 'package:getx_weather/data/repository/storage_repo.dart';
+import 'package:getx_weather/getx_example/features/home/home_page.dart';
+import 'package:getx_weather/getx_example_counter/home_counter.dart';
 import 'package:getx_weather/redux/cities/city_actions.dart';
 import 'package:getx_weather/redux/redux.dart';
 import 'package:getx_weather/redux/store.dart';
@@ -31,7 +34,7 @@ class GetxWeatherApp extends StatelessWidget {
   }
 
   Widget _makeApp() {
-    return MaterialApp(
+    return GetMaterialApp(
       title: Constants.appTitle,
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -43,6 +46,7 @@ class GetxWeatherApp extends StatelessWidget {
         GetxWeatherAppRoutes.cityDetail: (_) => _makeCityDetailScreen(),
         GetxWeatherAppRoutes.editCity: (_) => _makeEditCityScreen(),
         GetxWeatherAppRoutes.example: (_) => _makeExampleScreen(),
+        GetxWeatherAppRoutes.exampleCounter: (_) => _makeExampleCounterScreen(),
       },
     );
   }
@@ -82,5 +86,9 @@ class GetxWeatherApp extends StatelessWidget {
 
   Widget _makeExampleScreen() {
     return Container();
+  }
+
+  Widget _makeExampleCounterScreen() {
+    return HomeCounter();
   }
 }

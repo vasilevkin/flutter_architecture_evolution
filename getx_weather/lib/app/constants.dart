@@ -17,12 +17,15 @@ class Constants {
 
   // Strings
   static const String appTitle = 'GetX Weather';
-  static const String exampleTitle = 'Redux demo example';
   static const String addCityTitle = 'Add a new city';
   static const String emptyCityName = 'No Name';
   static const String editCity = 'Edit City:';
   static const String enterNewCityName = 'Please enter a new city name...';
   static const String emptyString = '';
+
+  static const String exampleCounterTitle = 'GetX Counter demo example';
+  static const String exampleCounterClicks = 'Clicks: ';
+  static const String exampleCounterOther = 'Go to Other';
 
   static const String degreeUnit = '℃';
   static const String minTemp = 'minTemp';
