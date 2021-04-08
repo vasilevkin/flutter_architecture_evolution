@@ -27,6 +27,18 @@ class Constants {
   static const String exampleCounterClicks = 'Clicks: ';
   static const String exampleCounterOther = 'Go to Other';
 
+  static const String exampleAuthFlowTitle = 'GetX demo example';
+  static const String exampleAuthFlowHomePage = 'GetX demo: Home Page';
+  static const String exampleAuthFlowWelcome = 'Welcome, ';
+  static const String exampleAuthFlowLogout = 'Logout';
+  static const String exampleAuthFlowTestEmail = 'test@domain.com';
+  static const String exampleAuthFlowTestPassword = 'password123';
+  static const String exampleAuthFlowTestUserName = 'Test User';
+  static const String exampleAuthFlowLogin = 'Login';
+  static const String exampleAuthFlowEmail = 'Email address';
+  static const String exampleAuthFlowPassword = 'Password';
+  static const String exampleAuthFlowLoginButtonTitle = 'LOG IN';
+
   static const String degreeUnit = '℃';
   static const String minTemp = 'minTemp';
   static const String maxTemp = 'maxTemp';

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:getx_weather/app/app_routes.dart';
 import 'package:getx_weather/app/constants.dart';
 import 'package:getx_weather/data/repository/storage_repo.dart';
-import 'package:getx_weather/getx_example/features/home/home_page.dart';
+import 'package:getx_weather/getx_example_auth_flow/features/features.dart';
 import 'package:getx_weather/getx_example_counter/home_counter.dart';
 import 'package:getx_weather/redux/cities/city_actions.dart';
 import 'package:getx_weather/redux/redux.dart';
@@ -45,7 +45,7 @@ class GetxWeatherApp extends StatelessWidget {
         GetxWeatherAppRoutes.addCity: (_) => _makeAddCityScreen(),
         GetxWeatherAppRoutes.cityDetail: (_) => _makeCityDetailScreen(),
         GetxWeatherAppRoutes.editCity: (_) => _makeEditCityScreen(),
-        GetxWeatherAppRoutes.example: (_) => _makeExampleScreen(),
+        GetxWeatherAppRoutes.exampleAuthFlow: (_) => _makeExampleAuthScreen(),
         GetxWeatherAppRoutes.exampleCounter: (_) => _makeExampleCounterScreen(),
       },
     );
@@ -84,11 +84,27 @@ class GetxWeatherApp extends StatelessWidget {
     );
   }
 
-  Widget _makeExampleScreen() {
-    return Container();
+  Widget _makeExampleAuthScreen() {
+    initialize();
+
+    AuthenticationController controller = Get.find();
+
+    return Obx(() {
+      if (controller.state is UnAuthenticated) {
+        return LoginPage();
+      }
+      if (controller.state is Authenticated) {
+        return HomePage(user: (controller.state as Authenticated).user);
+      }
+      return SplashScreen();
+    });
   }
 
   Widget _makeExampleCounterScreen() {
     return HomeCounter();
   }
+
+  void initialize() => Get.lazyPut(
+        () => AuthenticationController(Get.put(FakeAuthenticationService())),
+      );
 }

@@ -44,9 +44,15 @@ class _HomeScreenState extends State<HomeScreen> {
     return [
       FlatButton(
         onPressed: () {
-          Navigator.pushNamed(context, GetxWeatherAppRoutes.example);
+          Navigator.pushNamed(context, GetxWeatherAppRoutes.exampleCounter);
         },
-        child: Icon(Icons.redeem),
+        child: Icon(Icons.countertops),
+      ),
+      FlatButton(
+        onPressed: () {
+          Navigator.pushNamed(context, GetxWeatherAppRoutes.exampleAuthFlow);
+        },
+        child: Icon(Icons.auto_fix_high),
       ),
     ];
   }
