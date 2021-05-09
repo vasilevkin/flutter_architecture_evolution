@@ -6,6 +6,7 @@ import 'package:getx_weather/app/constants.dart';
 import 'package:getx_weather/data/repository/storage_repo.dart';
 import 'package:getx_weather/getx_example_auth_flow/features/features.dart';
 import 'package:getx_weather/getx_example_counter/home_counter.dart';
+import 'package:getx_weather/getx_example_login_api/view/login_view.dart';
 import 'package:getx_weather/redux/cities/city_actions.dart';
 import 'package:getx_weather/redux/redux.dart';
 import 'package:getx_weather/redux/store.dart';
@@ -47,6 +48,7 @@ class GetxWeatherApp extends StatelessWidget {
         GetxWeatherAppRoutes.editCity: (_) => _makeEditCityScreen(),
         GetxWeatherAppRoutes.exampleAuthFlow: (_) => _makeExampleAuthScreen(),
         GetxWeatherAppRoutes.exampleCounter: (_) => _makeExampleCounterScreen(),
+        GetxWeatherAppRoutes.exampleLogin: (_) => _makeExampleLoginApiScreen(),
       },
     );
   }
@@ -107,4 +109,10 @@ class GetxWeatherApp extends StatelessWidget {
   void initialize() => Get.lazyPut(
         () => AuthenticationController(Get.put(FakeAuthenticationService())),
       );
+
+  Widget _makeExampleLoginApiScreen() {
+    WidgetsFlutterBinding.ensureInitialized();
+
+    return LoginView();
+  }
 }

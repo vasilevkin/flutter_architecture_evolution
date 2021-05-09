@@ -17,7 +17,17 @@ class MetaWeatherApi implements ApiService {
   @override
   Future<List<City>> getCities(String name) async {
     final url = '${Constants.api}search/?query=$name';
-    final response = await http.get(url);
+    final response = await http.get(url
+
+      ,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+
+      },
+
+
+
+    );
     final body = Utf8Decoder().convert(response.bodyBytes);
     final data = jsonDecode(body) as List;
     final cities = data.map((e) => City.fromJson(e)).toList();
@@ -27,7 +37,16 @@ class MetaWeatherApi implements ApiService {
   @override
   Future<Weather> getWeather(City city) async {
     final url = '${Constants.api}${city.woeId}';
-    final response = await http.get(url);
+    final response = await http.get(url
+    ,
+      headers: {
+      'Access-Control-Allow-Origin': '*',
+
+      },
+    );
+
+    response.request.headers.addAll({'Access-Control-Allow-Origin': '*'});
+
     final body = Utf8Decoder().convert(response.bodyBytes);
     final data = jsonDecode(body);
     final weatherData = data['consolidated_weather'] as List;
@@ -42,3 +61,5 @@ class MetaWeatherApi implements ApiService {
     );
   }
 }
+
+

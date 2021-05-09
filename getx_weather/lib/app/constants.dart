@@ -39,6 +39,9 @@ class Constants {
   static const String exampleAuthFlowPassword = 'Password';
   static const String exampleAuthFlowLoginButtonTitle = 'LOG IN';
 
+  static const String exampleApiLoginTitle = 'GetX api login demo example';
+  static const String exampleApiLoginDashboard = 'GetX api login Dashboard';
+
   static const String degreeUnit = '℃';
   static const String minTemp = 'minTemp';
   static const String maxTemp = 'maxTemp';

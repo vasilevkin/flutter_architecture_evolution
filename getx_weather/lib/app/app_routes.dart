@@ -6,5 +6,6 @@ class GetxWeatherAppRoutes {
   static const editCity = '/editCity';
   static const exampleAuthFlow = '/exampleAuthFlow';
   static const exampleCounter = '/exampleCounter';
+  static const exampleLogin = '/exampleLogin';
 }
 //endregion
